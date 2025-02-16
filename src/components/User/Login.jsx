@@ -10,9 +10,7 @@ function Login() {
 
     const onSubmit = (e) => {
         e.preventDefault();
-
         let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsuser/Login";
-
         const data = {
             user_id: userId,
             user_password: userPassword,
@@ -29,33 +27,28 @@ function Login() {
                 sessionStorage.setItem("loggedInUser", JSON.stringify(user));
                 navigate("/");  // 로그인 후 이동
             })
-            .catch((err) => {
-                console.error(
-                    `** err.response=${err.response}, err.response.status=${err.response.status}, err.message=${err.message}`
-                );
+            .catch(() => {
                 alert("아이디 또는 비밀번호가 다릅니다");
             });
         };
 
+    // 네이버 로그인(비구현)
     const NaverLogin = () => {
         const NAVER_CLIENT_ID = "X8MsAj1qeOGBGpWCrM5B";
         const REDIERCT_URI = "http://localhost:3000/NaverLogin";
         const STATE = "false";
         const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${REDIERCT_URI}`;
-
+        
         window.location.href = NAVER_AUTH_URL;
     };
-
+    
+    // 카카오 로그인(비구현)
     const KakaoLogin = () => {
         const REST_API_KEY = "36c72e69dcc46636ff1acefe07171573";
-        const REDIERCT_URI2 = "http://localhost:3000/KakaoLogin";
-        const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIERCT_URI2}&response_type=code`;
+        const REDIERCT_URI = "http://localhost:3000/KakaoLogin";
+        const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIERCT_URI}&response_type=code`;
 
         window.location.href = KAKAO_AUTH_URL;
-
-        const code = new URL(window.location.href).searchParams.get("code");
-
-
     };
 
     return (

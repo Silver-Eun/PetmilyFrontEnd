@@ -2,13 +2,7 @@ import axios from 'axios'
 import React from 'react';
 import { useState } from 'react';
 
-
 function Findid() {
-    // const onKeyDown =(e)=>{
-    //     if(e.keyCode === 13){
-    //         onSubmit();
-    //     }
-    // };
     const [userName, setUserName] = useState('');
     const [userEmail, setUserEmail] = useState('');
 
@@ -25,12 +19,11 @@ function Findid() {
                 if (response.data && response.data.user_id) {
                     alert(`찾은 아이디: ${response.data.user_id}`);
                 } else {
-                    alert('해당 정보로 아이디를 찾을 수 없습니다.');
+                    alert("해당 정보로 아이디를 찾을 수 없습니다.");
                 }
             })
-            .catch(error => {
-                console.error('아이디 찾기 실패:', error);
-                alert('아이디를 찾을 수 없습니다.');
+            .catch(() => {
+                alert("아이디를 찾을 수 없습니다.");
             });
     }
 

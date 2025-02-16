@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
 import axios from "axios";
 
-export default function Cart({ cartItems, setCartItems, nothing, setNothing, onDelete, increQuantity, decreQuantity, checkChange, checkedItems, allCheck, allOrder, selectedOrder, calcProductPrice }) {
+function Cart({ cartItems, setCartItems, nothing, setNothing, onDelete, increQuantity, decreQuantity, checkChange, checkedItems, allCheck, allOrder, selectedOrder, calcProductPrice }) {
   // 장바구니 불러오기
   useEffect(() => {
     const loggedInUser = sessionStorage.getItem("loggedInUser");
@@ -179,3 +179,5 @@ export default function Cart({ cartItems, setCartItems, nothing, setNothing, onD
     </div>
   );
 }
+
+export default Cart;

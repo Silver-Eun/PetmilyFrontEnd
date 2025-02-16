@@ -50,15 +50,12 @@ const ManageReview = () => {
     let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/review/delete/" + id;
     axios
       .delete(url)
-      .then((response) => {
+      .then(() => {
         alert("상품후기가 삭제 되었습니다.");
-        // navigate("/user/mypage/manageBoard/review");
         window.location.reload();
       })
-      .catch((error) => {
-        console.error(`에러 응답 = ${error.response},
-        error status = ${error.response.status},
-        error message = ${error.message}`);
+      .catch(() => {
+        alert("상품후기 삭제에 실패했습니다.");
       });
   }
 
@@ -74,7 +71,7 @@ const ManageReview = () => {
         });
         setReview(response.data);
       } catch (error) {
-        alert(`자료가 없습니다.`);
+        alert("자료가 없습니다.");
       }
     };
     fetchData();

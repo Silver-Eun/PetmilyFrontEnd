@@ -10,10 +10,9 @@ function PopularProducts({ calcProductPrice, sortProducts, addCart }) {
         axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/popularProductList')
             .then((response) => {
                 setPopularProductData(response.data);
-                console.log(`** popularProductList 서버연결 성공 =>`, response.data);
             })
             .catch((err) => {
-                alert(`** popularProductList 서버연결 실패 => ${err.message}`);
+                alert("인기상품 불러오기에 실패했습니다.");
             });
 
         handleSort("newest");

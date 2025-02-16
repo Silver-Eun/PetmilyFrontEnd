@@ -1,4 +1,4 @@
-const EventItem = ({ it }) => {
+function EventItem({ it }) {
     let progress = "";
     let isGoing = "";
 

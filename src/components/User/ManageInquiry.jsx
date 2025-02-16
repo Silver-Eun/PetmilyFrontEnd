@@ -1,6 +1,6 @@
 import "./ManageBoard.css";
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Pagination({ totalPages, currentPage, onPageChange }) {
@@ -37,7 +37,7 @@ function Pagination({ totalPages, currentPage, onPageChange }) {
   );
 }
 
-export default function ManageInquiry() {
+function ManageInquiry() {
   const [inquiry, setInquiry] = useState([]);
   const [searchPeriod, setSearchPeriod] = useState("all");
   const [searchCriteria, setSearchCriteria] = useState("subject");
@@ -85,14 +85,12 @@ export default function ManageInquiry() {
     let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/inquiry/delete/" + id;
     axios
       .delete(url)
-      .then((response) => {
+      .then(() => {
         alert("상품문의가 삭제 되었습니다.");
         window.location.reload();
       })
-      .catch((error) => {
-        console.error(`에러 응답 = ${error.response},
-        error status = ${error.response.status},
-        error message = ${error.message}`);
+      .catch(() => {
+        alert("상품문의 삭제에 실패했습니다.");
       });
   }
 
@@ -180,3 +178,5 @@ export default function ManageInquiry() {
     </div>
   );
 }
+
+export default ManageInquiry;

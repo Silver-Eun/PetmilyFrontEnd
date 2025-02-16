@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const ImageSlider = () => {
+function ImageSlider() {
     const [promotionInfoData, setPromotionInfoData] = useState([]);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -11,10 +11,9 @@ const ImageSlider = () => {
         axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/promotionInfoList')
             .then((response) => {
                 setPromotionInfoData(response.data);
-                console.log(`** promotionProductList 서버연결 성공 =>`, response.data);
-            })
-            .catch((err) => {
-                console.log(`** promotionProductList 서버연결 실패 => ${err.message}`);
+                })
+            .catch(() => {
+                alert("프로모션 불러오기에 실패했습니다.");
             });
     }, []);
 

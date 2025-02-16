@@ -1,8 +1,9 @@
 import React from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from "axios";
-export default function Profile() {
+
+function Profile() {
 
   const navigate = useNavigate();
   // 회원이름
@@ -40,7 +41,7 @@ export default function Profile() {
     }
   }, []);
 
-  //수정하기 버튼 클릭시
+  // 수정하기 버튼 클릭시
   // 수정 모달 상태
   const [showModal, setShowModal] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
@@ -58,17 +59,14 @@ export default function Profile() {
     }
     axios
       .post(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsuser/checkPassword/${userId}`, setcurrentPassword)
-      .then((response) => {
+      .then(() => {
         setShowModal(false);
         navigate("/user/Update");
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         alert("현재 비밀번호가 올바르지 않습니다.");
       });
   };
-
-
 
   //회원탈퇴
   const ondelete = (user_id) => {
@@ -76,13 +74,13 @@ export default function Profile() {
     const confirmDelete = window.confirm("정말 탈퇴하시겠습니까?");
     if (confirmDelete) {
       axios.delete(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsuser/selfDelete/${user_id}`)
-        .then(response => {
+        .then(() => {
           alert("회원탈퇴가 완료되었습니다");
           sessionStorage.removeItem("loggedInUser"); // 세션에서 사용자 정보 삭제
           navigate("/"); // 홈 페이지로 이동
         })
-        .catch(error => {
-          console.error("회원탈퇴 실패:", error);
+        .catch(() => {
+          alert("회원탈퇴에 실패했습니다.");
         });
     } else {
       alert("탈퇴 취소되었습니다");
@@ -191,3 +189,5 @@ export default function Profile() {
     </div>
   );
 }
+
+export default Profile;

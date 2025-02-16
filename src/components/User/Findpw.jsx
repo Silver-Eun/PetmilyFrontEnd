@@ -3,12 +3,6 @@ import React from 'react';
 import { useState } from 'react';
 
 function Findpw() {
-
-    // const onKeyDown =(e)=>{
-    //     if(e.keyCode === 13){
-    //         onSubmit();
-    //     }
-    // };
     const [userId, setUserId] = useState('');
     const [userEmail, setUserEmail] = useState('');
 
@@ -24,14 +18,13 @@ function Findpw() {
         axios.post(url, data)
             .then(response => {
                 if (response.data === '임시 비밀번호가 이메일로 전송되었습니다.') {
-                    alert('임시 비밀번호가 이메일로 전송되었습니다.');
+                    alert("임시 비밀번호가 이메일로 전송되었습니다.");
                 } else {
-                    alert('해당 정보로 비밀번호를 찾을 수 없습니다.');
+                    alert("해당 정보로 비밀번호를 찾을 수 없습니다.");
                 }
             })
-            .catch(error => {
-                console.error('비밀번호 찾기 실패:', error);
-                alert('비밀번호를 찾을 수 없습니다.');
+            .catch(() => {
+                alert("비밀번호를 찾을 수 없습니다.");
             });
     }
 

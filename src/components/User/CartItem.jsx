@@ -1,28 +1,18 @@
 import React from "react";
 import axios from "axios";
 
-const CartItem = ({
-  promotion_discount,
-  checkedItems,
-  cartItems,
-  nothing,
-  setNothing,
-  checkChange,
-  calcProductPrice,
-}) => {
-
+function CartItem({ checkedItems, cartItems, nothing, setNothing, checkChange, calcProductPrice, }) {
   // 장바구니 상품 삭제
   function cDelete(user_id, product_id) {
     let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rscart/cdelete/" + user_id + "/" + product_id;
 
     axios
       .delete(url)
-      .then((response) => {
+      .then(() => {
         setNothing(nothing + 1);
       })
-      .catch((err) => {
-        if (err.response.status) alert(err.response.data);
-        else alert("삭제 실패 => " + err.message);
+      .catch(() => {
+        alert("상품 삭제에 실패했습니다.");
       });
   }
 
@@ -33,12 +23,11 @@ const CartItem = ({
     if (item.product_cnt < 100) {
       axios
         .post(url)
-        .then((response) => {
+        .then(() => {
           setNothing(nothing + 1);
         })
-        .catch((err) => {
-          if (err.response.status) alert(err.response.data);
-          else alert("~~ 시스템 오류, 잠시후 다시하세요 => " + err.message);
+        .catch(() => {
+          alert("수량 변경에 실패했습니다.")
         });
     } else {
       alert("최대 수량은 100입니다");
@@ -52,12 +41,11 @@ const CartItem = ({
     if (item.product_cnt > 1) {
       axios
         .post(url)
-        .then((response) => {
+        .then(() => {
           setNothing(nothing + 1);
         })
-        .catch((err) => {
-          if (err.response.status) alert(err.response.data);
-          else alert("~~ 시스템 오류, 잠시후 다시하세요 => " + err.message);
+        .catch(() => {
+          alert("수량 변경에 실패했습니다.")
         });
     } else {
       alert("최소 수량은 1입니다");

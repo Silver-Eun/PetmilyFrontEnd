@@ -75,13 +75,12 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
         if (loggedInUser) {
           axios
             .post(url, { withCredentials: true })
-            .then((response) => {
+            .then(() => {
                 alert("장바구니에 상품이 추가되었습니다");
                 navigate("/user/cart");
             })
-            .catch((err) => {
-              if (err.response.status) alert(err.response.data);
-              else alert("시스템 오류, 잠시 후 다시하세요 => " + err.message);
+            .catch(() => {
+                alert("장바구니 추가에 실패했습니다.");
             });
         } else {
           alert("로그인 해주세요");
@@ -137,9 +136,8 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
             try {
                 const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/productDetail/${id}`);
                 setProductDetailData(response.data);
-                console.log("** productDetail 서버연결 성공 =>", response.data);
             } catch (error) {
-                console.log(`** productDetail 서버연결 실패 => ${error.message}`);
+                alert("상품 상세정보 불러오기에 실패했습니다.");
             }
         };
 
@@ -147,9 +145,8 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
             try {
                 const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/productImage/${id}`);
                 setProductImagesData(response.data);
-                console.log("** productImagesData 서버연결 성공 =>", response.data);
             } catch (error) {
-                console.log(`** productImagesData 서버연결 실패 => ${error.message}`);
+                alert("상품 이미지 불러오기에 실패했습니다.");
             }
         };
 
@@ -158,7 +155,7 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
                 const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/inquiry/list/${id}`);
                 setInquiry(response.data);
             } catch (error) {
-                alert(`자료가 없습니다.`);
+                alert("자료가 없습니다.");
             }
         };
 
@@ -167,7 +164,7 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
                 const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/review/list/${id}`);
                 setReview(response.data);
             } catch (error) {
-                alert(`자료가 없습니다.`);
+                alert("자료가 없습니다.");
             }
         };
         fetchInquiryData();

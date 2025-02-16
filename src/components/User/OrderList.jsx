@@ -44,7 +44,7 @@ function isWithin30Days(orderDate) {
   return orderDateTime >= thirtyDaysAgo;
 }
 
-export default function OrderList() {
+function OrderList() {
   const [orderLists, setOrderLists] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -62,8 +62,8 @@ export default function OrderList() {
       .then((response) => {
         setOrderLists(response.data);
       })
-      .catch((err) => {
-        alert(`** checkdata 서버연결 실패 => ${err.message}`);
+      .catch(() => {
+        alert("주문내역 조회에 실패했습니다.");
       });
   }, []);
 
@@ -72,13 +72,12 @@ export default function OrderList() {
 
     axios
       .delete(url)
-      .then((response) => {
+      .then(() => {
         alert("주문이 취소되었습니다.");
         window.location.reload();
       })
-      .catch((err) => {
-        if (err.response.status) alert(err.response.data);
-        else alert("주문취소 실패 => " + err.message);
+      .catch(() => {
+        alert("주문취소에 실패했습니다.");
       });
   }
 
@@ -91,10 +90,8 @@ export default function OrderList() {
         alert(response.data);
         navigate("/community/review/" + response.data);
       })
-      .catch((error) => {
-        console.error(`에러 응답 = ${error.response},
-        error status = ${error.response.status},
-        error message = ${error.message}`);
+      .catch(() => {
+        alert("리뷰 불러오기에 실패했습니다.");
       });
   }
 
@@ -259,3 +256,5 @@ export default function OrderList() {
     </div>
   );
 }
+
+export default OrderList;

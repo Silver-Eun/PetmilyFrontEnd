@@ -10,10 +10,9 @@ function NewProducts({ calcProductPrice, sortProducts, addCart }) {
         axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/newProductList')
             .then((response) => {
                 setNewProductData(response.data);
-                console.log(`** newProductList 서버연결 성공 =>`, response.data);
             })
             .catch((err) => {
-                alert(`** newProductList 서버연결 실패 => ${err.message}`);
+                alert("신상품 불러오기에 실패했습니다.");
             });
 
             handleSort("newest");

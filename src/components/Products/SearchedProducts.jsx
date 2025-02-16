@@ -13,10 +13,9 @@ function SearchedProducts({ calcProductPrice, sortProducts, addCart }) {
         axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/searchedProductList/${search}`)
             .then((response) => {
                 setSearchedData(response.data);
-                console.log(`** searchedProductList  서버연결 성공 =>`, response.data);
             })
-            .catch((err) => {
-                alert(`** searchedProductList  서버연결 실패 => ${err.message}`);
+            .catch(() => {
+                alert("상품검색에 실패했습니다.");
             });
 
         setCurrentPage(1);

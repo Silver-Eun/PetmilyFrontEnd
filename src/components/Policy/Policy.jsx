@@ -1,6 +1,5 @@
 import "./Policy.css";
 import { Route, Routes } from "react-router-dom";
-
 import ToS from "./ToS";
 import Privacy from "./Privacy";
 import Guide from "./Guide";

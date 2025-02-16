@@ -24,10 +24,9 @@ function Introduce({ props, calcProductPrice, addCart }) {
         axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/${url}`)
             .then((response) => {
                 setProductData(response.data);
-                //console.log(`** productData 서버연결 성공 =>`, response.data);
             })
-            .catch((err) => {
-                console.log(`** productData 서버연결 실패 => ${err.message}`);
+            .catch(() => {
+                alert("productData 불러오기에 실패했습니다.");
             });
     }, [props]);
 

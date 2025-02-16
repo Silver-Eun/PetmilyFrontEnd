@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import OrderItem from "./OrderItem";
 import DaumPostcode from "react-daum-postcode";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
   const totalPrice = () => {
@@ -107,11 +107,11 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
 
     axios
       .post("https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rscart/order", OrderProductDTO)
-      .then((response) => {
+      .then(() => {
         alert("주문완료이 완료되었습니다.");
         navigate("/user/orderList");
       })
-      .catch((error) => {
+      .catch(() => {
         alert("주문에 실패했습니다. 다시 시도해주세요.");
       });
   }

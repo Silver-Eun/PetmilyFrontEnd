@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 
-
 function Success() {
     return (
         <div className='Success'>

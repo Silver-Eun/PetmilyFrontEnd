@@ -5,8 +5,6 @@ import axios from 'axios';
 import DaumPostcode from 'react-daum-postcode';
 import { useEffect } from 'react';
 
-
-
 function Update() {
     // 회원이름
     const [userName, setUserName] = useState("");
@@ -40,7 +38,6 @@ function Update() {
             setUserzipcode(userFromSession.zipcode);
             setUserAddr(userFromSession.addr);
             setAddrD(userFromSession.addr_detail);
-
 
             // 생년월일 불러오기
             const userBirthday = userFromSession.user_birthday.split('-'); // 예시: "1990-12-31"
@@ -274,13 +271,11 @@ function Update() {
                 user_password: newPassword,
             };
             axios.post(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsuser/pwupdate/${userId}`, newpassword)
-                .then(response => {
+                .then(() => {
                     alert("비밀번호가 변경되었습니다");
-                    // 비밀번호 변경 성공 시 필요한 처리를 추가할 수 있습니다.
                 })
-                .catch(error => {
-                    console.error('비밀번호 변경 실패:', error);
-                    alert('비밀번호 변경에 실패했습니다. 다시 시도해주세요.');
+                .catch(() => {
+                    alert("비밀번호 변경에 실패했습니다. 다시 시도해주세요.");
                 });
         }
     };
@@ -299,7 +294,7 @@ function Update() {
         };
 
         axios.post(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsuser/update/${userId}`, userData)
-            .then(response => {
+            .then(() => {
                 const updatedUserData = {
                     ...JSON.parse(sessionStorage.getItem("loggedInUser")),
                     user_name: userName,
@@ -315,18 +310,15 @@ function Update() {
                 window.location.reload();
 
             })
-            .catch(error => {
-                console.error('회원수정 실패:', error);
-                alert('회원수정에 실패했습니다. 다시 시도해주세요.');
+            .catch(() => {
+                alert("회원수정에 실패했습니다. 다시 시도해주세요.");
             });
     }
-
 
     //생년월일 선택창
     const years = Array.from({ length: 65 }, (_, index) => 2004 - index); // 1959년 ~ 2004년
     const months = Array.from({ length: 12 }, (_, index) => index + 1); // 1월 ~ 12월
     const days = Array.from({ length: 31 }, (_, index) => index + 1); // 1일 ~ 31일
-
 
     return (
         <div className='Update'>
@@ -387,9 +379,6 @@ function Update() {
                                     </tr>
                                 </>
                             )}
-
-
-
                             <tr>
                                 <th><label for="email">이메일</label></th>
                                 <td>

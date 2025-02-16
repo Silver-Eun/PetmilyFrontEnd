@@ -13,14 +13,11 @@ function PromotionProducts({ calcProductPrice, sortProducts, addCart }) {
             try {
                 const infoResponse = await axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/promotionInfoList');
                 setPromotionInfoData(infoResponse.data);
-                console.log(`** promotionInfoList 서버연결 성공 =>`, infoResponse.data);
 
                 const productResponse = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/promotionProductList/${id}`);
                 setPromotionProductData(productResponse.data);
-                console.log(`** promotionProductList 서버연결 성공 =>`, productResponse.data);
             } catch (err) {
-                console.log(`** 서버연결 실패 => ${err.message}`);
-                alert(`서버연결 실패: ${err.message}`);
+                alert("프로모션 상품 불러오기에 실패했습니다.")
             }
         };
 

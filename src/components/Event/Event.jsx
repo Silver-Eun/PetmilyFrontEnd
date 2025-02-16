@@ -1,6 +1,5 @@
 import "./Event.css";
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 import axios from 'axios';
 
 import EventItem from "./EventItem";
@@ -12,10 +11,9 @@ function Event() {
         axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/eventList')
             .then((response) => {
                 setEventData(response.data);
-                console.log(`** eventList 서버연결 성공 =>`, response.data);
             })
-            .catch((err) => {
-                alert(`** eventList 서버연결 실패 => ${err.message}`);
+            .catch(() => {
+                alert("이벤트 목록 조회에 실패했습니다.");
             });
     }, []);
 

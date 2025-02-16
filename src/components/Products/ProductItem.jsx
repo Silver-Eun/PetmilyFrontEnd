@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom'
 import axios from "axios";
 
-
-
 const ProductItem = ({ it, calcProductPrice, setCartItems }) => {
     
     // 장바구니 추가
@@ -10,7 +8,7 @@ const ProductItem = ({ it, calcProductPrice, setCartItems }) => {
         let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rscart/cartInsertP/" + a;
         
         axios.post(url)
-            .then((response) => {
+            .then(() => {
                 const loggedInUser = sessionStorage.getItem("loggedInUser");
 
                 if (loggedInUser) {
@@ -19,16 +17,12 @@ const ProductItem = ({ it, calcProductPrice, setCartItems }) => {
                     .get("/rscart/cartList")
                     .then((response) => {
                     setCartItems(response.data);
-                    })
-                    .catch((err) => {
-                        
                     });
                 } else {
                     alert("로그인 해주세요");
                 }
-        }).catch( err => {
-                    if ( err.response.status ) alert(err.response.data);
-                    else alert("~~ 시스템 오류, 잠시후 다시하세요 => " + err.message);
+            }).catch(() => {
+                alert("장바구니 추가에 실패했습니다.")
         });
     }
 

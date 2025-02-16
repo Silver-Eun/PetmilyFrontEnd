@@ -6,13 +6,6 @@ import DaumPostcode from 'react-daum-postcode';
 
 function Signup() {
 
-
-    // const onKeyDown = (e) => {
-    //     if (e.keyCode === 13) {
-    //         onSubmit();
-    //     }
-    // };
-    //주소 api
     const [isPostOpen, setIsPostOpen] = useState(false);
     const [isAddress, setIsAddress] = useState("");
     const [isZoneCode, setIsZoneCode] = useState();
@@ -81,20 +74,6 @@ function Signup() {
     const [idMessage, setIdMessage] = useState("");//오류메세지상태저장
     const [isId, setIsId] = useState(false);//유효성검사
 
-    // const onChangeId = (e) => {
-    //     const currentId = e.target.value;
-    //     setId(currentId);
-    //     const idRegExp = /^[a-zA-z0-9]{4,12}$/;
-
-    //     if (!idRegExp.test(currentId)) {
-    //         setIdMessage("4-12사이 대소문자 또는 숫자만 입력해 주세요");
-    //         setIsId(false);
-    //     } else {
-    //         setIdMessage("사용가능한 아이디 입니다.");
-    //         setIsId(true);
-    //     }
-    // };
-
     const onChangeId = (e) => {
         const currentId = e.target.value;
         setId(currentId);
@@ -111,13 +90,11 @@ function Signup() {
                     setIsId(!isDuplicate);
                 })
                 .catch(error => {
-                    console.error('아이디 중복 확인 실패:', error);
                     setIdMessage('아이디 중복 확인에 실패했습니다.');
                     setIsId(false);
                 });
         }
     };
-
 
     //패스워드 유효성 검사
     const [pw, setPw] = useState("");
@@ -173,6 +150,7 @@ function Signup() {
             setIsEmail(true);
         }
     };
+
     //생년월일 유효성 검사
     const [birthyear, setBirthyear] = useState("");
     const [birthmonth, setBirthmonth] = useState("");
@@ -273,13 +251,10 @@ function Signup() {
         }
     }
 
-
-
     //생년월일 선택창
     const years = Array.from({ length: 65 }, (_, index) => 2004 - index); // 1959년 ~ 2004년
     const months = Array.from({ length: 12 }, (_, index) => index + 1); // 1월 ~ 12월
     const days = Array.from({ length: 31 }, (_, index) => index + 1); // 1일 ~ 31일
-
 
     return (
         <div className='Signup'>

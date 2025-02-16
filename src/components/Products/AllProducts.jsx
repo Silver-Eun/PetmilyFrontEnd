@@ -29,10 +29,9 @@ function AllProducts({ calcProductPrice, sortProducts, addCart, setCartItems }) 
         axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/productList/${kind}/${category}`)
             .then((response) => {
                 setProductData(response.data);
-                console.log(`** productList 서버연결 성공 =>`, response.data);
             })
             .catch((err) => {
-                alert(`** productList 서버연결 실패 => ${err.message}`);
+                alert("상품목록 불러오기에 실패했습니다.");
             });
     };
 
