@@ -19,8 +19,8 @@ export default function DetailDetail() {
             .then((response) => {
                 setFaq(response.data);
             })
-            .catch((error) => {
-                alert(`선택한 데이터가 없습니다.`);
+            .catch(() => {
+                alert("선택한 데이터가 없습니다.");
             });
     }, []);
 

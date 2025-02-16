@@ -44,12 +44,10 @@ export default function InquiryWrite() {
             }
 
         }).then(response => {
-            alert(`상품문의 등록 완료되었습니다.`);
+            alert("상품문의 등록 완료되었습니다.");
             navigate('/community/inquiry');
-        }).catch(error => {
-            console.error(`에러 응답 = ${error.response},
-			error status = ${error.response.status},
-			error message = ${error.message}`);
+        }).catch(() => {
+            alert("상품문의 등록에 실패했습니다.");
         });
     }
 
@@ -59,7 +57,7 @@ export default function InquiryWrite() {
                 const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/product/search?name=`);
                 setSearchResult(response.data);
             } catch (error) {
-                console.error('데이터를 불러오는 중에 오류가 발생했습니다.', error);
+                alert("데이터를 불러오는 중에 오류가 발생했습니다.");
             }
         };
 
@@ -73,7 +71,7 @@ export default function InquiryWrite() {
             const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/product/search?name=${searchInput}`);
             setSearchResult(response.data);
         } catch (error) {
-            console.error('찾으시는 상품이 없습니다.', error);
+            alert("찾으시는 상품이 없습니다.");
         }
     };
 
@@ -97,7 +95,7 @@ export default function InquiryWrite() {
             setProductByKind(formattedData);
             setSearchResult(Object.values(product));
         } catch (error) {
-            console.error('카테고리 데이터를 불러오는 중 에러:', error);
+            alert("카테고리 데이터 불러오기에 실패했습니다.");
         }
     };
 
@@ -108,7 +106,7 @@ export default function InquiryWrite() {
             const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/product/category/${kind}/${selectedCategory}`);
             setSearchResult(response.data);
         } catch (error) {
-            console.error('카테고리 데이터를 불러오는 중 에러:', error);
+            alert("카테고리 데이터 불러오기에 실패했습니다.");
         }
     };
 

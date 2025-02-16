@@ -61,12 +61,11 @@ function Inquiry() {
                 });
                 setInquiry(response.data);
             } catch (error) {
-                alert(`자료가 없습니다.`);
+                alert("자료가 없습니다.");
             }
         };
         fetchData();
     }, [searchCheck, searchCriteria, searchWord, setCurrentPage]);
-
 
     function AnswerCheck(inquiry) {
         if (inquiry.answer_content != null) {
@@ -77,7 +76,7 @@ function Inquiry() {
     }
 
     function AccessWirte() {
-        if (userName != '') {
+        if (userName !== '') {
             return (
                 <div className="board_write">
                     <Link to="/board/inquiryWrite">글쓰기</Link>
@@ -85,7 +84,6 @@ function Inquiry() {
             );
         }
     }
-
 
     const paginatedData = () => {
         const startIndex = (currentPage - 1) * itemsPerPage;
@@ -173,8 +171,6 @@ function Inquiry() {
                         </div>
                     </form>
                 </div>
-
-
             </div>
         </div>
     );

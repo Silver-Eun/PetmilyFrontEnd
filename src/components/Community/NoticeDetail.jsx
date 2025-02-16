@@ -19,7 +19,7 @@ export default function NoticeDetail() {
             .then((response) => {
                 setNotice(response.data);
             })
-            .catch((error) => {
+            .catch(() => {
                 alert(`선택한 데이터가 없습니다.`);
             });
     }, []);

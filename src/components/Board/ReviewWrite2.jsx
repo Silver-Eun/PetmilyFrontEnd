@@ -8,12 +8,11 @@ export default function ReviewWrite() {
     const { id, key } = useParams();
     const [productData, setProductData] = useState([]);
 
-    // 상품후기의 별점 수 받기 시작
+    // 상품후기의 별점 수
     const [score, setScore] = useState(0);
     const onChangeScore = (data) => {
         setScore(data);
     }
-    // 상품후기의 별점 수 받기 끝
 
     const navigate = useNavigate();
 
@@ -27,7 +26,7 @@ export default function ReviewWrite() {
         const selectedFiles = selectedFilesInput.files;
 
         if (selectedFiles.length !== 2) {
-            alert("후기 작성시에 이미지는 반드시 2장 업로드해야 합니다.");
+            alert("후기 작성시에 이미지는 반드시 2장을 업로드해야 합니다.");
             return;
         }
 
@@ -54,10 +53,8 @@ export default function ReviewWrite() {
                 alert(response.data);
                 navigate('/community/review');
             }
-        ).catch(error => {
-            console.error(`에러 응답 = ${error.response},
-			error status = ${error.response.status},
-			error message = ${error.message}`);
+        ).catch(() => {
+            alert("등록에 실패했습니다.")
         });
     }
 
@@ -65,10 +62,9 @@ export default function ReviewWrite() {
         axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/productDetail/${id}`)
             .then((response) => {
                 setProductData(response.data);
-                console.log(`** productDetail 서버연결 성공 =>`, response.data);
             })
-            .catch((err) => {
-                alert(`** productDetail 서버연결 실패 => ${err.message}`);
+            .catch(() => {
+                alert("productDetail 로드 실패");
             });
     };
 

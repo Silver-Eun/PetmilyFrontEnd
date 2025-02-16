@@ -57,7 +57,7 @@ function Faq() {
                 });
                 setFaq(response.data);
             } catch (error) {
-                alert(`자료가 없습니다.`);
+                alert("자료가 없습니다.");
             }
         };
         fetchData();

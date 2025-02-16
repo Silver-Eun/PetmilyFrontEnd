@@ -75,23 +75,12 @@ export default function ReviewWrite() {
                 const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/product/searchByUser?user=${user.user_id}`);
                 setSearchResult(response.data);
             } catch (error) {
-                console.error('데이터를 불러오는 중에 오류가 발생했습니다.', error);
+                alert("데이터를 불러오는 중에 오류가 발생했습니다.");
             }
         };
 
         fetchData();
     }, [selectedValue]);
-
-    const fetchData = async () => {
-        const searchInput = document.getElementById('searchInput').value;
-
-        try {
-            const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/product/search?name=${searchInput}`);
-            setSearchResult(response.data);
-        } catch (error) {
-            console.error('찾으시는 상품이 없습니다.', error);
-        }
-    };
 
     const handleSelectChange = (event) => {
         const selectedProductId = event.target.value; // select 태그의 option 중 해당하는 상품명을 변수에 담는다.

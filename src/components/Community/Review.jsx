@@ -28,7 +28,6 @@ function Pagination({ totalPages, currentPage, onPageChange }) {
     );
 }
 
-
 function Review() {
     const [review, setReview] = useState([]);
     const [searchPeriod, setSearchPeriod] = useState("all");
@@ -52,7 +51,7 @@ function Review() {
     };
 
     function AccessWirte() {
-        if (userName != '') {
+        if (userName !== '') {
             return (
                 <div className="board_write">
                     <Link to="/board/reviewWrite">글쓰기</Link>
@@ -74,7 +73,7 @@ function Review() {
                 });
                 setReview(response.data);
             } catch (error) {
-                alert(`자료가 없습니다.`);
+                alert("자료가 없습니다.");
             }
         };
         fetchData();
@@ -172,8 +171,6 @@ function Review() {
                         </div>
                     </form>
                 </div>
-
-
             </div>
         </div>
     );

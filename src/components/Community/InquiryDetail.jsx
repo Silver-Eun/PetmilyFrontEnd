@@ -26,16 +26,14 @@ export default function InquiryDetail() {
     let contents = inquiry.inquiry_content;
 
     function inquiryDelete() {
-        let url = "https://175.45.192.191/api/inquiry/delete/" + id;
+        let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/inquiry/delete/" + id;
         axios.delete(
             url
-        ).then(response => {
-            alert('상품문의가 삭제 되었습니다.');
+        ).then(() => {
+            alert("상품문의가 삭제되었습니다.");
             navigate('/community/inquiry');
         }).catch(error => {
-            console.error(`에러 응답 = ${error.response},
-			error status = ${error.response.status},
-			error message = ${error.message}`);
+            alert("상품문의 삭제에 실패했습니다.");
         })
     }
 
@@ -45,8 +43,8 @@ export default function InquiryDetail() {
             .then((response) => {
                 setInquiry(response.data);
             })
-            .catch((error) => {
-                alert(`선택한 데이터가 없습니다.`);
+            .catch(() => {
+                alert("선택한 데이터가 없습니다.");
             });
     }, []);
 
@@ -55,7 +53,7 @@ export default function InquiryDetail() {
     }
 
     function denyUpdate() {
-        alert('이미 답변이 완료되어 수정이 불가합니다.');
+        alert("이미 답변이 완료되어 수정이 불가합니다.");
     }
 
     function Answer() {
@@ -76,7 +74,7 @@ export default function InquiryDetail() {
     }
 
     function WriterButton() {
-        if (userName == inquiry.inquiry_writer) {
+        if (userName === inquiry.inquiry_writer) {
             return (
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                     {

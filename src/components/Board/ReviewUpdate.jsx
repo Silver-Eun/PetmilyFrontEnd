@@ -71,13 +71,11 @@ export default function ReviewUpdate() {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
-            }).then(response => {
-                alert(`상품후기 수정이 완료되었습니다.`);
+            }).then(() => {
+                alert("상품후기 수정이 완료되었습니다.");
                 navigate(`/community/review/${id}`);
-            }).catch(error => {
-                console.error(`에러 응답 = ${error.response},
-			error status = ${error.response.status},
-			error message = ${error.message}`);
+            }).catch(() => {
+                alert("상품후기 수정에 실패했습니다.");
             });
     }
 
@@ -88,32 +86,11 @@ export default function ReviewUpdate() {
                 setReview(response.data);
                 
             } catch (error) {
-                console.error('상품후기 데이터를 불러오는 중 에러:', error);
+                console.error("상품후기 데이터를 불러오기에 실패했습니다.");
             }
         };
         fetchData(); // 컴포넌트가 마운트되거나 id 값이 변경될 때마다 호출
     }, [id],);
-
-
-    const fetchData = async () => {
-        const searchInput = document.getElementById('searchInput').value;
-
-        try {
-            const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/product/search?name=${searchInput}`);
-            setSearchResult(response.data);
-        } catch (error) {
-            console.error('찾으시는 상품이 없습니다.', error);
-        }
-    };
-    const handleInputChange = (event) => {
-        const value = event.target.value;
-        setReview({ ...review, product_name: value });
-        fetchData(value);
-    };
-    const handleSelectChange = (event) => {
-        const selectedProductId = event.target.value; // select 태그의 option 중 해당하는 상품명을 변수에 담는다.
-        setSelectedValue(selectedProductId);
-    };
 
     return (
         <div className="write">
@@ -124,21 +101,6 @@ export default function ReviewUpdate() {
             <div>
                 <div className="selectStarRegist">
                     <input type="text" id="searchInput" value={review.product_name} readOnly/>
-                    {/* <div id="searchResult">
-                        <select id="product_id" style={{
-                            width: '150px',
-                            height: '50px',
-                            fontSize: '16px'
-                        }} value={selectedValue} onChange={handleSelectChange}>
-                            <option value="">선택하세요</option>
-                            {searchResult.map((result, index) => (
-                                <option key={index} value={result.product_id} >
-                                    {result.product_name}
-                                </option>
-                            ))}
-                        </select>
-                    </div> */}
-
                     <div id="registButton">
                         <input onClick={reviewUpdate} value="수정" />
                     </div>

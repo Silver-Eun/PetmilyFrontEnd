@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export default function InquiryUpdate() {
     const { id } = useParams();
-    const [searchResult, setSearchResult] = useState([]); // 검색한 값이 db에 있으면 searchResult에 저장한다.
+    const [searchResult, setSearchResult] = useState([]); // 검색한 값이 db에 있으면 searchResult에 저장
     const [selectedValue, setSelectedValue] = useState('');
     const [inquiry, setInquiry] = useState({
         inquiry_title: '',
@@ -29,10 +29,10 @@ export default function InquiryUpdate() {
                 product_id: selectedValue || inquiry.product_id, // 만약 selectedValue가 존재하면 그 값을 사용하고, 그렇지 않으면 inquiry.product_id 사용
                 inquiry_content: inquiry.inquiry_content
             });
-            alert(`상품문의 수정이 완료되었습니다.`);
+            alert("상품문의 수정이 완료되었습니다.");
             navigate(`/community/inquiry/${id}`);
         } catch (error) {
-            console.error('상품문의 수정 에러:', error);
+            alert("상품문의 수정 에러: " + error);
         }
     };
 
@@ -42,7 +42,7 @@ export default function InquiryUpdate() {
                 const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/inquiryDetail/${id}`);
                 setInquiry(response.data);
             } catch (error) {
-                console.error('상품문의 데이터를 불러오는 중 에러:', error);
+                alert("상품문의 데이터 불러오기에 실패했습니다.");
             }
         };
         fetchData(); // 컴포넌트가 마운트되거나 id 값이 변경될 때마다 호출
@@ -56,7 +56,7 @@ export default function InquiryUpdate() {
             const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/product/search?name=${searchInput}`);
             setSearchResult(response.data);
         } catch (error) {
-            console.error('찾으시는 상품이 없습니다.', error);
+            alert("찾으시는 상품이 없습니다.");
         }
     };
     const handleSelectChange = (event) => {
@@ -79,7 +79,7 @@ export default function InquiryUpdate() {
             setProductByKind(formattedData);
             setSearchResult(Object.values(product));
         } catch (error) {
-            console.error('카테고리 데이터를 불러오는 중 에러:', error);
+            alert("카테고리 데이터 불러오기에 실패했습니다.");
         }
     };
 
@@ -90,7 +90,7 @@ export default function InquiryUpdate() {
             const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/product/category/${kind}/${selectedCategory}`);
             setSearchResult(response.data);
         } catch (error) {
-            console.error('카테고리 데이터를 불러오는 중 에러:', error);
+            alert("카테고리 데이터 불러오기에 실패했습니다.");
         }
     };
 

@@ -30,19 +30,16 @@ export default function InquiryWrite2() {
             headers: { 'Content-Type': 'application/json' },
             data: {
                 inquiry_title: document.getElementById('inquiry_title').value,
-                // inquiry_writer: document.getElementById('inquiry_writer').value,
                 inquiry_writer: userName,
                 product_id: id,
                 inquiry_content: document.getElementById('inquiry_content').value
             }
 
         }).then(response => {
-            alert(`상품문의 등록 완료되었습니다.`);
+            alert("상품문의 등록이 완료되었습니다.");
             navigate('/community/inquiry');
         }).catch(error => {
-            console.error(`에러 응답 = ${error.response},
-			error status = ${error.response.status},
-			error message = ${error.message}`);
+            alert("상품문의 등록에 실패했습니다.")
         });
     }
 
@@ -50,10 +47,9 @@ export default function InquiryWrite2() {
         axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/productDetail/${id}`)
             .then((response) => {
                 setProductData(response.data);
-                console.log(`** productDetail 서버연결 성공 =>`, response.data);
             })
             .catch((err) => {
-                alert(`** productDetail 서버연결 실패 => ${err.message}`);
+                alert("productDetail 불러오기에 실패했습니다.");
             });
     };
 

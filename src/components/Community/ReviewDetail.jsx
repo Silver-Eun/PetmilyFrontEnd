@@ -11,7 +11,6 @@ function ReviewDetail() {
         review_title: '',
         product_id: '',
         review_writer: '',
-        review_title: '',
         review_point: 0,
         review_count: '',
         review_content: '',
@@ -42,7 +41,7 @@ function ReviewDetail() {
     }
 
     function WriterButton() {
-        if (userName == review.review_writer) {
+        if (userName === review.review_writer) {
             return (
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <Link to={`/board/reviewUpdate/${id}`}><input style={{ marginRight: '50px' }} type="button" value="수정" /></Link>
@@ -52,20 +51,9 @@ function ReviewDetail() {
         }
     }
     function ReplyButton() {
-        if (userName != '') {
+        if (userName !== '') {
             return (
                 <input onClick={replyWrite} style={{ marginRight: '50px' }} type="button" value="댓글작성" />
-            );
-        }
-    }
-
-    function replyDeleteButton() {
-        if (userName == review.review_writer) {
-            return (
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    <Link to={`/board/reviewUpdate/${id}`}><input style={{ marginRight: '50px' }} type="button" value="수정" /></Link>
-                    <input onClick={reviewDelete} style={{ marginRight: '50px' }} type="button" value="삭제" />
-                </div>
             );
         }
     }
@@ -88,11 +76,8 @@ function ReviewDetail() {
                 setReplies(response.data);
                 setIsLoading(false);
             })
-            .catch(error => {
-                console.error(`에러 응답 = ${error.response},
-                    error status = ${error.response.status},
-                    error message = ${error.message}`);
-                setIsLoading(false);
+            .catch(() => {
+                alert("댓글 불러오기에 실패했습니다.");
             });
     }
 
@@ -100,13 +85,11 @@ function ReviewDetail() {
         let url = `https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/review/delete/${id}/${review.order_key}/${review.product_id}`;
         axios.delete(
             url
-        ).then(response => {
-            alert('상품후기가 삭제 되었습니다.');
+        ).then(() => {
+            alert("상품후기가 삭제 되었습니다.");
             navigate('/community/review');
-        }).catch(error => {
-            console.error(`에러 응답 = ${error.response},
-			error status = ${error.response.status},
-			error message = ${error.message}`);
+        }).catch(() => {
+            alert("상품후기 삭제에 실패했습니다.");
         })
     }
 
@@ -114,13 +97,11 @@ function ReviewDetail() {
         let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/review/reply/delete/" + reply_id;
         axios.delete(
             url
-        ).then(response => {
-            alert('댓글이 삭제 되었습니다.');
+        ).then(() => {
+            alert("댓글이 삭제 되었습니다.");
             window.location.reload();
-        }).catch(error => {
-            console.error(`에러 응답 = ${error.response},
-			error status = ${error.response.status},
-			error message = ${error.message}`);
+        }).catch(() => {
+            alert("댓글 삭제에 실패했습니다.");
         })
     }
 
@@ -130,8 +111,8 @@ function ReviewDetail() {
             .then((response) => {
                 setReview(response.data);
             })
-            .catch((error) => {
-                alert(`선택한 데이터가 없습니다.`);
+            .catch(() => {
+                alert("선택한 데이터가 없습니다.");
             });
     }, []);
 

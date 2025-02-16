@@ -56,14 +56,11 @@ function Notice() {
                 });
                 setNotice(response.data);
             } catch (error) {
-                alert(`자료가 없습니다.`);
+                alert("자료가 없습니다.");
             }
         };
         fetchData();
     }, [searchPeriod, searchCriteria, searchWord, setCurrentPage]);
-
-
-
 
     const paginatedData = () => {
         const startIndex = (currentPage - 1) * itemsPerPage;
@@ -143,8 +140,6 @@ function Notice() {
                         </div>
                     </form>
                 </div>
-
-                
             </div>
         </div>
     );

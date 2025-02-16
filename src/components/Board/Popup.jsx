@@ -20,15 +20,13 @@ function Popup({ showPopup, closePopup, data }) {
         reply_writer: userName,
         reply_content: document.getElementById('reply_content').value
       }
-    }).then(response => {
-      alert(`댓글 등록 완료되었습니다.`);
+    }).then(() => {
+      alert("댓글 등록이 완료되었습니다.");
       closePopup();
       window.location.reload();
     }
-    ).catch(error => {
-      console.error(`에러 응답 = ${error.response},
-			error status = ${error.response.status},
-			error message = ${error.message}`);
+    ).catch(() => {
+      alert("댓글 등록에 실패했습니다.");
     });
   }
 
