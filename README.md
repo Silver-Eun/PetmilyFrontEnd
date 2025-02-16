@@ -8,21 +8,20 @@
 
 ### 🚀 기술 스택  
 **Back-End** :computer:  
-- Java 17  
-- Spring Boot 3.x  
+- Java 8 
+- Spring Boot 2.7.17  
 - Spring Security  
-- JPA (Hibernate)  
+- MyBatis
 - MySQL  
-- Gradle  
+- Maven
 - Lombok  
 
 **Front-End** 🎨  
 - React
 
 **DevOps** ⚙
-- IntelliJ IDEA
-- Netlify
-- CloudType
+- 전자정부프레임워크
+- Visual Studio Coed
 
 ---
 
@@ -46,10 +45,11 @@
 ### ✅ 기술 스택 변경  
 - **개발 환경 변경**: 전자정부프레임워크 → IntelliJ  
 - **Java 업그레이드**: Java 8 → Java 17  
-- **Spring Boot 업그레이드**: Spring Boot 2.x → Spring Boot 3.x  
-- **빌드 시스템 변경**: Maven → Gradle  
+- **Spring Boot 업그레이드**: Spring Boot 2.7.17 → Spring Boot 3.2.2  
+- **빌드 시스템 변경**: Maven → Gradle
+- **데이터베이스 매핑 기술 변경**: MyBatis → **JPA (Hibernate)**
 - **템플릿 엔진 변경**: JSP → Thymeleaf  
-- **환경 변수 설정 변경**: `application.properties` → `application.yml`  
+- **환경 변수 설정 변경**: `application.properties` → `application.yml`
 
 ### ✅ 기능 개선  
 - **관리자 페이지 회원, 게시판 부분 UX 개선**
@@ -60,10 +60,15 @@
 - **게시판 기능 추가**  
   - 관리자페이지내 FAQ에서 누락된 **글쓰기 및 수정 기능 구현**  
 - **API 구조 정리**  
-  - 내부 API 경로에 `/api` prefix 추가 → **프론트엔드(React) API와 명확하게 구분**  
-
+  - 내부 API 경로에 `/api` prefix 추가 → **프론트엔드(React) API와 명확하게 구분**
+ 
+### ✅ 배포
+- **백엔드 배포**
+  - 관리자페이지 및 API는 Cloudtype에 배포
+- **프론트엔드 배포**
+  - 프론트엔드는 Netlify에 배포
 ---
 
 ### 📎 배포 링크  
 - **Petmily**: [https://petmilyreal.netlify.app/](https://petmilyreal.netlify.app/)  
-- **Petmily 관리자 페이지**: [https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/home](https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/home)
+- **Petmily 관리자페이지**: [https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/home](https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/home)
