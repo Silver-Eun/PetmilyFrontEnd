@@ -4,26 +4,28 @@ import axios from "axios";
 const ProductItem = ({ it, calcProductPrice, setCartItems }) => {
     
     // 장바구니 추가
-    function cartInsertP(a) {    
+    function cartInsertP(a) {
+        const loggedInUser = sessionStorage.getItem("loggedInUser");
+        
+        if (!loggedInUser) {
+            alert("로그인 해주세요");
+            return;
+        }
+        
         let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rscart/cartInsertP/" + a;
         
         axios.post(url)
             .then(() => {
-                const loggedInUser = sessionStorage.getItem("loggedInUser");
-
-                if (loggedInUser) {
                 alert("장바구니 담기 성공");
                 axios
                     .get("/rscart/cartList")
                     .then((response) => {
-                    setCartItems(response.data);
+                        setCartItems(response.data);
                     });
-                } else {
-                    alert("로그인 해주세요");
-                }
-            }).catch(() => {
+            })
+            .catch(() => {
                 alert("장바구니 추가에 실패했습니다.")
-        });
+            });
     }
 
     return (
