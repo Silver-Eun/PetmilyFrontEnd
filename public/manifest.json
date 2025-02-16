@@ -2,12 +2,12 @@
     "short_name": "Petmily",
     "name": "Petmily App",
     "icons": [{
-            "src": "Petmily_logo_투명.png",
+            "src": "Petmily_logo.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "Petmily_logo_투명.png",
+            "src": "Petmily_logo.png",
             "type": "image/png",
             "sizes": "512x512"
         }
