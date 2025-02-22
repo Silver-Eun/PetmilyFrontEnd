@@ -16,7 +16,7 @@ const ProductItem = ({ it, calcProductPrice, setCartItems }) => {
         
         axios.post(url)
             .then(() => {
-                alert("장바구니 담기 성공");
+                alert("상품이 장바구니에 추가되었습니다.");
                 axios
                     .get("/rscart/cartList")
                     .then((response) => {
