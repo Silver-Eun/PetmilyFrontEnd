@@ -79,10 +79,10 @@ function Login() {
                 </form>
                 <hr />
                 <button className="kakao" onClick={KakaoLogin}>
-                    카카오로 로그인
+                    카카오 로그인(비구현)
                 </button>
                 <button className="naver" onClick={NaverLogin}>
-                    네이버로 로그인
+                    네이버 로그인(비구현)
                 </button>
                 <ul>
                     <Link to="/user/signup" style={{ textDecoration: "none" }}>
