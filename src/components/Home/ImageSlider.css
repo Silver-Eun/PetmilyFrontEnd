@@ -1,6 +1,8 @@
 .ImageSlider {
     text-align: center;
     position: relative;
+    width: 1400px;
+    height: 500px;
 }
 
 .slider-container {

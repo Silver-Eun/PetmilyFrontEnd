@@ -14,6 +14,7 @@
 
 .Home .introducebox {
     width: calc(100%/4);
+    height: 357.6px;
 }
 
 .Home .introducebox>div {
