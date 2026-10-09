@@ -4,7 +4,10 @@
 }
 
 .Products {
-    width: 1120px;
+    width: 100%;
+    max-width: 1120px;
+    box-sizing: border-box;
+    padding: 0 15px;
     margin: auto;
 }
 
@@ -92,4 +95,29 @@
 .sortButtons button.active {
     color: black;
     border-left: 5px solid rgb(25, 50, 100);
+}
+
+@media screen and (max-width: 768px) {
+    .productClassification ul {
+        flex-wrap: wrap;
+        gap: 8px 12px;
+        justify-content: center;
+        padding: 0 10px;
+    }
+
+    .productClassification a {
+        font-size: 0.9em;
+    }
+
+    .sortButtons {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+        margin: 15px 0;
+    }
+
+    .sortButtons button {
+        font-size: 0.85em;
+        margin: 5px;
+    }
 }

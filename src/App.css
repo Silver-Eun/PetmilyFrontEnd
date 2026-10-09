@@ -21,7 +21,7 @@ body * {
 .Header,
 .Main,
 .Footer {
-    min-width: 1400px;
+    width: 100%;
 }
 
 

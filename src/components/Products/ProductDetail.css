@@ -7,7 +7,10 @@
 
 /* 상품정보페이지 */
 .productPage {
-  width: 1120px;
+  width: 100%;
+  max-width: 1120px;
+  box-sizing: border-box;
+  padding: 0 15px;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 100px;
@@ -113,7 +116,10 @@
 
 /* 상품상세페이지 */
 .productDetailPage {
-  width: 1120px;
+  width: 100%;
+  max-width: 1120px;
+  box-sizing: border-box;
+  padding: 0 15px;
   margin: 50px auto;
   display: flex;
   justify-content: space-evenly;

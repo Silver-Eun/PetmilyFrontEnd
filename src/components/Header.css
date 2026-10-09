@@ -256,3 +256,74 @@
     top: 50%;
     transform: translate(0, -50%) rotate(-45deg);
 }
+
+@media screen and (max-width: 768px) {
+    .headerTOP {
+        height: auto;
+        flex-wrap: wrap;
+        margin: 0 15px;
+        padding: 10px 0;
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    .headerTOP .topLogo {
+        margin-right: 0;
+    }
+
+    .headerTOP .userMenu {
+        margin-left: 0;
+    }
+
+    .headerTOP .searchBox {
+        width: 100%;
+        order: 3;
+    }
+
+    .mainMenu {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: space-around;
+        box-sizing: border-box;
+    }
+
+    .mainMenu::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mainMenu>li {
+        flex: 0 0 auto;
+        width: auto;
+        padding: 0 14px;
+        white-space: nowrap;
+        float: none;
+        font-size: 0.9em;
+    }
+
+    .mainMenu>li:nth-of-type(1) {
+        width: auto;
+        padding: 0 10px;
+        flex: 0 0 auto;
+    }
+
+    .sideMenu {
+        width: 100%;
+        left: -100%;
+        padding-left: 20px;
+        overflow-y: auto;
+        position: fixed;
+    }
+
+    .sideMenu>li {
+        float: none;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 20px;
+    }
+
+    .sideMenu>li>ul {
+        width: 140px;
+    }
+}
