@@ -71,8 +71,11 @@
   - 관리자페이지 및 API는 Cloudtype으로 배포
 - **프론트엔드 배포**
   - 프론트엔드는 Netlify로 배포
----
 
 ### 📎 배포 링크  
 - **Petmily**: [https://petmilyreal.netlify.app/](https://petmilyreal.netlify.app/)  
 - **Petmily 관리자페이지**: [https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/home](https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/home)
+---
+### 🔄 모바일 UI 최적화 (2026.10.09 ~ )  
+
+### ✅ Gemini CLI 이용한 UI 최적화
