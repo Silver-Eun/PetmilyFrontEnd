@@ -1,3 +1,5 @@
+import styles from "./Review.module.css";
+import commonStyles from "./../../Common.module.css";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
@@ -5,93 +7,93 @@ import { Link } from "react-router-dom";
 import Star from "./Star";
 
 function Pagination({ totalPages, currentPage, onPageChange }) {
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-        pages.push(
-            <a
-                key={i}
-                href="#"
-                className={i === currentPage ? 'active' : ''}
-                onClick={() => onPageChange(i)}
-            >
+  const pages = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push(
+      <a
+        key={i}
+        href="#"
+        className={i === currentPage ? styles["active"] : ''}
+        onClick={() => onPageChange(i)}>
+        
                 {i}
             </a>
-        );
-    }
+    );
+  }
 
-    return (
-        <div className="pagination">
+  return (
+    <div className={styles["pagination"]}>
             <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>&laquo;</button>
             {pages}
             <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>&raquo;</button>
-        </div>
-    );
+        </div>);
+
 }
 
 function Review() {
-    const [review, setReview] = useState([]);
-    const [searchPeriod, setSearchPeriod] = useState("all");
-    const [searchCriteria, setSearchCriteria] = useState("subject");
-    const [searchWord, setSearchWord] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
-    const [searchInput, setSearchInput] = useState("");
+  const [review, setReview] = useState([]);
+  const [searchPeriod, setSearchPeriod] = useState("all");
+  const [searchCriteria, setSearchCriteria] = useState("subject");
+  const [searchWord, setSearchWord] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const [searchInput, setSearchInput] = useState("");
 
-    const isLoggedIn =
-        sessionStorage.getItem("loggedInUser");
-    const user = isLoggedIn ? JSON.parse(isLoggedIn) : null;
-    const userName = user ? user.user_name : ''; // 유저 이름 변수
+  const isLoggedIn =
+  sessionStorage.getItem("loggedInUser");
+  const user = isLoggedIn ? JSON.parse(isLoggedIn) : null;
+  const userName = user ? user.user_name : ''; // 유저 이름 변수
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        setReview([]); // 검색 결과 초기화
-        setSearchPeriod(e.target.searchPeriod.value);
-        setSearchCriteria(e.target.searchCriteria.value);
-        setSearchWord(e.target.searchWord.value); // 검색어 업데이트
-    };
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setReview([]); // 검색 결과 초기화
+    setSearchPeriod(e.target.searchPeriod.value);
+    setSearchCriteria(e.target.searchCriteria.value);
+    setSearchWord(e.target.searchWord.value); // 검색어 업데이트
+  };
 
-    function AccessWirte() {
-        if (userName !== '') {
-            return (
-                <div className="board_write">
+  function AccessWirte() {
+    if (userName !== '') {
+      return (
+        <div className={styles["board_write"]}>
                     <Link to="/board/reviewWrite">글쓰기</Link>
-                </div>
-            );
-        }
+                </div>);
+
     }
+  }
 
-    useEffect(() => {
-        setCurrentPage(1); // 검색 매개변수가 변경될 때 currentPage를 1로 재설정
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/review/list', {
-                    params: {
-                        searchPeriod,
-                        searchCriteria,
-                        searchWord,
-                    }
-                });
-                setReview(response.data);
-            } catch (error) {
-                alert("자료가 없습니다.");
-            }
-        };
-        fetchData();
-    }, [searchPeriod, searchCriteria, searchWord, setCurrentPage]);
-
-    const paginatedData = () => {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        return review.slice(startIndex, endIndex);
+  useEffect(() => {
+    setCurrentPage(1); // 검색 매개변수가 변경될 때 currentPage를 1로 재설정
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/review/list', {
+          params: {
+            searchPeriod,
+            searchCriteria,
+            searchWord
+          }
+        });
+        setReview(response.data);
+      } catch (error) {
+        alert("자료가 없습니다.");
+      }
     };
+    fetchData();
+  }, [searchPeriod, searchCriteria, searchWord, setCurrentPage]);
 
-    return (
+  const paginatedData = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return review.slice(startIndex, endIndex);
+  };
 
-        <div className="Review">
-            <div className="cateTitle">
+  return (
+
+    <div className={styles["Review"]}>
+            <div className={commonStyles["cateTitle"]}>
                 <h1>상품후기</h1>
             </div>
-            <div className="commnunityList">
+            <div className={styles["commnunityList"]}>
                 <div>
                     <ul>
                         <li><Link to="/community/notice">공지사항</Link></li>
@@ -102,14 +104,14 @@ function Review() {
                 </div>
             </div>
 
-            <div className="boardList">
+            <div className={styles["boardList"]}>
                 <table>
                     <colgroup>
-                        <col className="attr1" />
-                        <col className="attr1" />
-                        <col className="attr2" />
-                        <col className="attr3" />
-                        <col className="attr3" />
+                        <col className={styles["attr1"]} />
+                        <col className={styles["attr1"]} />
+                        <col className={styles["attr2"]} />
+                        <col className={styles["attr3"]} />
+                        <col className={styles["attr3"]} />
                     </colgroup>
                     <tr>
                         <th>제목</th>
@@ -120,7 +122,7 @@ function Review() {
                     </tr>
 
                     {paginatedData().map((r) =>
-                        <tr key={r.review_id}>
+          <tr key={r.review_id}>
                             <td style={{ textAlign: 'center' }}><Link to={`./${r.review_id}`}>{r.review_title}</Link></td>
                             <td><Link to={`/products/productdetail/${r.product_id}`}>
                                 <img style={{ width: '180px', height: '150px' }} src={process.env.PUBLIC_URL + `/Images/products/${r.product_mainimagepath}`} alt={r.product_name} />
@@ -129,19 +131,19 @@ function Review() {
                             <td>{r.review_writer}</td>
                             <td>{r.review_regdate}</td>
                         </tr>
-                    )}
+          )}
 
                 </table>
 
                 <Pagination
-                    totalPages={Math.ceil(review.length / itemsPerPage)}
-                    currentPage={currentPage}
-                    onPageChange={setCurrentPage}
-                />
+          totalPages={Math.ceil(review.length / itemsPerPage)}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage} />
+        
 
-                <div name="search" className="search">
+                <div name="search" className={styles["search"]}>
                     <form onSubmit={handleSearch}>
-                        <div className="searchConditions">
+                        <div className={styles["searchConditions"]}>
                             <div>
                                 <select name="searchPeriod">
                                     <option value="all">전체</option>
@@ -156,24 +158,24 @@ function Review() {
                                 </select>
                             </div>
                         </div>
-                        <div className="searchInput">
+                        <div className={styles["searchInput"]}>
                             <div>
                                 <input
-                                    className="searchWord"
-                                    name="searchWord"
-                                    type="text"
-                                    value={searchInput}
-                                    onChange={(e) => setSearchInput(e.target.value)}
-                                />
+                  className={styles["searchWord"]}
+                  name="searchWord"
+                  type="text"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)} />
+                
                                 <input type="submit" value="검색" />
                             </div>
-                            <AccessWirte/>
+                            <AccessWirte />
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
-    );
+        </div>);
+
 }
 
 export default Review;

@@ -1,0 +1,482 @@
+.Products .active {
+    color: black;
+}
+
+.Products .pagination {
+    padding: 40px;
+}
+
+.Products .pagination a {
+    cursor: pointer;
+    color: rgb(25, 50, 100);
+    border: 1px solid rgb(25, 50, 100);
+    font-weight: bold;
+}
+
+.pagination a.active {
+    color: aliceblue;
+    background-color: rgb(25, 50, 100);
+    font-weight: bold;
+}
+
+.sortButtons button.active {
+    color: black;
+    border-left: 5px solid rgb(25, 50, 100);
+}
+
+:global(.ProductItem) .productName,
+:global(.ProductItem) .productPrice {
+    padding: 2.5px 0;
+    font-weight: bold;
+}
+
+:global(.ProductItem) .originalPrice {
+    color: darkgray;
+    text-decoration: line-through;
+}
+
+:global(.ProductItem) .productPrice sup {
+    color: red;
+}
+
+.ProductDetail * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+.productPage {
+  width: 100%;
+  max-width: 1120px;
+  box-sizing: border-box;
+  padding: 0 15px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  height: 500px;
+}
+
+.productImage {
+  width: 500px;
+  flex-grow: 1;
+}
+
+.detailGallery {
+  display: flex;
+  gap: 10px;
+}
+
+.detailGallery img {
+  border: 1px solid silver;
+}
+
+.regDate {
+  padding: 5px;
+  font-size: 0.8em;
+}
+
+.detailImages {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+}
+
+.detailImages.selected {
+  border: 2px solid black;
+}
+
+.productInfo {
+  width: 500px;
+  height: 100%;
+  margin: 50px auto;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.productInfo th,
+.productInfo td {
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.productInfo th {
+  width: 30%;
+}
+
+.productInfo td {
+  width: 70%;
+}
+
+.productInfo .originalPrice {
+  color: darkgray;
+  text-decoration: line-through;
+}
+
+:global(.ProductItem) .productPrice sup {
+  color: red;
+}
+
+.productInfo tr:nth-child(4) {
+  height: 60px;
+}
+
+.buySoon,
+.buyCart {
+  cursor: pointer;
+  display: inline-block;
+  width: 150px;
+  line-height: 50px;
+  text-align: center;
+  background-color: rgb(25, 50, 100);
+  color: white;
+  border: 0;
+}
+
+.buyCart {
+  background-color: gray;
+}
+
+.productDetailPage {
+  width: 100%;
+  max-width: 1120px;
+  box-sizing: border-box;
+  padding: 0 15px;
+  margin: 50px auto;
+  display: flex;
+  justify-content: space-evenly;
+  height: auto;
+}
+
+.productDetailPage {
+  flex-direction: column;
+}
+
+.productDetailPage ul,
+.productDetailPage div {
+  width: 100%;
+  height: auto;
+}
+
+.productDetailnav {
+  position: sticky;
+  top: 100px;
+}
+
+.productDetailMenu {
+  display: flex;
+  flex: 1;
+  background-color: #fff;
+  /* border-radius: 10px; */
+  border: 1px solid silver;
+}
+
+.productDetailMenu>li {
+  flex: 1;
+  text-align: center;
+  line-height: 50px;
+  position: relative;
+}
+
+.productDetailMenu>li:not(:first-child) {
+  border-left: 1px solid silver;
+}
+
+.productDetailMenu>li>a {
+  text-decoration: none;
+  color: black;
+  display: block;
+  transition: background-color 0.3s ease;
+  /* 배경???�환 ?�니메이???�용 */
+}
+
+.productDetailMenu>li.active>a {
+  background-color: rgb(25, 50, 100);
+  color: aliceblue;
+  /* ?�성?�된 메뉴??글?�색 변�?*/
+}
+
+.productDetailTitle h2 span {
+  font-size: 0.8em;
+  color: gray;
+}
+
+.productDetailTitle a {
+  float: right;
+  font-weight: bold;
+  color: gray;
+}
+
+.productDetailTitle a:hover {
+  color: rgb(25, 50, 100);
+}
+
+.productDetailImg {
+  text-align: center;
+}
+
+.detailImage,
+.productReview,
+.productQA,
+.buyGuide {
+  margin: 25px 0;
+}
+
+.returnInfoTable,
+.sellerTable {
+  margin: 20px 0;
+  border-collapse: collapse;
+  text-decoration: none;
+  border-bottom: 1px solid gray;
+}
+
+.returnInfoTable th,
+.returnInfoTable td,
+.sellerTable th,
+.sellerTable td {
+  border-top: 1px solid gray;
+  padding: 14px 10px 14px 20px;
+}
+
+.returnInfoTable th,
+.sellerTable th {
+  font-weight: normal;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.returnInfoTable td,
+.sellerTable td {
+  padding: 14px 10px 14px 20px;
+}
+
+.returnStandard {
+  border-top: 1px solid gray;
+  padding-top: 15px;
+}
+
+.returnStandardTitle {
+  margin-bottom: 10px;
+}
+
+.registNum {
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.payDepositList li {
+  font-size: 12px;
+}
+
+.PrecautionsList li {
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+
+  .Products,
+.productDetailPage,
+.productPage {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .productImage > img {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 82vw;
+    margin: 0 auto;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .detailImage {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  :global(.ProductItem) .productName,
+:global(.ProductItem) .productPrice {
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+
+  .pagination {
+    padding: 24px 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .pagination a {
+    padding: 8px 10px;
+  }
+
+  .productPage {
+    height: auto;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 14px;
+  }
+
+  .productImage,
+.productInfo {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .productImage {
+    flex-grow: 0;
+  }
+
+  .productInfo {
+    height: auto;
+    margin: 12px auto;
+  }
+
+  .detailGallery {
+    flex-wrap: wrap;
+  }
+
+  .productDetailMenu {
+    position: static;
+  }
+
+  .productDetailMenu > li {
+    line-height: 1.25;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+  }
+
+  .productDetailMenu > li > a {
+    padding: 8px 4px;
+  }
+
+  .productDetailnav {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #fff;
+  }
+
+  .returnInfoTable,
+.sellerTable {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: normal;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .returnInfoTable th,
+.returnInfoTable td,
+.sellerTable th,
+.sellerTable td {
+    min-width: 90px;
+    padding: 10px 8px;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 420px) {
+
+  :global(.ProductItem) .productName,
+:global(.ProductItem) .productPrice {
+    font-size: 12px;
+  }
+
+  .productDetailMenu > li {
+    font-size: 11px;
+  }
+}
+
+.boardList {
+  width: 100%;
+  max-width: 1120px;
+  box-sizing: border-box;
+  padding: 0 15px;
+  margin: auto;
+}
+
+.boardList table {
+  width: 100%;
+  margin-top: 24px;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.boardList table tr {
+  border-top: 1px solid #222;
+}
+
+.boardList table th,
+.boardList table td {
+  padding: 10px 6px;
+}
+
+@media (max-width: 768px) {
+  .boardList {
+    padding: 0 4px;
+    overflow: visible;
+  }
+
+  .boardList table {
+    display: table;
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+    overflow: visible;
+    white-space: normal;
+  }
+
+  .boardList table col {
+    width: auto !important;
+  }
+
+  .boardList table th,
+  .boardList table td {
+    padding: 8px 3px;
+    font-size: 11px;
+    line-height: 1.35;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .boardList table th {
+    font-size: 10px;
+  }
+
+  .boardList table td img {
+    max-width: 100%;
+  }
+}
+
+.boardList {}
+
+.attr1 {}
+
+.attr2 {}
+
+.attr3 {}
+
+.attr4 {}
+
+.productReviewTitle {}
+
+.returnInfo {}
+
+.returnTitle {}
+
+.returnStandardList {}
+
+.payDeposit {}
+
+.precaution {}

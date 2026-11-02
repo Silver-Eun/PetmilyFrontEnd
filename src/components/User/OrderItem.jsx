@@ -1,16 +1,17 @@
+import styles from "./OrderItem.module.css";
 import React from "react";
 
 const OrderItem = ({ orderItems, deleteOrder, calcProductPrice }) => {
 
   return (
     <tbody>
-      {orderItems.map((item) => (
-        <tr>
+      {orderItems.map((item) =>
+      <tr>
           <td>
-            <div className="orderImage">
-              <img src={process.env.PUBLIC_URL +`/Images/products/${item.product_mainimagepath}`}
-                alt={item.product_mainimagepath}
-              />
+            <div className={styles["orderImage"]}>
+              <img src={process.env.PUBLIC_URL + `/Images/products/${item.product_mainimagepath}`}
+            alt={item.product_mainimagepath} />
+            
             </div>
           </td>
           <td>
@@ -27,20 +28,20 @@ const OrderItem = ({ orderItems, deleteOrder, calcProductPrice }) => {
           </td>
           <td>
             <button
-              type="button"
-              id="deleteCartProduct"
-              name="deleteCartProduct"
-              onClick={() => {
-                deleteOrder(item);
-              }}
-            >
+            type="button"
+            id="deleteCartProduct"
+            name="deleteCartProduct"
+            onClick={() => {
+              deleteOrder(item);
+            }}>
+            
               삭제
             </button>
           </td>
         </tr>
-      ))}
-    </tbody>
-  );
+      )}
+    </tbody>);
+
 };
 
 export default OrderItem;

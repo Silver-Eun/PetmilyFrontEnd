@@ -1,3 +1,5 @@
+import styles from "./ReviewDetail.module.css";
+import commonStyles from "./../../Common.module.css";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link, useParams, useNavigate } from "react-router-dom";
@@ -6,128 +8,128 @@ import Popup from '../Board/Popup';
 
 function ReviewDetail() {
 
-    const { id } = useParams();
-    const [review, setReview] = useState({
-        review_title: '',
-        product_id: '',
-        review_writer: '',
-        review_point: 0,
-        review_count: '',
-        review_content: '',
-        review_regdate: '',
-        review_image1: '',
-        review_image2: '',
-        reply_check: false,
-        order_key: 0,
-    });
-    const [replies, setReplies] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+  const { id } = useParams();
+  const [review, setReview] = useState({
+    review_title: '',
+    product_id: '',
+    review_writer: '',
+    review_point: 0,
+    review_count: '',
+    review_content: '',
+    review_regdate: '',
+    review_image1: '',
+    review_image2: '',
+    reply_check: false,
+    order_key: 0
+  });
+  const [replies, setReplies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-    const isLoggedIn =
-        sessionStorage.getItem("loggedInUser");
-    const user = isLoggedIn ? JSON.parse(isLoggedIn) : null;
-    const userName = user ? user.user_name : '';
+  const isLoggedIn =
+  sessionStorage.getItem("loggedInUser");
+  const user = isLoggedIn ? JSON.parse(isLoggedIn) : null;
+  const userName = user ? user.user_name : '';
 
-    const navigate = useNavigate();
-    let contents = review.review_content;
+  const navigate = useNavigate();
+  let contents = review.review_content;
 
-    function replyCheck() {
-        if (review.reply_check) {
+  function replyCheck() {
+    if (review.reply_check) {
 
-            return <div id='bottomBoard'><button onClick={() => getReplies(id)}>댓글보기</button></div>
-        } else {
-            return null;
-        }
+      return <div id='bottomBoard'><button onClick={() => getReplies(id)}>댓글보기</button></div>;
+    } else {
+      return null;
     }
+  }
 
-    function WriterButton() {
-        if (userName === review.review_writer) {
-            return (
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
+  function WriterButton() {
+    if (userName === review.review_writer) {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <Link to={`/board/reviewUpdate/${id}`}><input style={{ marginRight: '50px' }} type="button" value="수정" /></Link>
                     <input onClick={reviewDelete} style={{ marginRight: '50px' }} type="button" value="삭제" />
-                </div>
-            );
-        }
+                </div>);
+
     }
-    function ReplyButton() {
-        if (userName !== '') {
-            return (
-                <input onClick={replyWrite} style={{ marginRight: '50px' }} type="button" value="댓글작성" />
-            );
-        }
+  }
+  function ReplyButton() {
+    if (userName !== '') {
+      return (
+        <input onClick={replyWrite} style={{ marginRight: '50px' }} type="button" value="댓글작성" />);
+
     }
+  }
 
-    const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
-    function replyWrite() {
-        setShowPopup(true);
-    }
+  function replyWrite() {
+    setShowPopup(true);
+  }
 
-    function closePopup() {
-        setShowPopup(false);
-    }
+  function closePopup() {
+    setShowPopup(false);
+  }
 
-    function getReplies() {
-        setIsLoading(true);
-        let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/review/reply/" + id;
-        axios.get(url)
-            .then(response => {
-                setReplies(response.data);
-                setIsLoading(false);
-            })
-            .catch(() => {
-                alert("댓글 불러오기에 실패했습니다.");
-            });
-    }
+  function getReplies() {
+    setIsLoading(true);
+    let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/review/reply/" + id;
+    axios.get(url).
+    then((response) => {
+      setReplies(response.data);
+      setIsLoading(false);
+    }).
+    catch(() => {
+      alert("댓글 불러오기에 실패했습니다.");
+    });
+  }
 
-    function reviewDelete() {
-        let url = `https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/review/delete/${id}/${review.order_key}/${review.product_id}`;
-        axios.delete(
-            url
-        ).then(() => {
-            alert("상품후기가 삭제 되었습니다.");
-            navigate('/community/review');
-        }).catch(() => {
-            alert("상품후기 삭제에 실패했습니다.");
-        })
-    }
+  function reviewDelete() {
+    let url = `https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/review/delete/${id}/${review.order_key}/${review.product_id}`;
+    axios.delete(
+      url
+    ).then(() => {
+      alert("상품후기가 삭제 되었습니다.");
+      navigate('/community/review');
+    }).catch(() => {
+      alert("상품후기 삭제에 실패했습니다.");
+    });
+  }
 
-    const replyDelete = async (reply_id) => {
-        let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/review/reply/delete/" + reply_id;
-        axios.delete(
-            url
-        ).then(() => {
-            alert("댓글이 삭제 되었습니다.");
-            window.location.reload();
-        }).catch(() => {
-            alert("댓글 삭제에 실패했습니다.");
-        })
-    }
+  const replyDelete = async (reply_id) => {
+    let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/review/reply/delete/" + reply_id;
+    axios.delete(
+      url
+    ).then(() => {
+      alert("댓글이 삭제 되었습니다.");
+      window.location.reload();
+    }).catch(() => {
+      alert("댓글 삭제에 실패했습니다.");
+    });
+  };
 
-    useEffect(() => {
-        axios
-            .get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/reviewDetail/' + id)
-            .then((response) => {
-                setReview(response.data);
-            })
-            .catch(() => {
-                alert("선택한 데이터가 없습니다.");
-            });
-    }, []);
+  useEffect(() => {
+    axios.
+    get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/reviewDetail/' + id).
+    then((response) => {
+      setReview(response.data);
+    }).
+    catch(() => {
+      alert("선택한 데이터가 없습니다.");
+    });
+  }, []);
 
-    if (contents != null) {
-        contents = review.review_content.split('\n').map((it) => <p>{it}</p>);
-    }
+  if (contents != null) {
+    contents = review.review_content.split('\n').map((it) => <p>{it}</p>);
+  }
 
 
-    return (
-        <div className="ReviewDetail">
-            <div className="cateTitle">
+  return (
+    <div className={styles["ReviewDetail"]}>
+            <div className={commonStyles["cateTitle"]}>
                 <h1>상품후기</h1>
             </div>
 
-            <div className="boardPackage">
+            <div className={styles["boardPackage"]}>
                 <table>
                     <tr>
                         <th scope="row">제목</th>
@@ -156,14 +158,14 @@ function ReviewDetail() {
                     <tr>
                         <td>
                             {review.review_image1 != null ?
-                                <div>
+              <div>
                                     <img style={{ width: '500px', height: '500px' }} src={process.env.PUBLIC_URL + `/Images/reviews/${review.review_image1}`} alt='상품후기 이미지1' />
                                     <img style={{ width: '500px', height: '500px' }} src={process.env.PUBLIC_URL + `/Images/reviews/${review.review_image2}`} alt='상품후기 이미지2' />
-                                </div>
-                                : null}
+                                </div> :
+              null}
 
                             <br></br>
-                            <div className="contents">
+                            <div className={styles["contents"]}>
                                 {contents}
                             </div>
 
@@ -172,13 +174,13 @@ function ReviewDetail() {
                 </table>
 
                 {replyCheck()}
-                <div className="ReviewDetail">
-                    {isLoading ? (
-                        <p>Loading...</p>
-                    ) : (
-                        <div>
-                            {replies.map((reply) => (
-                                <div style={{ marginBottom: '15px' }}>
+                <div className={styles["ReviewDetail"]}>
+                    {isLoading ?
+          <p>Loading...</p> :
+
+          <div>
+                            {replies.map((reply) =>
+            <div style={{ marginBottom: '15px' }}>
                                     <table style={{ width: '100%' }}>
                                         <tr>
                                             <div style={{ width: '15%' }}>
@@ -194,27 +196,27 @@ function ReviewDetail() {
                                                 <td>{reply.reply_regdate}</td>
                                             </div>
                                             <div>
-                                                {userName === reply.reply_writer && (
-                                                <button onClick={() => replyDelete(reply.reply_id)} style={{ width: '50px' }} type="button">
+                                                {userName === reply.reply_writer &&
+                    <button onClick={() => replyDelete(reply.reply_id)} style={{ width: '50px' }} type="button">
                                                     삭제
-                                                </button>
-                                                )}
+                                                </button>}
+                    
                                             </div>
                                         </tr>
                                     </table>
                                 </div>
-                            ))}
-                        </div>
-                    )}
+            )}
+                        </div>}
+          
                 </div>
                 <Popup data={id} showPopup={showPopup} closePopup={closePopup} />
                 <div id="bottomBoard" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <WriterButton/>
-                    <ReplyButton/>
+                    <WriterButton />
+                    <ReplyButton />
                     <Link to="/community/review"><input type="button" value="목록" /></Link>
                 </div>
             </div>
-        </div>
-    )
+        </div>);
+
 }
 export default ReviewDetail;

@@ -1,0 +1,73 @@
+.Guide hr,
+.Privacy hr,
+.Refund hr,
+.Tos hr {
+    margin-bottom: 30px;
+}
+
+.Guide,
+.Privacy,
+.Refund,
+.Tos {
+    width: 1120px;
+    margin: auto;
+}
+
+.scrollBox {
+    height: 700px;
+    margin-bottom: 60px;
+    padding: 20px 20px;
+    box-sizing: border-box;
+    border: solid 1px silver;
+    overflow-y: scroll;
+}
+
+.scrollBox p {
+    margin-bottom: 20px;
+    /* padding: 20px 20px; */
+}
+
+.scrollBox table {
+    width: 100%;
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+.scrollBox th,
+.scrollBox td {
+    height: 32px;
+    text-align: center;
+    border: 1px solid;
+}
+
+.scrollBox th {
+    background-color: silver;
+}
+
+@media (max-width: 768px) {
+
+  .Guide,
+.Privacy,
+.Refund,
+.Tos {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .Guide,
+.Privacy,
+.Refund,
+.Tos {
+    padding: 0 14px;
+  }
+
+  .scrollBox {
+    height: min(65vh, 700px);
+    padding: 14px;
+  }
+
+  .scrollBox table {
+    min-width: 520px;
+  }
+}

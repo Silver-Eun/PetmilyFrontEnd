@@ -1,16 +1,18 @@
+import styles from "./Privacy.module.css";
+import commonStyles from "./../../Common.module.css";
 import React from "react";
 
 function Privacy() {
-    return (
-        <div className="Privacy">
-            <div className="cateTitle">
+  return (
+    <div className={styles["Privacy"]}>
+            <div className={commonStyles["cateTitle"]}>
                 <h1>개인정보처리방침</h1>
             </div>
             <hr />
 
             <h4>- 시행일 : 2023-XX-XX -</h4>
 
-            <div className="scrollBox">
+            <div className={styles["scrollBox"]}>
                 <p>
                     <h3>제1장</h3>
                     <p>
@@ -107,8 +109,8 @@ function Privacy() {
                     </table>
                 </p>
             </div>
-        </div>
-    );
+        </div>);
+
 }
 
 export default Privacy;

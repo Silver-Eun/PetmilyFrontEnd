@@ -1,14 +1,16 @@
+import styles from "./Guide.module.css";
+import commonStyles from "./../../Common.module.css";
 import React from "react";
 
 function Guide() {
-    return (
-        <div className="Guide">
-            <div className="cateTitle">
+  return (
+    <div className={styles["Guide"]}>
+            <div className={commonStyles["cateTitle"]}>
                 <h1>이용안내</h1>
             </div>
             <hr />
 
-            <div className="nonScrollBox">
+            <div className={styles["nonScrollBox"]}>
                 <h3>회원가입 안내</h3>
                 <p>
                     [회원가입] 메뉴를 통해 이용약관, 개인정보보호정책 동의 및 일정 양식의 가입항목을 기입함으로써 회원에 가입되며, 가입 즉시 서비스를 무료로 이용하실 수 있습니다.
@@ -104,8 +106,8 @@ function Guide() {
                     소멸됩니다.
                 </p>
             </div>
-        </div>
-    );
+        </div>);
+
 }
 
 export default Guide;

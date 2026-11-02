@@ -1,65 +1,67 @@
+import styles from "./InquiryDetail.module.css";
+import commonStyles from "./../../Common.module.css";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 export default function InquiryDetail() {
 
-    const { id } = useParams();
-    const [inquiry, setInquiry] = useState({
-        inquiry_title: '',
-        inquiry_writer: '',
-        product_id: '',
-        product_name: '',
-        inquiry_regdate: '',
-        inquiry_count: '',
-        inquiry_content: '',
-        answer_content: '',
-        answer_regdate: ''
+  const { id } = useParams();
+  const [inquiry, setInquiry] = useState({
+    inquiry_title: '',
+    inquiry_writer: '',
+    product_id: '',
+    product_name: '',
+    inquiry_regdate: '',
+    inquiry_count: '',
+    inquiry_content: '',
+    answer_content: '',
+    answer_regdate: ''
+  });
+
+  const isLoggedIn =
+  sessionStorage.getItem("loggedInUser");
+  const user = isLoggedIn ? JSON.parse(isLoggedIn) : null;
+  const userName = user ? user.user_name : '';
+
+  const navigate = useNavigate();
+  let contents = inquiry.inquiry_content;
+
+  function inquiryDelete() {
+    let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/inquiry/delete/" + id;
+    axios.delete(
+      url
+    ).then(() => {
+      alert("상품문의가 삭제되었습니다.");
+      navigate('/community/inquiry');
+    }).catch((error) => {
+      alert("상품문의 삭제에 실패했습니다.");
     });
+  }
 
-    const isLoggedIn =
-        sessionStorage.getItem("loggedInUser");
-    const user = isLoggedIn ? JSON.parse(isLoggedIn) : null;
-    const userName = user ? user.user_name : '';
+  useEffect(() => {
+    axios.
+    get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/inquiryDetail/' + id).
+    then((response) => {
+      setInquiry(response.data);
+    }).
+    catch(() => {
+      alert("선택한 데이터가 없습니다.");
+    });
+  }, []);
 
-    const navigate = useNavigate();
-    let contents = inquiry.inquiry_content;
+  if (contents != null) {
+    contents = inquiry.inquiry_content.split('\n').map((it) => <p>{it}</p>);
+  }
 
-    function inquiryDelete() {
-        let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/inquiry/delete/" + id;
-        axios.delete(
-            url
-        ).then(() => {
-            alert("상품문의가 삭제되었습니다.");
-            navigate('/community/inquiry');
-        }).catch(error => {
-            alert("상품문의 삭제에 실패했습니다.");
-        })
-    }
+  function denyUpdate() {
+    alert("이미 답변이 완료되어 수정이 불가합니다.");
+  }
 
-    useEffect(() => {
-        axios
-            .get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/inquiryDetail/' + id)
-            .then((response) => {
-                setInquiry(response.data);
-            })
-            .catch(() => {
-                alert("선택한 데이터가 없습니다.");
-            });
-    }, []);
-
-    if (contents != null) {
-        contents = inquiry.inquiry_content.split('\n').map((it) => <p>{it}</p>);
-    }
-
-    function denyUpdate() {
-        alert("이미 답변이 완료되어 수정이 불가합니다.");
-    }
-
-    function Answer() {
-        if (inquiry.answer_content != null) {
-            return (
-                <table>
+  function Answer() {
+    if (inquiry.answer_content != null) {
+      return (
+        <table>
                     <tr>
                         <th scope="row">답변 작성일</th>
                         <td>{inquiry.answer_regdate}</td>
@@ -68,37 +70,37 @@ export default function InquiryDetail() {
                         <th scope="row">답변 내용</th>
                         <td><span>{inquiry.answer_content}</span></td>
                     </tr>
-                </table>
-            );
-        }
-    }
+                </table>);
 
-    function WriterButton() {
-        if (userName === inquiry.inquiry_writer) {
-            return (
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
+    }
+  }
+
+  function WriterButton() {
+    if (userName === inquiry.inquiry_writer) {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
                     {
-                        inquiry.answer_content == null ? (
-                            <Link to={`/board/inquiryUpdate/${id}`}>
+          inquiry.answer_content == null ?
+          <Link to={`/board/inquiryUpdate/${id}`}>
                                 <input style={{ marginRight: '50px' }} type="button" value="수정" />
-                            </Link>
-                        ) : (
-                                <input style={{ marginRight: '50px' }} type="button" value="수정" onClick={denyUpdate} />
-                        )
-                    }
-                    <input onClick={inquiryDelete} style={{ marginRight: '50px' }} type="button" value="삭제" />
-                </div>
-            );
-        }
-    }
+                            </Link> :
 
-    return (
-        <div className="InquiryDetail">
-            <div class="cateTitle">
+          <input style={{ marginRight: '50px' }} type="button" value="수정" onClick={denyUpdate} />}
+
+          
+                    <input onClick={inquiryDelete} style={{ marginRight: '50px' }} type="button" value="삭제" />
+                </div>);
+
+    }
+  }
+
+  return (
+    <div className={styles["InquiryDetail"]}>
+            <div className={commonStyles["cateTitle"]}>
                 <h1>상품문의</h1>
             </div>
 
-            <div class="boardPackage">
+            <div className={styles["boardPackage"]}>
                 <table>
                     <tr>
                         <th scope="row">제목</th>
@@ -122,7 +124,7 @@ export default function InquiryDetail() {
                     </tr>
                     <tr>
                         <td>
-                            <div class="contents">
+                            <div className={styles["contents"]}>
                                 {contents}
                             </div>
 
@@ -136,6 +138,6 @@ export default function InquiryDetail() {
                     <Link to="/community/inquiry"><input type="button" value="목록" /></Link>
                 </div>
             </div>
-        </div>
-    )
+        </div>);
+
 }

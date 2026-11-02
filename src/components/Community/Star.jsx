@@ -1,14 +1,15 @@
+import styles from "./Star.module.css";
 import React, { useState, useEffect } from 'react';
-import { FaStar } from 'react-icons/fa';  // 리액트 아이콘 사용하기 위함
-import './Star.css';
+import { FaStar } from 'react-icons/fa'; // 리액트 아이콘 사용하기 위함
+
 
 const Array = [0, 1, 2, 3, 4];
 
-function Star({ star }) { // 정수 타입의 매개변수를 Review.js로부터 받는다.
+function Star({ star }) {// 정수 타입의 매개변수를 Review.js로부터 받는다.
 
   const receivedStar = star;
 
-  const [starPackage, setStarPackage] = useState([false, false, false, false, false]);  // flase 5개를 담는 배열이 초기값으로 clicked 변수에 저장된다.
+  const [starPackage, setStarPackage] = useState([false, false, false, false, false]); // flase 5개를 담는 배열이 초기값으로 clicked 변수에 저장된다.
 
   const showStars = (number) => {
     let starContainer = [...starPackage];
@@ -16,7 +17,7 @@ function Star({ star }) { // 정수 타입의 매개변수를 Review.js로부터
       starContainer[i] = i < number ? true : false;
     }
     setStarPackage(starContainer);
-  }
+  };
 
   useEffect(() => {
     showStars(receivedStar);
@@ -29,12 +30,12 @@ function Star({ star }) { // 정수 타입의 매개변수를 Review.js로부터
           <FaStar
             key={index}
             size="20"
-            className={starPackage[index] && 'redStar'}
-          />
-        );
+            className={starPackage[index] && styles["redStar"]} />);
+
+
       })}
-    </div>
-  );
+    </div>);
+
 }
 
 export default Star;

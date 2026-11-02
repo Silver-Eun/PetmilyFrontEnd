@@ -1,15 +1,14 @@
-import './Cart.css'
-import './Findid.css';
-import './Findpw.css';
-import './Login.css'
-import './ManageBoard.css'
-import './MyPage.css'
-import './Order.css'
-import './OrderList.css'
-import './Profile.css'
-import './Signup.css'
-import './Success.css'
-import './Update.css'
+
+
+
+
+
+
+
+
+
+
+
 
 import { Route, Routes } from "react-router-dom";
 
@@ -30,24 +29,24 @@ import Success from './Success';
 import Update from './Update';
 
 function User({ cartItems, setCartItems, nothing, setNothing, onDelete, deleteOrder, increQuantity, decreQuantity, checkedItems, orderItems, allOrder, selectedOrder, allCheck, checkChange, calcProductPrice }) {
-    return (
-        <Routes>
+  return (
+    <Routes>
             <Route path="/cart" element={<Cart
-                cartItems={cartItems}
-                setCartItems={setCartItems}
-                nothing={nothing}
-                setNothing={setNothing}
-                onDelete={onDelete}
-                increQuantity={increQuantity}
-                decreQuantity={decreQuantity}
-                checkedItems={checkedItems}
-                orderItems={orderItems}
-                allOrder={allOrder}
-                selectedOrder={selectedOrder}
-                allCheck={allCheck}
-                checkChange={checkChange}
-                calcProductPrice={calcProductPrice}
-            />} />
+        cartItems={cartItems}
+        setCartItems={setCartItems}
+        nothing={nothing}
+        setNothing={setNothing}
+        onDelete={onDelete}
+        increQuantity={increQuantity}
+        decreQuantity={decreQuantity}
+        checkedItems={checkedItems}
+        orderItems={orderItems}
+        allOrder={allOrder}
+        selectedOrder={selectedOrder}
+        allCheck={allCheck}
+        checkChange={checkChange}
+        calcProductPrice={calcProductPrice} />} />
+      
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/myprofile" element={<Profile />} />
             <Route path="/mypage/manageboard/inquiry" element={<ManageInquiry />} />
@@ -63,8 +62,8 @@ function User({ cartItems, setCartItems, nothing, setNothing, onDelete, deleteOr
             <Route path="/update" element={<Update />} />
             <Route path="/success" element={<Success />} />
             
-        </Routes >
-    )
+        </Routes>);
+
 }
 
 export default User;

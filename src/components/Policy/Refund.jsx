@@ -1,15 +1,17 @@
+import styles from "./Refund.module.css";
+import commonStyles from "./../../Common.module.css";
 import React from "react";
 
 function Refund() {
-    return (
-        <div className="Refund">
-            <div className="cateTitle">
+  return (
+    <div className={styles["Refund"]}>
+            <div className={commonStyles["cateTitle"]}>
                 <h1>반품, 환불규정</h1>
             </div>
             <h2>반품/환불 규정 안내</h2>
             <hr />
 
-            <div className="nonScrollBox">
+            <div className={styles["nonScrollBox"]}>
                 <h3>단순 변심일 경우</h3>
                 <p>
                     상품 수령일로부터 7일 이내 교환/반품이 가능하며 왕복 택배비는 고객 부담입니다.
@@ -43,8 +45,8 @@ function Refund() {
                     *상품 준비중과 입금전에만 가능합니다.
                 </p>
             </div>
-        </div>
-    );
+        </div>);
+
 }
 
 export default Refund;

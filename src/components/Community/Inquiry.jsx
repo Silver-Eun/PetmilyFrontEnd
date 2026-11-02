@@ -1,102 +1,104 @@
+import styles from "./Inquiry.module.css";
+import commonStyles from "./../../Common.module.css";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
 function Pagination({ totalPages, currentPage, onPageChange }) {
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-        pages.push(
-            <a
-                key={i}
-                href="#"
-                className={i === currentPage ? 'active' : ''}
-                onClick={() => onPageChange(i)}
-            >
+  const pages = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push(
+      <a
+        key={i}
+        href="#"
+        className={i === currentPage ? styles["active"] : ''}
+        onClick={() => onPageChange(i)}>
+        
                 {i}
             </a>
-        );
-    }
+    );
+  }
 
-    return (
-        <div className="pagination">
+  return (
+    <div className={styles["pagination"]}>
             <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>&laquo;</button>
             {pages}
             <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>&raquo;</button>
-        </div>
-    );
+        </div>);
+
 }
 
 function Inquiry() {
-    const [inquiry, setInquiry] = useState([]);
-    const [searchCheck, setsearchCheck] = useState("all");
-    const [searchCriteria, setSearchCriteria] = useState("subject");
-    const [searchWord, setSearchWord] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
-    const [searchInput, setSearchInput] = useState("");
+  const [inquiry, setInquiry] = useState([]);
+  const [searchCheck, setsearchCheck] = useState("all");
+  const [searchCriteria, setSearchCriteria] = useState("subject");
+  const [searchWord, setSearchWord] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const [searchInput, setSearchInput] = useState("");
 
-    const isLoggedIn =
-        sessionStorage.getItem("loggedInUser");
-    const user = isLoggedIn ? JSON.parse(isLoggedIn) : null;
-    const userName = user ? user.user_name : ''; // 유저 이름 변수
+  const isLoggedIn =
+  sessionStorage.getItem("loggedInUser");
+  const user = isLoggedIn ? JSON.parse(isLoggedIn) : null;
+  const userName = user ? user.user_name : ''; // 유저 이름 변수
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        setInquiry([]); // 검색 결과 초기화
-        setsearchCheck(e.target.searchCheck.value);
-        setSearchCriteria(e.target.searchCriteria.value);
-        setSearchWord(e.target.searchWord.value); // 검색어 업데이트
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setInquiry([]); // 검색 결과 초기화
+    setsearchCheck(e.target.searchCheck.value);
+    setSearchCriteria(e.target.searchCriteria.value);
+    setSearchWord(e.target.searchWord.value); // 검색어 업데이트
+  };
+
+  useEffect(() => {
+    setCurrentPage(1); // 검색 매개변수가 변경될 때 currentPage를 1로 재설정
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/inquiry/list', {
+          params: {
+            searchCheck,
+            searchCriteria,
+            searchWord
+          }
+        });
+        setInquiry(response.data);
+      } catch (error) {
+        alert("자료가 없습니다.");
+      }
     };
+    fetchData();
+  }, [searchCheck, searchCriteria, searchWord, setCurrentPage]);
 
-    useEffect(() => {
-        setCurrentPage(1); // 검색 매개변수가 변경될 때 currentPage를 1로 재설정
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/inquiry/list', {
-                    params: {
-                        searchCheck,
-                        searchCriteria,
-                        searchWord,
-                    }
-                });
-                setInquiry(response.data);
-            } catch (error) {
-                alert("자료가 없습니다.");
-            }
-        };
-        fetchData();
-    }, [searchCheck, searchCriteria, searchWord, setCurrentPage]);
-
-    function AnswerCheck(inquiry) {
-        if (inquiry.answer_content != null) {
-            return <td style={{ color: 'blue' }}>답변완료</td>
-        } else {
-            return <td style={{ color: 'red' }}>확인중</td>
-        }
+  function AnswerCheck(inquiry) {
+    if (inquiry.answer_content != null) {
+      return <td style={{ color: 'blue' }}>답변완료</td>;
+    } else {
+      return <td style={{ color: 'red' }}>확인중</td>;
     }
+  }
 
-    function AccessWirte() {
-        if (userName !== '') {
-            return (
-                <div className="board_write">
+  function AccessWirte() {
+    if (userName !== '') {
+      return (
+        <div className={styles["board_write"]}>
                     <Link to="/board/inquiryWrite">글쓰기</Link>
-                </div>
-            );
-        }
+                </div>);
+
     }
+  }
 
-    const paginatedData = () => {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        return inquiry.slice(startIndex, endIndex);
-    };
+  const paginatedData = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return inquiry.slice(startIndex, endIndex);
+  };
 
-    return (
-        <div className="Inquiry">
-            <div className="cateTitle">
+  return (
+    <div className={styles["Inquiry"]}>
+            <div className={commonStyles["cateTitle"]}>
                 <h1>상품문의</h1>
             </div>
-            <div className="commnunityList">
+            <div className={styles["commnunityList"]}>
                 <ul>
                     <li><Link to="/community/notice">공지사항</Link></li>
                     <li><a href="/community/inquiry">상품문의</a></li>
@@ -105,14 +107,14 @@ function Inquiry() {
                 </ul>
             </div>
 
-            <div className="boardList">
+            <div className={styles["boardList"]}>
                 <table>
                     <colgroup>
-                        <col className="attr1" />
-                        <col className="attr2" />
-                        <col className="attr2" />
-                        <col className="attr3" />
-                        <col className="attr3" />
+                        <col className={styles["attr1"]} />
+                        <col className={styles["attr2"]} />
+                        <col className={styles["attr2"]} />
+                        <col className={styles["attr3"]} />
+                        <col className={styles["attr3"]} />
                     </colgroup>
                     <tr>
                         <th>제목</th>
@@ -123,25 +125,25 @@ function Inquiry() {
                     </tr>
                     {/* 데이터 매핑 */}
                     {paginatedData().map((i) =>
-                        <tr key={i.inquiry_id}>
+          <tr key={i.inquiry_id}>
                             <td><Link to={`./${i.inquiry_id}`}>{i.inquiry_title}</Link></td>
                             <td>{i.product_name}</td>
                             {AnswerCheck(i)}
                             <td>{i.inquiry_writer}</td>
                             <td>{i.inquiry_regdate}</td>
                         </tr>
-                    )}
+          )}
                 </table>
 
                 {/* 페이지네이션 UI */}
                 <Pagination
-                    totalPages={Math.ceil(inquiry.length / itemsPerPage)}
-                    currentPage={currentPage}
-                    onPageChange={setCurrentPage}
-                />
-                <div name="search" className="search">
+          totalPages={Math.ceil(inquiry.length / itemsPerPage)}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage} />
+        
+                <div name="search" className={styles["search"]}>
                     <form onSubmit={handleSearch}>
-                        <div className="searchConditions">
+                        <div className={styles["searchConditions"]}>
                             <div>
                                 <select name="searchCheck">
                                     <option value="all">전체</option>
@@ -156,15 +158,15 @@ function Inquiry() {
                                 </select>
                             </div>
                         </div>
-                        <div className="searchInput">
+                        <div className={styles["searchInput"]}>
                             <div>
                                 <input
-                                    className="searchWord"
-                                    name="searchWord"
-                                    type="text"
-                                    value={searchInput}
-                                    onChange={(e) => setSearchInput(e.target.value)}
-                                />
+                  className={styles["searchWord"]}
+                  name="searchWord"
+                  type="text"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)} />
+                
                                 <input type="submit" value="검색" />
                             </div>
                             <AccessWirte />
@@ -172,8 +174,8 @@ function Inquiry() {
                     </form>
                 </div>
             </div>
-        </div>
-    );
+        </div>);
+
 }
 
 export default Inquiry;

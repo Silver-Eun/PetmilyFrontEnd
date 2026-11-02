@@ -1,0 +1,380 @@
+.table {
+  font-style: bold;
+  margin: 0 auto;
+}
+
+.emessage {
+    color: red;
+    font-size: x-small;
+    font-style: italic;
+    margin-left: 10px;
+}
+
+.zipcodebox {
+    width: 50%;
+    height: 48px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: solid 1px silver;
+    background-color: #F8F8F8;
+    margin-left: 10px;
+}
+
+.zipcodebtn {
+    width: 200px;
+    height: 48px;
+    color: #ffffff;
+    font-size: 16px;
+    background-color: rgb(25, 50, 100);
+    border-radius: 6px;
+    display: inline-block;
+    text-align: center;
+    border: solid 1px silver;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.birth {
+    display: inline-block;
+    width: 150px;
+    height: 48px;
+    border-radius: 6px;
+    /* margin-bottom: 10px; */
+    margin-left: 10px;
+    border: solid 1px silver;
+}
+
+.birthbox {
+    width: 100%;
+    height: 48px;
+    /* margin-bottom: 10px; */
+}
+
+.numberbox {
+    width: 100%;
+    height: 48px;
+    margin-bottom: 10px;
+}
+
+.zipcodebox::placeholder {
+    color: #D2D2D2;
+}
+
+.number {
+    width: 150px;
+    height: 48px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    /* margin-bottom: 10px; */
+    border-radius: 6px;
+    background-color: #F8F8F8;
+    margin-left: 10px;
+    border: solid 1px silver;
+}
+
+.table {
+    text-align: left;
+    font-style: bold;
+}
+
+.Update * {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+.Update {
+    /* font-size: 14px; */
+    margin: auto;
+}
+
+.Update h1 {
+    margin: 60px auto;
+    text-align: center;
+}
+
+.emessage {
+    color: red;
+    font-size: x-small;
+    font-style: italic;
+    margin-left: 10px;
+}
+
+.update {
+    width: 700px;
+    padding: 0 40px 60px 40px;
+    box-sizing: border-box;
+    margin: auto;
+    text-align: center;
+
+}
+
+.Update>select {
+    width: 50px;
+    padding: 10px;
+    display: block;
+    border: solid 1px silver;
+    background-color: #F8F8F8;
+}
+
+.updatebox {
+    width: 100%;
+    height: 48px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: solid 1px silver;
+    background-color: #F8F8F8;
+    margin-left: 10px;
+}
+
+.zipcodebox {
+    width: 50%;
+    height: 48px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: solid 1px silver;
+    background-color: #F8F8F8;
+    margin-left: 10px;
+}
+
+.zipcodebtn {
+    width: 200px;
+    height: 48px;
+    color: #ffffff;
+    font-size: 16px;
+    background-color: rgb(25, 50, 100);
+    border-radius: 6px;
+    display: inline-block;
+    text-align: center;
+    border: solid 1px silver;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.zipcodebtn:hover {
+    cursor: pointer;
+}
+
+.pwBtn {
+    width: 200px;
+    height: 48px;
+    color: #ffffff;
+    font-size: 16px;
+    background-color: rgb(25, 50, 100);
+    border-radius: 6px;
+    display: inline-block;
+    text-align: center;
+    border: solid 1px silver;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.pwBtn:hover {
+    cursor: pointer;
+}
+
+.birth {
+    display: inline-block;
+    width: 150px;
+    height: 48px;
+    border-radius: 6px;
+    /* margin-bottom: 10px; */
+    margin-left: 10px;
+    border: solid 1px silver;
+}
+
+.birthbox {
+    width: 100%;
+    height: 48px;
+    /* margin-bottom: 10px; */
+}
+
+.numberbox {
+    width: 100%;
+    height: 48px;
+    margin-bottom: 10px;
+}
+
+.updatebox::placeholder {
+    color: #D2D2D2;
+}
+
+.zipcodebox::placeholder {
+    color: #D2D2D2;
+}
+
+.updateBtn {
+    width: 500px;
+    height: 48px;
+    color: #ffffff;
+    font-size: 16px;
+    background-color: rgb(25, 50, 100);
+    border-radius: 6px;
+    display: inline-block;
+    text-align: center;
+    border: solid 1px silver;
+    margin-top: 10px;
+}
+
+.updateBtn:hover {
+    cursor: pointer;
+}
+
+.number {
+    width: 150px;
+    height: 48px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    /* margin-bottom: 10px; */
+    border-radius: 6px;
+    background-color: #F8F8F8;
+    margin-left: 10px;
+    border: solid 1px silver;
+}
+
+.table {
+    text-align: left;
+    font-style: bold;
+}
+
+.Update>input {
+    text-align: center;
+}
+
+.Update select option[value=""][disabled] {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+  .profile_form,
+.sign_up,
+.update {
+    width: 100%;
+    padding: 0 16px 40px;
+  }
+
+  .sign_up .table,
+.update .table {
+    display: block;
+    width: 100%;
+  }
+
+  .sign_up .table tbody,
+.update .table tbody,
+.sign_up .table tr,
+.update .table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .sign_up .table tr,
+.update .table tr {
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .sign_up .table th,
+.update .table th {
+    display: block;
+    width: 100%;
+    padding: 0 0 6px;
+  }
+
+  .sign_up .table td,
+.update .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .sign_up .signupbox,
+.update .updatebox,
+.update .updatepwbox {
+    width: 100%;
+    margin: 0 0 6px;
+  }
+
+  .sign_up .emessage,
+.update .emessage {
+    display: block;
+    margin: 2px 0 0;
+  }
+
+  .birthbox,
+.numberbox {
+    display: flex;
+    width: 100%;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .sign_up .birth,
+.update .birth {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .sign_up .number,
+.update .number {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .sign_up .zipcodebox,
+.update .zipcodebox {
+    width: calc(100% - 112px);
+    margin: 0;
+  }
+
+  .sign_up .zipcodebtn,
+.update .zipcodebtn {
+    width: 104px;
+    margin: 0 0 0 4px;
+    font-size: 13px;
+  }
+
+  .pwBtn {
+    width: 100%;
+    margin: 0;
+  }
+
+  .updatebox,
+.updatepwbox {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .updateBtn {
+    width: 100%;
+  }
+
+  .zipcodebox {
+    width: calc(100% - 130px);
+    margin-left: 0;
+  }
+
+  .zipcodebtn {
+    width: 120px;
+    margin-left: 4px;
+  }
+
+  .birth {
+    width: 30%;
+    margin-left: 1%;
+  }
+
+  .number {
+    width: 30%;
+    margin-left: 1%;
+  }
+}

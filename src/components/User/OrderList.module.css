@@ -1,0 +1,180 @@
+.paginations {
+  margin: auto;
+  text-align: center;
+  padding: 40px;
+}
+
+.paginations a {
+  padding: 8px 16px;
+  text-decoration: none;
+  color: black;
+}
+
+.paginations a.active {
+  color: aliceblue;
+  background-color: rgb(25, 50, 100);
+}
+
+.listTitle {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.OrderList * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.orderListtitleArea {
+  width: 1120px;
+  margin: 60px auto;
+}
+
+.orderListtitleArea h1 {
+  text-align: center;
+  margin: 60px auto;
+}
+
+.orderListtitleArea {
+  width: 1120px;
+  margin: auto;
+}
+
+.listTitle {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.orderListInfo {
+  width: 1120px;
+  margin: auto auto 10px auto;
+  height: auto;
+  border: 1px solid gray;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.orderListInfo tbody,
+.orderListInfo tfoot {
+  border-top: 1px solid black;
+}
+
+.orderListInfo tr:not(:first-child) {
+  border-top: 1px solid black;
+}
+
+.orderListInfo a,
+.orderListInfo a:visited {
+  color: black;
+}
+
+.orderListImage img {
+  width: 100px;
+}
+
+.orderListInfo tbody td {
+  height: 100px;
+}
+
+.orderListInfo a {
+  text-decoration: none;
+}
+
+.paginations {
+  margin: auto;
+  text-align: center;
+  padding: 40px;
+}
+
+.paginations a {
+  padding: 8px 16px;
+  text-decoration: none;
+  color: black;
+}
+
+.paginations a.active {
+  color: aliceblue;
+  background-color: rgb(25, 50, 100);
+}
+
+@media (max-width: 768px) {
+
+  .Guide,
+.titleArea,
+.cartProcess,
+.cartProduct,
+.Cart .Guide,
+.cartProcess2,
+.orderTitleArea,
+.orderCartInfo,
+:global(#orderForm),
+.orderListtitleArea,
+.mypageTitleArea,
+.myOrder,
+.shopMain,
+.profile_form,
+.login_,
+.find_ID,
+.find_PW,
+.Success {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .paginations {
+    padding: 24px 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .paginations a {
+    padding: 8px 10px;
+  }
+
+  .orderListInfo,
+.cartInfo,
+.orderCartInfo {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .Cart,
+.Order,
+.OrderList {
+    padding: 0 12px;
+  }
+
+  .titleArea,
+.orderTitleArea,
+.orderListtitleArea,
+.mypageTitleArea {
+    margin: 30px auto 18px;
+    padding: 0 4px;
+  }
+
+  .titleArea h1,
+.orderTitleArea h1,
+.orderListtitleArea h1,
+.mypageTitleArea h1 {
+    margin: 28px auto;
+  }
+}
+
+.orderListArea {}
+
+.orderDate {}
+
+.orderNumber {}
+
+.orderProduct {}
+
+.orderQuantity {}
+
+.orderPrice {}
+
+.orderState {}

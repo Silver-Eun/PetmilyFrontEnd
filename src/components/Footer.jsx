@@ -1,10 +1,10 @@
-import "./Footer.css";
+import styles from "./Footer.module.css";
 import React from "react";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
-    <div className="Footer">
+    <div className={styles["Footer"]}>
       <div>
         <h1>Petmily</h1>
         <ul>
@@ -36,8 +36,8 @@ function Footer() {
           </ul>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 export default React.memo(Footer);

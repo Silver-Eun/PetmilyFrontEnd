@@ -1,3 +1,4 @@
+import styles from "./MyPage.module.css";
 import { Link } from "react-router-dom";
 
 // 이미지
@@ -8,16 +9,16 @@ import cart from "../../assets/Images/mypage/cart.png";
 
 function MyPage() {
   return (
-    <div className="MyPage">
-      <div className="mypageTitleArea">
+    <div className={styles["MyPage"]}>
+      <div className={styles["mypageTitleArea"]}>
         <ul type="square">
           <h1>마이 페이지</h1>
         </ul>
       </div>
-      <div className="shopMain">
+      <div className={styles["shopMain"]}>
         <Link to="/user/orderList">
-          <div className="orderList">
-            <div className="orderListImg">
+          <div className={styles["orderList"]}>
+            <div className={styles["orderListImg"]}>
               <img src={order} alt="" />
             </div>
             <strong></strong>
@@ -26,8 +27,8 @@ function MyPage() {
           </div>
         </Link>
         <Link to="/user/mypage/myprofile">
-          <div className="profil">
-            <div className="orderListImg">
+          <div className={styles["profil"]}>
+            <div className={styles["orderListImg"]}>
               <img src={profile} alt="" />
             </div>
             <strong></strong>
@@ -36,8 +37,8 @@ function MyPage() {
           </div>
         </Link>
         <Link to="/user/mypage/manageBoard/inquiry">
-          <div className="board">
-            <div className="orderListImg">
+          <div className={styles["board"]}>
+            <div className={styles["orderListImg"]}>
               <img src={board} alt="" />
             </div>
             <strong></strong>
@@ -46,8 +47,8 @@ function MyPage() {
           </div>
         </Link>
         <Link to="/user/cart">
-          <div className="cart">
-            <div className="orderListImg">
+          <div className={styles["cart"]}>
+            <div className={styles["orderListImg"]}>
               <img src={cart} alt="" />
             </div>
             <strong></strong>
@@ -56,8 +57,8 @@ function MyPage() {
           </div>
         </Link>
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 export default MyPage;

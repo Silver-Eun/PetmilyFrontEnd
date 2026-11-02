@@ -1,42 +1,43 @@
-import "./Event.css";
+import styles from "./Event.module.css";
+import commonStyles from "./../../Common.module.css";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
 import EventItem from "./EventItem";
 
 function Event() {
-    const [eventData, setEventData] = useState(null);
+  const [eventData, setEventData] = useState(null);
 
-    useEffect(() => {
-        axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/eventList')
-            .then((response) => {
-                setEventData(response.data);
-            })
-            .catch(() => {
-                alert("이벤트 목록 조회에 실패했습니다.");
-            });
-    }, []);
+  useEffect(() => {
+    axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/eventList').
+    then((response) => {
+      setEventData(response.data);
+    }).
+    catch(() => {
+      alert("이벤트 목록 조회에 실패했습니다.");
+    });
+  }, []);
 
-    const [selectedFilter, setSelectedFilter] = useState("all");
-    const handleFilterChange = (e) => {
-        setSelectedFilter(e.target.value);
-    };
+  const [selectedFilter, setSelectedFilter] = useState("all");
+  const handleFilterChange = (e) => {
+    setSelectedFilter(e.target.value);
+  };
 
-    const currentDate = new Date();
+  const currentDate = new Date();
 
-    const filteredData = eventData
-        ? eventData.filter(item => {
-            if (selectedFilter === "all") return true;
-            if (selectedFilter === "onGoing") return currentDate >= new Date(item.event_start) && currentDate <= new Date(item.event_end);
-            if (selectedFilter === "closed") return currentDate > new Date(item.event_end);
-            if (selectedFilter === "beforeOpen") return currentDate < new Date(item.event_start);
-            return true;
-        })
-        : [];
+  const filteredData = eventData ?
+  eventData.filter((item) => {
+    if (selectedFilter === "all") return true;
+    if (selectedFilter === "onGoing") return currentDate >= new Date(item.event_start) && currentDate <= new Date(item.event_end);
+    if (selectedFilter === "closed") return currentDate > new Date(item.event_end);
+    if (selectedFilter === "beforeOpen") return currentDate < new Date(item.event_start);
+    return true;
+  }) :
+  [];
 
-    return (
-        <div className="Event">
-            <div className="cateTitle">
+  return (
+    <div className={styles["Event"]}>
+            <div className={commonStyles["cateTitle"]}>
                 <h1>이벤트</h1>
             </div>
             <hr />
@@ -53,11 +54,11 @@ function Event() {
                 </div>
 
                 <div id="eventList">
-                    {filteredData.map(item => (<EventItem key={item.event_id} it={item} />))}
+                    {filteredData.map((item) => <EventItem key={item.event_id} it={item} />)}
                 </div>
             </div>
-        </div>
-    );
+        </div>);
+
 }
 
 export default Event;

@@ -1,0 +1,120 @@
+.Introduce {
+    width: 100%;
+    padding: 50px 0;
+
+    display: flex;
+}
+
+.Introduce hr {
+    width: 5px;
+    height : 100px;
+    background-color : rgb(25, 50, 100);
+}
+
+.introducebox {
+    width: calc(100%/4);
+    height: 357.6px;
+}
+
+.introducebox>div {
+    padding: 0 20px;
+}
+
+.introducebox span {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: rgb(25, 50, 100);
+}
+
+.introducebox a {
+    font-size: 32px;
+    color: silver;
+
+    font-weight: bold;
+}
+
+.introducebox p {
+    padding: 10px 0;
+    word-break: keep-all;
+}
+
+.introducebox a:hover {
+    color: rgb(25, 50, 100);
+}
+
+.productList {
+    width: calc(100%*3/4);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    margin: 0;
+}
+
+.productList img {
+    height: 250px;
+}
+
+@media (max-width: 768px) {
+
+  .Introduce {
+    padding: 28px 0;
+    display: grid;
+    grid-template-columns: 5px minmax(0, 1fr);
+    align-items: start;
+    column-gap: 12px;
+    row-gap: 12px;
+  }
+
+  .introducebox {
+    grid-column: 2;
+    width: auto;
+    height: auto;
+    padding: 0 0 12px;
+  }
+
+  .Introduce > hr {
+    grid-column: 1;
+    grid-row: 1;
+    width: 5px;
+    height: 32px;
+    margin: 0;
+  }
+
+  .Introduce > .productList {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .introducebox > div {
+    padding: 0 4px;
+  }
+
+  .introducebox a {
+    font-size: 24px;
+  }
+
+  .productList {
+    width: 100%;
+  }
+
+  .productList > div > a img {
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    object-position: center;
+    padding: 4px;
+    background: #fff;
+  }
+
+  .productList {
+    column-gap: 0;
+    justify-content: flex-start;
+  }
+
+  .productList > :global(.ProductItem) {
+    width: 50%;
+    margin-bottom: 24px;
+  }
+}

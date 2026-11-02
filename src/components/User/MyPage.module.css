@@ -1,0 +1,155 @@
+.MyPage * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mypageTitleArea {
+  width: 1120px;
+  margin: 60px auto 10px;
+}
+
+.mypageTitleArea h1 {
+  text-align: center;
+  margin: 60px auto;
+}
+
+.mypageTitleArea div {
+  font-weight: bold;
+}
+
+.mypageTitleArea div span {
+  font-weight: normal;
+}
+
+.shopMain {
+  width: 1120px;
+  height: 250px;
+  margin: auto;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.shopMain a {
+  text-decoration: none;
+}
+
+.shopMain p {
+  text-align: center;
+  word-break: keep-all;
+}
+
+.orderList,
+.profil,
+.board,
+.cart {
+  width: 210px;
+  height: 220px;
+  padding: 10px;
+  border: 3px solid silver;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: black;
+  white-space: wrap;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.orderListImg img {
+  width: 65px;
+  height: 60px;
+}
+
+.orderList img {
+  padding-left: 16px;
+}
+
+.board img {
+  padding-left: 15px;
+}
+
+.cart img {
+  padding-right: 10px;
+}
+
+@media (max-width: 768px) {
+
+  .Guide,
+.titleArea,
+.cartProcess,
+.cartProduct,
+.Cart .Guide,
+.cartProcess2,
+.orderTitleArea,
+.orderCartInfo,
+:global(#orderForm),
+.orderListtitleArea,
+.mypageTitleArea,
+.myOrder,
+.shopMain,
+.profile_form,
+.login_,
+.find_ID,
+.find_PW,
+.Success {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .titleArea,
+.orderTitleArea,
+.orderListtitleArea,
+.mypageTitleArea {
+    margin: 30px auto 18px;
+    padding: 0 4px;
+  }
+
+  .titleArea h1,
+.orderTitleArea h1,
+.orderListtitleArea h1,
+.mypageTitleArea h1 {
+    margin: 28px auto;
+  }
+
+  .shopMain {
+    height: auto;
+    padding: 0 12px 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .shopMain > a {
+    width: calc(50% - 8px);
+    min-width: 0;
+  }
+
+  .orderList,
+.profil,
+.board,
+.cart {
+    width: 100%;
+    height: 170px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 420px) {
+
+  .shopMain {
+    gap: 8px;
+  }
+
+  .orderList,
+.profil,
+.board,
+.cart {
+    height: 150px;
+  }
+}

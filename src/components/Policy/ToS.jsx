@@ -1,14 +1,16 @@
+import styles from "./ToS.module.css";
+import commonStyles from "./../../Common.module.css";
 import React from "react";
 
 function Tos() {
-    return (
-        <div className="Tos">
-            <div className="cateTitle">
+  return (
+    <div className={styles["Tos"]}>
+            <div className={commonStyles["cateTitle"]}>
                 <h1>이용약관</h1>
             </div>
             <hr />
 
-            <div className="scrollBox">
+            <div className={styles["scrollBox"]}>
                 <p>
                     <h3>제1조</h3>
                     <p>
@@ -148,8 +150,8 @@ function Tos() {
                     </p>
                 </p>
             </div>
-        </div>
-    );
+        </div>);
+
 }
 
 export default Tos;

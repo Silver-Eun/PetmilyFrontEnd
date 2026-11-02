@@ -1,0 +1,14 @@
+.cartImage img {
+  width: 100px;
+}
+
+.increQuantity,
+.decreQuantity {
+  width: 20px;
+  line-height: 20px;
+  margin: 0 5px;
+  border: 0;
+  background-color: #fff;
+}
+
+.textlink {}

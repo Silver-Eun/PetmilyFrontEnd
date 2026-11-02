@@ -1,0 +1,143 @@
+:global(.ProductItem) * {
+    margin: 0;
+    padding: 0;
+}
+
+:global(.ProductItem) {
+    width: calc(100% / 3.3);
+    margin-bottom: 40px;
+}
+
+:global(.ProductItem) > div {
+    margin: 0 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+:global(.ProductItem)>a img {
+    width: 100%;
+    height: 300px;
+
+    box-sizing: border-box;
+    border: 1px solid silver;
+}
+
+:global(.ProductItem) .productName a {
+    color: rgb(25, 50, 100);
+}
+
+:global(.ProductItem) .productName,
+:global(.ProductItem) .productPrice {
+    padding: 2.5px 0;
+    font-weight: bold;
+}
+
+:global(.ProductItem) .originalPrice {
+    color: darkgray;
+    text-decoration: line-through;
+}
+
+:global(.ProductItem) .productPrice sup {
+    color: red;
+}
+
+:global(.ProductItem) .productComments {
+    font-size: 0.8em;
+}
+
+:global(.ProductItem) .productComments span {
+    color: red;
+}
+
+:global(.ProductItem) .discount {
+    text-decoration: line-through;
+    color: gray;
+}
+
+:global(.ProductItem) .gotoCart button {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+:global(.ProductItem) .gotoCart img {
+    width: 30px;
+    height: 30px;
+    margin: 2.5px 0;
+}
+
+.productName span {
+    font-size: 0.8em;
+}
+
+.productName :global(#star) {
+    color: red;
+}
+
+.productInfo .originalPrice {
+  color: darkgray;
+  text-decoration: line-through;
+}
+
+:global(.ProductItem) .productPrice sup {
+  color: red;
+}
+
+@media (max-width: 768px) {
+
+  .Products .productList > :global(.ProductItem) {
+    width: 50%;
+    margin-bottom: 24px;
+  }
+
+  :global(.ProductItem) > div {
+    margin: 0 6px;
+    gap: 6px;
+  }
+
+  :global(.ProductItem) > a img,
+.Products .productList :global(.ProductItem) > a img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    object-position: center;
+    padding: 4px;
+    background: #fff;
+  }
+
+  :global(.ProductItem) .productName,
+:global(.ProductItem) .productPrice {
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+
+  :global(.ProductItem) .productComments {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 420px) {
+
+  .Products .productList > :global(.ProductItem) {
+    width: 50%;
+  }
+
+  :global(.ProductItem) > div {
+    align-items: flex-start;
+  }
+
+  :global(.ProductItem) .gotoCart img {
+    width: 26px;
+    height: 26px;
+  }
+
+  :global(.ProductItem) .productName,
+:global(.ProductItem) .productPrice {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) { :global(.ProductItem) { width: 50%; margin-bottom: 24px; }
+}

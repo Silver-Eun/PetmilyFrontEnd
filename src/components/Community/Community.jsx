@@ -1,5 +1,4 @@
-import './Commnunity.css';
-import './CommnunityDetail.css';
+
 
 import { Route, Routes } from "react-router-dom";
 
@@ -14,8 +13,8 @@ import Faq from "./Faq";
 import FaqDetail from "./FaqDetail";
 
 export default function Community() {
-    return (
-        <Routes>
+  return (
+    <Routes>
             <Route path="/notice" element={<Notice />} />
             <Route path="/notice/:id" element={<NoticeDetail />} />
             <Route path="/inquiry" element={<Inquiry />} />
@@ -25,6 +24,6 @@ export default function Community() {
             <Route path="/review/:id" element={<ReviewDetail />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/faq/:id" element={<FaqDetail />} />
-        </Routes >
-    )
+        </Routes>);
+
 }

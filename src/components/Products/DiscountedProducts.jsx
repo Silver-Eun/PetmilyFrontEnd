@@ -1,88 +1,90 @@
+import styles from "./DiscountedProducts.module.css";
+import commonStyles from "./../../Common.module.css";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
 import ProductItem from "./ProductItem";
 
 function DiscountedProducts({ calcProductPrice, sortProducts, addCart }) {
-    const [discountedProductData, setDiscountedProductData] = useState([]);
+  const [discountedProductData, setDiscountedProductData] = useState([]);
 
-    useEffect(() => {
-        axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/discountedProductList')
-            .then((response) => {
-                setDiscountedProductData(response.data);
-            })
-            .catch((err) => {
-                alert("할인상품 불러오기에 실패했습니다.");
-            });
+  useEffect(() => {
+    axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/discountedProductList').
+    then((response) => {
+      setDiscountedProductData(response.data);
+    }).
+    catch((err) => {
+      alert("할인상품 불러오기에 실패했습니다.");
+    });
 
-        handleSort("newest");
-    }, []);
+    handleSort("newest");
+  }, []);
 
-    // 페이지네이션
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 9;
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // 페이지네이션
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-    const paginate = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
-    // 정렬
-    const [sortOption, setSortOption] = useState("default");
+  // 정렬
+  const [sortOption, setSortOption] = useState("default");
 
-    const handleSort = (option) => {
-        setSortOption(option);
-        setCurrentPage(1); // 페이지를 처음으로 리셋
-    };
+  const handleSort = (option) => {
+    setSortOption(option);
+    setCurrentPage(1); // 페이지를 처음으로 리셋
+  };
 
-    const currentItems = sortProducts(discountedProductData, sortOption).slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = sortProducts(discountedProductData, sortOption).slice(indexOfFirstItem, indexOfLastItem);
 
-    return (
-        <div className="Products">
-            <div className="cateTitle">
+  return (
+    <div className={styles["Products"]}>
+            <div className={commonStyles["cateTitle"]}>
                 <h1>할인상품</h1>
             </div>
             <hr />
 
-            <div className="sortButtons">
-                <button className={sortOption === "newest" ? "active" : ""} onClick={() => handleSort("newest")}>최신 등록일순</button>
-                <button className={sortOption === "highToLow" ? "active" : ""} onClick={() => handleSort("highToLow")}>가격 높은순</button>
-                <button className={sortOption === "lowToHigh" ? "active" : ""} onClick={() => handleSort("lowToHigh")}>가격 낮은순</button>
-                <button className={sortOption === "HighAvgStar" ? "active" : ""} onClick={() => handleSort("HighAvgStar")}>평점 높은순</button>
-                <button className={sortOption === "HighCntReview" ? "active" : ""} onClick={() => handleSort("HighCntReview")}>리뷰 많은순</button>
+            <div className={styles["sortButtons"]}>
+                <button className={sortOption === "newest" ? styles["active"] : ""} onClick={() => handleSort("newest")}>최신 등록일순</button>
+                <button className={sortOption === "highToLow" ? styles["active"] : ""} onClick={() => handleSort("highToLow")}>가격 높은순</button>
+                <button className={sortOption === "lowToHigh" ? styles["active"] : ""} onClick={() => handleSort("lowToHigh")}>가격 낮은순</button>
+                <button className={sortOption === "HighAvgStar" ? styles["active"] : ""} onClick={() => handleSort("HighAvgStar")}>평점 높은순</button>
+                <button className={sortOption === "HighCntReview" ? styles["active"] : ""} onClick={() => handleSort("HighCntReview")}>리뷰 많은순</button>
             </div>
 
-            <div className="productList">
-                {currentItems.map((item) => (<ProductItem key={item.id} it={item} calcProductPrice={calcProductPrice} addCart={addCart} />))}
+            <div className={styles["productList"]}>
+                {currentItems.map((item) => <ProductItem key={item.id} it={item} calcProductPrice={calcProductPrice} addCart={addCart} />)}
             </div>
 
             {/* 페이지네이션 컴포넌트 */}
-            <div className="pagination">
-                {currentPage > 1 && (
-                    <a className="first-page" onClick={() => paginate(1)}>
+            <div className={styles["pagination"]}>
+                {currentPage > 1 &&
+        <a className={styles["first-page"]} onClick={() => paginate(1)}>
                         처음 페이지
-                    </a>
-                )}
+                    </a>}
+        
 
-                {Array.from({ length: Math.ceil(discountedProductData.length / itemsPerPage) }).map((_, index) => (
-                    <a
-                        key={index}
-                        onClick={() => paginate(index + 1)}
-                        className={index + 1 === currentPage ? "active" : ""}
-                    >
+                {Array.from({ length: Math.ceil(discountedProductData.length / itemsPerPage) }).map((_, index) =>
+        <a
+          key={index}
+          onClick={() => paginate(index + 1)}
+          className={index + 1 === currentPage ? styles["active"] : ""}>
+          
                         {index + 1}
                     </a>
-                ))}
+        )}
 
-                {currentPage < Math.ceil(discountedProductData.length / itemsPerPage) && (
-                    <a className="last-page" onClick={() => paginate(Math.ceil(discountedProductData.length / itemsPerPage))}>
+                {currentPage < Math.ceil(discountedProductData.length / itemsPerPage) &&
+        <a className={styles["last-page"]} onClick={() => paginate(Math.ceil(discountedProductData.length / itemsPerPage))}>
                         마지막 페이지
-                    </a>
-                )}
+                    </a>}
+        
             </div>
-        </div>
-    );
+        </div>);
+
 }
 
 export default DiscountedProducts;

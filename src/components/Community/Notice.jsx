@@ -1,80 +1,82 @@
+import styles from "./Notice.module.css";
+import commonStyles from "./../../Common.module.css";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
 function Pagination({ totalPages, currentPage, onPageChange }) {
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-        pages.push(
-            <a
-                key={i}
-                href="#"
-                className={i === currentPage ? 'active' : ''}
-                onClick={() => onPageChange(i)}
-            >
+  const pages = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push(
+      <a
+        key={i}
+        href="#"
+        className={i === currentPage ? styles["active"] : ''}
+        onClick={() => onPageChange(i)}>
+        
                 {i}
             </a>
-        );
-    }
+    );
+  }
 
-    return (
-        <div className="pagination">
+  return (
+    <div className={styles["pagination"]}>
             <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>&laquo;</button>
             {pages}
             <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>&raquo;</button>
-        </div>
-    );
+        </div>);
+
 }
 
 function Notice() {
-    const [notice, setNotice] = useState([]);
-    const [searchPeriod, setSearchPeriod] = useState("all");
-    const [searchCriteria, setSearchCriteria] = useState("subject");
-    const [searchWord, setSearchWord] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
-    const [searchInput, setSearchInput] = useState("");
+  const [notice, setNotice] = useState([]);
+  const [searchPeriod, setSearchPeriod] = useState("all");
+  const [searchCriteria, setSearchCriteria] = useState("subject");
+  const [searchWord, setSearchWord] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const [searchInput, setSearchInput] = useState("");
 
-    const handleSearch = (e) => {   //기본 동작을 막고, 폼 제출 이벤트를 제어
-        e.preventDefault();
-        setNotice([]); // 검색 결과 초기화
-        setSearchPeriod(e.target.searchPeriod.value);
-        setSearchCriteria(e.target.searchCriteria.value);
-        setSearchWord(e.target.searchWord.value); // 검색어 업데이트
+  const handleSearch = (e) => {//기본 동작을 막고, 폼 제출 이벤트를 제어
+    e.preventDefault();
+    setNotice([]); // 검색 결과 초기화
+    setSearchPeriod(e.target.searchPeriod.value);
+    setSearchCriteria(e.target.searchCriteria.value);
+    setSearchWord(e.target.searchWord.value); // 검색어 업데이트
+  };
+
+  useEffect(() => {
+    setCurrentPage(1); // 검색 매개변수가 변경될 때 currentPage를 1로 재설정
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/notice/list', {
+          params: {
+            searchPeriod,
+            searchCriteria,
+            searchWord
+          }
+        });
+        setNotice(response.data);
+      } catch (error) {
+        alert("자료가 없습니다.");
+      }
     };
+    fetchData();
+  }, [searchPeriod, searchCriteria, searchWord, setCurrentPage]);
 
-    useEffect(() => {
-        setCurrentPage(1); // 검색 매개변수가 변경될 때 currentPage를 1로 재설정
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/notice/list', {
-                    params: {
-                        searchPeriod,
-                        searchCriteria,
-                        searchWord,
-                    }
-                });
-                setNotice(response.data);
-            } catch (error) {
-                alert("자료가 없습니다.");
-            }
-        };
-        fetchData();
-    }, [searchPeriod, searchCriteria, searchWord, setCurrentPage]);
+  const paginatedData = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return notice.slice(startIndex, endIndex);
+  };
 
-    const paginatedData = () => {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        return notice.slice(startIndex, endIndex);
-    };
-
-    return (
-        <div className="Notice">
-            <div className="cateTitle">
+  return (
+    <div className={styles["Notice"]}>
+            <div className={commonStyles["cateTitle"]}>
                 <h1>공지사항</h1>
             </div>
 
-            <div className="commnunityList">
+            <div className={styles["commnunityList"]}>
                 <ul>
                     <li><a href="/community/notice">공지사항</a></li>
                     <li><Link to="/community/inquiry">상품문의</Link></li>
@@ -83,12 +85,12 @@ function Notice() {
                 </ul>
             </div>
 
-            <div className="boardList">
+            <div className={styles["boardList"]}>
                 <table>
                     <colgroup>
-                        <col className="attr1" />
-                        <col className="attr2" />
-                        <col className="attr3" />
+                        <col className={styles["attr1"]} />
+                        <col className={styles["attr2"]} />
+                        <col className={styles["attr3"]} />
                     </colgroup>
                     <tr>
                         <th>제목</th>
@@ -97,22 +99,22 @@ function Notice() {
                     </tr>
                     {/* 데이터 매핑 */}
                     {paginatedData().map((n) =>
-                        <tr key={n.notice_id}>
+          <tr key={n.notice_id}>
                             <td><Link to={`./${n.notice_id}`}>{n.notice_title}</Link></td>
                             <td>{n.notice_writer}</td>
                             <td>{n.notice_regdate}</td>
                         </tr>
-                    )}
+          )}
                 </table>
                 {/* 페이지네이션 UI */}
                 <Pagination
-                    totalPages={Math.ceil(notice.length / itemsPerPage)}
-                    currentPage={currentPage}
-                    onPageChange={setCurrentPage}
-                />
-                <div name="search" className="search">
+          totalPages={Math.ceil(notice.length / itemsPerPage)}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage} />
+        
+                <div name="search" className={styles["search"]}>
                     <form onSubmit={handleSearch}>
-                        <div className="searchConditions">
+                        <div className={styles["searchConditions"]}>
                             <div>
                                 <select name="searchPeriod">
                                     <option value="all">전체</option>
@@ -126,23 +128,23 @@ function Notice() {
                                 </select>
                             </div>
                         </div>
-                        <div className="searchInput">
+                        <div className={styles["searchInput"]}>
                             <div>
                                 <input
-                                    className="searchWord"
-                                    name="searchWord"
-                                    type="text"
-                                    value={searchInput}
-                                    onChange={(e) => setSearchInput(e.target.value)}
-                                />
+                  className={styles["searchWord"]}
+                  name="searchWord"
+                  type="text"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)} />
+                
                                 <input type="submit" value="검색" />
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
-    );
+        </div>);
+
 }
 
 export default Notice;

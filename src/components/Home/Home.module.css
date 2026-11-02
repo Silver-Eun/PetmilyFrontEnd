@@ -1,0 +1,26 @@
+:global(.Home) {
+  width: 100%;
+}
+
+:global(.Home) * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+:global(#mainWrap) {
+  width: 100%;
+  max-width: 1120px;
+  box-sizing: border-box;
+  padding: 0 15px;
+  margin: auto;
+}
+
+@media (max-width: 768px) {
+  :global(#mainWrap) {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+}

@@ -1,4 +1,5 @@
-import "./ManageBoard.css";
+import styles from "./ManageInquiry.module.css";
+import commonStyles from "./../../Common.module.css";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -10,31 +11,31 @@ function Pagination({ totalPages, currentPage, onPageChange }) {
       <a
         key={i}
         href="#"
-        className={i === currentPage ? "active" : ""}
-        onClick={() => onPageChange(i)}
-      >
+        className={i === currentPage ? styles["active"] : ""}
+        onClick={() => onPageChange(i)}>
+        
         {i}
       </a>
     );
   }
 
   return (
-    <div className="paginations">
+    <div className={styles["paginations"]}>
       <button
         onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
+        disabled={currentPage === 1}>
+        
         &laquo;
       </button>
       {pages}
       <button
         onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
+        disabled={currentPage === totalPages}>
+        
         &raquo;
       </button>
-    </div>
-  );
+    </div>);
+
 }
 
 function ManageInquiry() {
@@ -52,8 +53,8 @@ function ManageInquiry() {
           params: {
             searchPeriod,
             searchCriteria,
-            searchWord,
-          },
+            searchWord
+          }
         });
         setInquiry(response.data);
       } catch (error) {
@@ -83,15 +84,15 @@ function ManageInquiry() {
 
   function inquiryDelete(id) {
     let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/inquiry/delete/" + id;
-    axios
-      .delete(url)
-      .then(() => {
-        alert("상품문의가 삭제 되었습니다.");
-        window.location.reload();
-      })
-      .catch(() => {
-        alert("상품문의 삭제에 실패했습니다.");
-      });
+    axios.
+    delete(url).
+    then(() => {
+      alert("상품문의가 삭제 되었습니다.");
+      window.location.reload();
+    }).
+    catch(() => {
+      alert("상품문의 삭제에 실패했습니다.");
+    });
   }
 
   if (contents != null) {
@@ -99,11 +100,11 @@ function ManageInquiry() {
   }
 
   return (
-    <div className="Inquiry">
-      <div className="cateTitle">
+    <div className={styles["Inquiry"]}>
+      <div className={commonStyles["cateTitle"]}>
         <h1>상품문의</h1>
       </div>
-      <div className="communityList">
+      <div className={styles["communityList"]}>
         <ul>
           <li>
             <Link to="/user/mypage/manageBoard/inquiry">상품문의</Link>
@@ -114,7 +115,7 @@ function ManageInquiry() {
         </ul>
       </div>
 
-      <div className="boards">
+      <div className={styles["boards"]}>
         <table>
           <colgroup>
             <col style={{ width: 100 }} />
@@ -135,8 +136,8 @@ function ManageInquiry() {
             <th>삭제</th>
           </tr>
           {/* 데이터 매핑 */}
-          {paginatedData().map((i) => (
-            <tr key={i.inquiry_id}>
+          {paginatedData().map((i) =>
+          <tr key={i.inquiry_id}>
               <td>
                 <Link to={`./${i.inquiry_id}`}>{i.inquiry_title}</Link>
               </td>
@@ -147,36 +148,36 @@ function ManageInquiry() {
               <td>
                 <Link to={`/board/inquiryUpdate/${i.inquiry_id}`}>
                   <input
-                    type="button"
-                    id="updateButton"
-                    name="updateButton"
-                    value="수정"
-                  />
+                  type="button"
+                  id="updateButton"
+                  name="updateButton"
+                  value="수정" />
+                
                 </Link>
               </td>
               <td>
                 <input
-                  onClick={() => {
-                    inquiryDelete(i.inquiry_id);
-                  }}
-                  type="button"
-                  id="deleteButton"
-                  name="deleteButton"
-                  value="삭제"
-                />
+                onClick={() => {
+                  inquiryDelete(i.inquiry_id);
+                }}
+                type="button"
+                id="deleteButton"
+                name="deleteButton"
+                value="삭제" />
+              
               </td>
             </tr>
-          ))}
+          )}
         </table>
         {/* 페이지네이션 UI */}
         <Pagination
           totalPages={Math.ceil(inquiry.length / itemsPerPage)}
           currentPage={currentPage}
-          onPageChange={setCurrentPage}
-        />
+          onPageChange={setCurrentPage} />
+        
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 export default ManageInquiry;

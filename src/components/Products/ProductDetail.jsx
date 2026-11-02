@@ -1,3 +1,4 @@
+import styles from "./ProductDetail.module.css";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 import axios from 'axios';
@@ -5,258 +6,258 @@ import axios from 'axios';
 import Star from "../Community/Star";
 
 function Pagination({ totalPages, currentPage, onPageChange }) {
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-        pages.push(
-            <a
-                key={i}
-                href="#"
-                className={i === currentPage ? 'active' : ''}
-                onClick={() => onPageChange(i)}
-            >
+  const pages = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push(
+      <a
+        key={i}
+        href="#"
+        className={i === currentPage ? styles["active"] : ''}
+        onClick={() => onPageChange(i)}>
+        
                 {i}
             </a>
-        );
-    }
+    );
+  }
 
-    return (
-        <div className="pagination">
+  return (
+    <div className={styles["pagination"]}>
             <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>&laquo;</button>
             {pages}
             <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>&raquo;</button>
-        </div>
-    );
+        </div>);
+
 }
 
 const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, nothing, setNothing }) => {
-    const { id } = useParams();
-    const [currentImage, setCurrentImage] = useState('');
-    const [productDetailData, setProductDetailData] = useState([]);
-    const [productImagesData, setProductImagesData] = useState([]);
-    const [quantity, setQuantity] = useState(1);
-    const navigate = useNavigate();
-    
-    const handleThumbnailClick = (imageUrl) => {
-        setCurrentImage(imageUrl);
-    };
+  const { id } = useParams();
+  const [currentImage, setCurrentImage] = useState('');
+  const [productDetailData, setProductDetailData] = useState([]);
+  const [productImagesData, setProductImagesData] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
 
-    const regDate = new Date(productDetailData.product_regdate);
-    const formattedDate = regDate.toLocaleString('ko-KR', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        timeZone: 'Asia/Seoul',
-    });
+  const handleThumbnailClick = (imageUrl) => {
+    setCurrentImage(imageUrl);
+  };
 
-    // 수량
-    const quantityChange = (event) => {
-        setQuantity(parseInt(event.target.value, 10));
-    };
+  const regDate = new Date(productDetailData.product_regdate);
+  const formattedDate = regDate.toLocaleString('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    timeZone: 'Asia/Seoul'
+  });
 
-    // 바로 구매하기
-    const handleAddToOrder = () => {
-        const loggedInUser = sessionStorage.getItem("loggedInUser");
+  // 수량
+  const quantityChange = (event) => {
+    setQuantity(parseInt(event.target.value, 10));
+  };
 
-        if (loggedInUser) {
-            addOrder({ ...productDetailData, product_cnt: quantity });
-            setQuantity(1);
-            navigate("/user/order");
-        } else {
-            alert("로그인 해주세요");
-        }
-    };
+  // 바로 구매하기
+  const handleAddToOrder = () => {
+    const loggedInUser = sessionStorage.getItem("loggedInUser");
 
-    // 장바구니 추가
-    function cartInsert(a, b) {
-        let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rscart/cartInsert/" + a + "/" + b;
-
-         const loggedInUser = sessionStorage.getItem("loggedInUser");
-
-        if (loggedInUser) {
-          axios
-            .post(url, { withCredentials: true })
-            .then(() => {
-                alert("장바구니에 상품이 추가되었습니다");
-                navigate("/user/cart");
-            })
-            .catch(() => {
-                alert("장바구니 추가에 실패했습니다.");
-            });
-        } else {
-          alert("로그인 해주세요");
-        }
+    if (loggedInUser) {
+      addOrder({ ...productDetailData, product_cnt: quantity });
+      setQuantity(1);
+      navigate("/user/order");
+    } else {
+      alert("로그인 해주세요");
     }
+  };
 
-    const scrollToAnchor = (anchorId) => {
-        const element = document.getElementById(anchorId);
-        if (element) {
-            const offsetPosition = element.offsetTop - 151;
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth",
-            });
-        }
-    };
+  // 장바구니 추가
+  function cartInsert(a, b) {
+    let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rscart/cartInsert/" + a + "/" + b;
 
-    const handleAnchorClick = (event, anchorId) => {
-        event.preventDefault();
-        scrollToAnchor(anchorId);
-    };
+    const loggedInUser = sessionStorage.getItem("loggedInUser");
 
-    // 상품 후기
-    const [review, setReview] = useState([]);
-
-    // 상품문의
-    const [inquiry, setInquiry] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
-
-    function AnswerCheck(inquiry) {
-        if (inquiry.answer_content != null) {
-            return <td style={{ color: 'blue' }}>답변완료</td>
-        } else {
-            return <td style={{ color: 'red' }}>확인중</td>
-        }
+    if (loggedInUser) {
+      axios.
+      post(url, { withCredentials: true }).
+      then(() => {
+        alert("장바구니에 상품이 추가되었습니다");
+        navigate("/user/cart");
+      }).
+      catch(() => {
+        alert("장바구니 추가에 실패했습니다.");
+      });
+    } else {
+      alert("로그인 해주세요");
     }
+  }
 
-    const paginatedInquiryData = () => {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        return inquiry.slice(startIndex, endIndex);
-    };
-
-    const paginateReviewdData = () => {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        return review.slice(startIndex, endIndex);
-    };
-
-    useEffect(() => {
-        const fetchProductData = async () => {
-            try {
-                const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/productDetail/${id}`);
-                setProductDetailData(response.data);
-            } catch (error) {
-                alert("상품 상세정보 불러오기에 실패했습니다.");
-            }
-        };
-
-        const fetchProductImageData = async () => {
-            try {
-                const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/productImage/${id}`);
-                setProductImagesData(response.data);
-            } catch (error) {
-                alert("상품 이미지 불러오기에 실패했습니다.");
-            }
-        };
-
-        const fetchInquiryData = async () => {
-            try {
-                const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/inquiry/list/${id}`);
-                setInquiry(response.data);
-            } catch (error) {
-                alert("자료가 없습니다.");
-            }
-        };
-
-        const fetchReviewData = async () => {
-            try {
-                const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/review/list/${id}`);
-                setReview(response.data);
-            } catch (error) {
-                alert("자료가 없습니다.");
-            }
-        };
-        fetchInquiryData();
-        fetchReviewData();
-        fetchProductImageData();
-        fetchProductData();
-
-    }, [id]);
-
-    // 스크롤
-    const [scrollPosition, setScrollPosition] = useState(0);
-    const [productDetailImgOffset, setProductDetailImgOffset] = useState(0);
-    const [productReviewOffset, setProductReviewOffset] = useState(0);
-    const [productQAOffset, setProductQAOffset] = useState(0);
-    const [buyGuideOffset, setBuyGuideOffset] = useState(0);
-    const productDetailImgRef = useRef(null);
-    const productReviewRef = useRef(null);
-    const productQARef = useRef(null);
-    const buyGuideRef = useRef(null);
-
-    useEffect(() => {
-        const calculateOffsets = () => {
-            if (productDetailImgRef.current && productReviewRef.current && productQARef.current && buyGuideRef.current) {
-                setProductDetailImgOffset(productDetailImgRef.current.offsetTop - 152);
-                setProductReviewOffset(productReviewRef.current.offsetTop - 152);
-                setProductQAOffset(productQARef.current.offsetTop - 152);
-                setBuyGuideOffset(buyGuideRef.current.offsetTop - 152);
-            }
-        };
-
-        const handleScroll = () => {
-            setScrollPosition(window.scrollY);
-        };
-
-        window.addEventListener("scroll", handleScroll);
-
-        calculateOffsets();
-        window.addEventListener("resize", calculateOffsets);
-
-        return () => {
-            window.removeEventListener("resize", calculateOffsets);
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, [scrollPosition, productDetailImgOffset, productReviewOffset, productQAOffset, buyGuideOffset]);
-
-    const isLoggedIn =
-        sessionStorage.getItem("loggedInUser");
-    const user = isLoggedIn ? JSON.parse(isLoggedIn) : null;
-    const userName = user ? user.user_name : null;
-
-    function AccessWrite() {
-        if (userName != null) {
-            return (
-                <Link to={`/board/reviewWrite2/${id}`}>후기작성</Link>
-            );
-        }
+  const scrollToAnchor = (anchorId) => {
+    const element = document.getElementById(anchorId);
+    if (element) {
+      const offsetPosition = element.offsetTop - 151;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
     }
+  };
 
-    return (
-        <div className="ProductDetail">
-            <div className="productPage">
-                <div className="productImage">
+  const handleAnchorClick = (event, anchorId) => {
+    event.preventDefault();
+    scrollToAnchor(anchorId);
+  };
+
+  // 상품 후기
+  const [review, setReview] = useState([]);
+
+  // 상품문의
+  const [inquiry, setInquiry] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  function AnswerCheck(inquiry) {
+    if (inquiry.answer_content != null) {
+      return <td style={{ color: 'blue' }}>답변완료</td>;
+    } else {
+      return <td style={{ color: 'red' }}>확인중</td>;
+    }
+  }
+
+  const paginatedInquiryData = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return inquiry.slice(startIndex, endIndex);
+  };
+
+  const paginateReviewdData = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return review.slice(startIndex, endIndex);
+  };
+
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/productDetail/${id}`);
+        setProductDetailData(response.data);
+      } catch (error) {
+        alert("상품 상세정보 불러오기에 실패했습니다.");
+      }
+    };
+
+    const fetchProductImageData = async () => {
+      try {
+        const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/productImage/${id}`);
+        setProductImagesData(response.data);
+      } catch (error) {
+        alert("상품 이미지 불러오기에 실패했습니다.");
+      }
+    };
+
+    const fetchInquiryData = async () => {
+      try {
+        const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/inquiry/list/${id}`);
+        setInquiry(response.data);
+      } catch (error) {
+        alert("자료가 없습니다.");
+      }
+    };
+
+    const fetchReviewData = async () => {
+      try {
+        const response = await axios.get(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsproduct/review/list/${id}`);
+        setReview(response.data);
+      } catch (error) {
+        alert("자료가 없습니다.");
+      }
+    };
+    fetchInquiryData();
+    fetchReviewData();
+    fetchProductImageData();
+    fetchProductData();
+
+  }, [id]);
+
+  // 스크롤
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [productDetailImgOffset, setProductDetailImgOffset] = useState(0);
+  const [productReviewOffset, setProductReviewOffset] = useState(0);
+  const [productQAOffset, setProductQAOffset] = useState(0);
+  const [buyGuideOffset, setBuyGuideOffset] = useState(0);
+  const productDetailImgRef = useRef(null);
+  const productReviewRef = useRef(null);
+  const productQARef = useRef(null);
+  const buyGuideRef = useRef(null);
+
+  useEffect(() => {
+    const calculateOffsets = () => {
+      if (productDetailImgRef.current && productReviewRef.current && productQARef.current && buyGuideRef.current) {
+        setProductDetailImgOffset(productDetailImgRef.current.offsetTop - 152);
+        setProductReviewOffset(productReviewRef.current.offsetTop - 152);
+        setProductQAOffset(productQARef.current.offsetTop - 152);
+        setBuyGuideOffset(buyGuideRef.current.offsetTop - 152);
+      }
+    };
+
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    calculateOffsets();
+    window.addEventListener("resize", calculateOffsets);
+
+    return () => {
+      window.removeEventListener("resize", calculateOffsets);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrollPosition, productDetailImgOffset, productReviewOffset, productQAOffset, buyGuideOffset]);
+
+  const isLoggedIn =
+  sessionStorage.getItem("loggedInUser");
+  const user = isLoggedIn ? JSON.parse(isLoggedIn) : null;
+  const userName = user ? user.user_name : null;
+
+  function AccessWrite() {
+    if (userName != null) {
+      return (
+        <Link to={`/board/reviewWrite2/${id}`}>후기작성</Link>);
+
+    }
+  }
+
+  return (
+    <div className={styles["ProductDetail"]}>
+            <div className={styles["productPage"]}>
+                <div className={styles["productImage"]}>
                     <img
-                        src={currentImage || `${process.env.PUBLIC_URL}/Images/products/${productDetailData.product_mainimagepath}`}
-                        alt={productDetailData.product_mainimagepath}
-                        width="500px"
-                        height="400px"
-                    />
-                    <div className="detailGallery">
+            src={currentImage || `${process.env.PUBLIC_URL}/Images/products/${productDetailData.product_mainimagepath}`}
+            alt={productDetailData.product_mainimagepath}
+            width="500px"
+            height="400px" />
+          
+                    <div className={styles["detailGallery"]}>
                         <img
-                            src={`${process.env.PUBLIC_URL}/Images/products/${productDetailData.product_mainimagepath}`}
-                            alt={productDetailData.product_mainimagepath}
-                            className="detailImages"
-                            onClick={() => handleThumbnailClick(`${process.env.PUBLIC_URL}/Images/products/${encodeURIComponent(productDetailData.product_mainimagepath)}`)}
-                        />
-                        {productImagesData.map((image, index) => (
-                            <img
-                                key={index}
-                                src={`${process.env.PUBLIC_URL}/Images/products/${encodeURIComponent(image.product_imagepath)}`}
-                                alt={`Thumbnail ${index}`}
-                                className="detailImages"
-                                onClick={() => handleThumbnailClick(`${process.env.PUBLIC_URL}/Images/products/${encodeURIComponent(image.product_imagepath)}`)}
-                            />
-                        ))}
+              src={`${process.env.PUBLIC_URL}/Images/products/${productDetailData.product_mainimagepath}`}
+              alt={productDetailData.product_mainimagepath}
+              className={styles["detailImages"]}
+              onClick={() => handleThumbnailClick(`${process.env.PUBLIC_URL}/Images/products/${encodeURIComponent(productDetailData.product_mainimagepath)}`)} />
+            
+                        {productImagesData.map((image, index) =>
+            <img
+              key={index}
+              src={`${process.env.PUBLIC_URL}/Images/products/${encodeURIComponent(image.product_imagepath)}`}
+              alt={`Thumbnail ${index}`}
+              className={styles["detailImages"]}
+              onClick={() => handleThumbnailClick(`${process.env.PUBLIC_URL}/Images/products/${encodeURIComponent(image.product_imagepath)}`)} />
+
+            )}
                     </div>
 
-                    <div className="regDate">
+                    <div className={styles["regDate"]}>
                         상품 등록일 : {formattedDate}
                     </div>
                 </div>
 
-                <table className="productInfo">
+                <table className={styles["productInfo"]}>
                     <tbody>
                         <tr>
                             <th>상품명</th>
@@ -269,32 +270,32 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
                         <tr>
                             <th>가격</th>
                             <td>
-                                {productDetailData.promotion_discount ? (
-                                    <p className="productPrice">
-                                        <span className="originalPrice">{productDetailData.product_price.toLocaleString()}원</span>
+                                {productDetailData.promotion_discount ?
+                <p className={styles["productPrice"]}>
+                                        <span className={styles["originalPrice"]}>{productDetailData.product_price.toLocaleString()}원</span>
                                         <span>{calcProductPrice(productDetailData.product_price, productDetailData.promotion_discount)}원</span>
-                                    </p>
-                                ) : (
-                                    <p className="productPrice">
+                                    </p> :
+
+                <p className={styles["productPrice"]}>
                                         <span>{productDetailData.product_price ? `${productDetailData.product_price.toLocaleString()}원` : "가격 정보 없음"}</span>
-                                    </p>
-                                )}
+                                    </p>}
+                
                             </td>
                         </tr>
                         <tr>
                             <th>수량</th>
                             <td>
                                 <select
-                                    name="quantity"
-                                    id="quantity"
-                                    value={quantity}
-                                    onChange={quantityChange}
-                                >
-                                    {Array.from({ length: 100 }, (_, i) => (
-                                        <option key={i + 1} value={i + 1}>
+                  name="quantity"
+                  id="quantity"
+                  value={quantity}
+                  onChange={quantityChange}>
+                  
+                                    {Array.from({ length: 100 }, (_, i) =>
+                  <option key={i + 1} value={i + 1}>
                                             {i + 1}
                                         </option>
-                                    ))}
+                  )}
                                 </select>
                             </td>
                         </tr>
@@ -306,19 +307,19 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
                             <td colSpan="2">
                                 {/* <Link to={`/user/order`}> */}
                                     <button
-                                        className="buySoon"
-                                        quantity={quantity}
-                                        onClick={() => handleAddToOrder(productDetailData)}
-                                    >
+                  className={styles["buySoon"]}
+                  quantity={quantity}
+                  onClick={() => handleAddToOrder(productDetailData)}>
+                  
                                         바로구매하기
                                     </button>
                                 {/* </Link> */}
                                 {/* <Link to={`/user/cart`}> */}
                                     <button
-                                        className="buyCart"
-                                        //quantity={quantity}
-                                        onClick={() => cartInsert(productDetailData.product_id, quantity)}
-                                    >
+                  className={styles["buyCart"]}
+                  //quantity={quantity}
+                  onClick={() => cartInsert(productDetailData.product_id, quantity)}>
+                  
                                         장바구니
                                     </button>
                                 {/* </Link> */}
@@ -328,44 +329,44 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
                 </table>
             </div>
 
-            <div className="productDetailPage">
-                <div className="productDetailnav">
-                    <ul className="productDetailMenu">
-                        <li className={scrollPosition >= productDetailImgOffset && scrollPosition < productReviewOffset ? 'active' : ''}>
+            <div className={styles["productDetailPage"]}>
+                <div className={styles["productDetailnav"]}>
+                    <ul className={styles["productDetailMenu"]}>
+                        <li className={scrollPosition >= productDetailImgOffset && scrollPosition < productReviewOffset ? styles["active"] : ''}>
                             <a href="#" onClick={(e) => handleAnchorClick(e, "productDetailImg")}>상품정보</a>
                         </li>
-                        <li className={scrollPosition >= productReviewOffset && scrollPosition < productQAOffset ? 'active' : ''}>
+                        <li className={scrollPosition >= productReviewOffset && scrollPosition < productQAOffset ? styles["active"] : ''}>
                             <a href="#" onClick={(e) => handleAnchorClick(e, "productReview")}>상품후기({review.length})</a>
                         </li>
-                        <li className={scrollPosition >= productQAOffset && scrollPosition < buyGuideOffset ? 'active' : ''}>
+                        <li className={scrollPosition >= productQAOffset && scrollPosition < buyGuideOffset ? styles["active"] : ''}>
                             <a href="#" onClick={(e) => handleAnchorClick(e, "productQA")}>상품문의({inquiry.length})</a>
                         </li>
-                        <li className={scrollPosition >= buyGuideOffset ? 'active' : ''}>
+                        <li className={scrollPosition >= buyGuideOffset ? styles["active"] : ''}>
                             <a href="#" onClick={(e) => handleAnchorClick(e, "buyGuide")}>구매안내</a>
                         </li>
                     </ul>
                 </div>
 
-                <div id="productDetailImg" className="productDetailImg" ref={productDetailImgRef}>
-                    <img src={`${process.env.PUBLIC_URL}/Images/products/${encodeURIComponent(productDetailData.product_detailimagepath)}`} className="detailImage" alt="productDetail1" />
+                <div id="productDetailImg" className={styles["productDetailImg"]} ref={productDetailImgRef}>
+                    <img src={`${process.env.PUBLIC_URL}/Images/products/${encodeURIComponent(productDetailData.product_detailimagepath)}`} className={styles["detailImage"]} alt="productDetail1" />
                 </div>
 
-                <div className="productReview" ref={productReviewRef}>
-                    <div id="productReview" className="productDetailTitle">
+                <div className={styles["productReview"]} ref={productReviewRef}>
+                    <div id="productReview" className={styles["productDetailTitle"]}>
                         <h2>상품후기 <span>({review.length})건</span></h2>
                         {AccessWrite()}
                     </div>
 
                     
 
-                    <div className="boardList">
+                    <div className={styles["boardList"]}>
                         <table>
                             <colgroup>
-                                <col className="attr1" />
-                                <col className="attr1" />
-                                <col className="attr2" />
-                                <col className="attr3" />
-                                <col className="attr3" />
+                                <col className={styles["attr1"]} />
+                                <col className={styles["attr1"]} />
+                                <col className={styles["attr2"]} />
+                                <col className={styles["attr3"]} />
+                                <col className={styles["attr3"]} />
                             </colgroup>
                             <tr>
                                 <th>제목</th>
@@ -376,7 +377,7 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
                             </tr>
 
                             {paginateReviewdData().map((r) =>
-                                <tr key={r.review_id}>
+              <tr key={r.review_id}>
                                     <td style={{ textAlign: 'center' }}><Link to={`/community/review/${r.review_id}`}>{r.review_title}</Link></td>
                                     <td><Link to={`/community/review/${r.review_id}`}>
                                         <img style={{ width: '100px', height: '100px' }} src={process.env.PUBLIC_URL + `/Images/reviews/${r.review_image1}`} alt={r.review_image1} />
@@ -385,31 +386,31 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
                                     <td>{r.review_writer}</td>
                                     <td>{r.review_regdate}</td>
                                 </tr>
-                            )}
+              )}
 
                         </table>
 
                         <Pagination
-                            totalPages={Math.ceil(review.length / itemsPerPage)}
-                            currentPage={currentPage}
-                            onPageChange={setCurrentPage}
-                        />
+              totalPages={Math.ceil(review.length / itemsPerPage)}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage} />
+            
                     </div>
                 </div>
 
-                <div className="productQA" ref={productQARef}>
-                    <div id="productQA" className="productDetailTitle">
+                <div className={styles["productQA"]} ref={productQARef}>
+                    <div id="productQA" className={styles["productDetailTitle"]}>
                         <h2>상품문의 <span>({inquiry.length})건</span></h2>
                         <Link to={`/board/inquiryWrite2/${id}`}>문의작성</Link>
                     </div>
 
-                    <div className="boardList">
+                    <div className={styles["boardList"]}>
                         <table>
                             <colgroup>
-                                <col className="attr1" />
-                                <col className="attr2" />
-                                <col className="attr3" />
-                                <col className="attr4" />
+                                <col className={styles["attr1"]} />
+                                <col className={styles["attr2"]} />
+                                <col className={styles["attr3"]} />
+                                <col className={styles["attr4"]} />
                             </colgroup>
                             <tr>
                                 <th>제목</th>
@@ -419,33 +420,33 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
                             </tr>
                             {/* 데이터 매핑 */}
                             {paginatedInquiryData().map((i) =>
-                                <tr key={i.inquiry_id}>
+              <tr key={i.inquiry_id}>
                                     <td><Link to={`/community/Inquiry/${i.inquiry_id}`}>{i.inquiry_title}</Link></td>
                                     {AnswerCheck(i)}
                                     <td>{i.inquiry_writer}</td>
                                     <td>{i.inquiry_regdate}</td>
                                 </tr>
-                            )}
+              )}
                         </table>
 
                         {/* 페이지네이션 UI */}
                         <Pagination
-                            totalPages={Math.ceil(inquiry.length / itemsPerPage)}
-                            currentPage={currentPage}
-                            onPageChange={setCurrentPage}
-                        />
+              totalPages={Math.ceil(inquiry.length / itemsPerPage)}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage} />
+            
                     </div>
                 </div>
 
-                <div className="buyGuide" ref={buyGuideRef}>
-                    <div id="buyGuide" className="productReviewTitle">
+                <div className={styles["buyGuide"]} ref={buyGuideRef}>
+                    <div id="buyGuide" className={styles["productReviewTitle"]}>
                         <h2>구매안내</h2>
                     </div>
 
-                    <div className="buyGuide">
-                        <div className="returnInfo">
-                            <h2 className="returnTitle">반품/교환 정보</h2>
-                            <table className="returnInfoTable">
+                    <div className={styles["buyGuide"]}>
+                        <div className={styles["returnInfo"]}>
+                            <h2 className={styles["returnTitle"]}>반품/교환 정보</h2>
+                            <table className={styles["returnInfoTable"]}>
                                 <colgroup>
                                     <col style={{ width: "18%" }} />
                                     <col />
@@ -470,14 +471,14 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
                             </table>
 
                             <h2>반품/교환 기준</h2>
-                            <div className="returnStandard">
-                                <p className="returnStandardTitle">
+                            <div className={styles["returnStandard"]}>
+                                <p className={styles["returnStandardTitle"]}>
                                     상품 수령 후 7일 이내에 신청하실 수 있습니다. 단, 제품이
                                     표시·광고 내용과 다르거나, 계약과 다르게 이행된 경우는 제품
                                     수령일부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던
                                     날부터 30일 이내에 교환/반품이 가능합니다.
                                 </p>
-                                <dl className="returnStandardList">
+                                <dl className={styles["returnStandardList"]}>
                                     <dt>
                                         ⦁ 추가적으로 다음의 경우 해당하는 반품/교환은 신청이
                                         불가능할 수 있습니다.
@@ -502,8 +503,8 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
                                 </dl>
                             </div>
 
-                            <h2 className="returnTitle">판매자정보</h2>
-                            <table className="sellerTable">
+                            <h2 className={styles["returnTitle"]}>판매자정보</h2>
+                            <table className={styles["sellerTable"]}>
                                 <colgroup>
                                     <col style={{ width: "18%" }} />
                                     <col style={{ width: "32%" }} />
@@ -541,11 +542,11 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
                                     </tr>
                                 </tbody>
                             </table>
-                            <div className="payDeposit">
-                                <p className="registNum">
+                            <div className={styles["payDeposit"]}>
+                                <p className={styles["registNum"]}>
                                     펫밀리 결제대금예치업 등록번호: XX-XXX-XXXXX
                                 </p>
-                                <ul className="payDepositList">
+                                <ul className={styles["payDepositList"]}>
                                     <li>
                                         펫밀리는 전자금융거래법에 따라 금융감독(원)위원회에
                                         결제대금예치업을 등록(등록번호:XX-XXX-XXXXX)하였으며, 모든
@@ -559,9 +560,9 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
                                 </ul>
                             </div>
 
-                            <h2 className="returnTitle">구매시 주의사항</h2>
-                            <div className="precaution">
-                                <ul className="PrecautionsList">
+                            <h2 className={styles["returnTitle"]}>구매시 주의사항</h2>
+                            <div className={styles["precaution"]}>
+                                <ul className={styles["PrecautionsList"]}>
                                     <li>
                                         ⦁ 「전자상거래 등에서의 소비자보호에 관한 법률」에 의한
                                         반품규정이 판매자가 지정한 반품조건보다 우선합니다.
@@ -592,8 +593,8 @@ const ProductDetail = ({ calcProductPrice, addCart, addOrder, setCartItems, noth
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        </div>);
+
 };
 
 export default ProductDetail;

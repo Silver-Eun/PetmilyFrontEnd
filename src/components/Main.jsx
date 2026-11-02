@@ -1,3 +1,4 @@
+import styles from "./Main.module.css";
 import React, { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
@@ -25,15 +26,15 @@ import Event from "./Event/Event";
 // 상품 할인적용된 최종가격
 const calcProductPrice = (productPrice, promotionDiscount) => {
   if (promotionDiscount) {
-    const discountedPrice = Math.floor(productPrice - (productPrice * promotionDiscount / 100));
+    const discountedPrice = Math.floor(productPrice - productPrice * promotionDiscount / 100);
     return discountedPrice;
   } else {
     return productPrice;
   }
-}
+};
 
 function Main() {
-  
+
   // 장바구니 상품
   const [cartItems, setCartItems] = useState([]);
   // 장바구니 무한루프 방지용
@@ -54,9 +55,9 @@ function Main() {
     const existingCartItem = cartItems.find((item) => item.product_id === it.product_id);
     if (existingCartItem) {
       const updatedCart = cartItems.map((item) =>
-        item.product_id === it.product_id
-          ? { ...item, product_cnt: item.product_cnt + it.product_cnt }
-          : item
+      item.product_id === it.product_id ?
+      { ...item, product_cnt: item.product_cnt + it.product_cnt } :
+      item
       );
       setCartItems(updatedCart);
     } else {
@@ -71,9 +72,9 @@ function Main() {
     );
     if (existingCartItem) {
       const updatedCart = orderItems.map((item) =>
-        item.product_id === it.product_id
-          ? { ...item, product_cnt: item.product_cnt + it.product_cnt }
-          : item
+      item.product_id === it.product_id ?
+      { ...item, product_cnt: item.product_cnt + it.product_cnt } :
+      item
       );
       setOrderItems(updatedCart);
     } else {
@@ -96,9 +97,9 @@ function Main() {
   // 수량 up
   const increQuantity = (it) => {
     const updatedCart = cartItems.map((cartItem) =>
-      cartItem.id === it.id
-        ? { ...cartItem, quantity: cartItem.quantity + 1 }
-        : cartItem
+    cartItem.id === it.id ?
+    { ...cartItem, quantity: cartItem.quantity + 1 } :
+    cartItem
     );
     setCartItems(updatedCart);
   };
@@ -107,9 +108,9 @@ function Main() {
   const decreQuantity = (it) => {
     if (it.quantity > 1) {
       const updatedCart = cartItems.map((cartItem) =>
-        cartItem.id === it.id
-          ? { ...cartItem, quantity: cartItem.quantity - 1 }
-          : cartItem
+      cartItem.id === it.id ?
+      { ...cartItem, quantity: cartItem.quantity - 1 } :
+      cartItem
       );
       setCartItems(updatedCart);
     }
@@ -142,7 +143,7 @@ function Main() {
 
   // 장바구니 체크(선택)상품만 주문
   const selectedOrder = () => {
-    
+
     const selectedOrderItems = cartItems.filter((cart) =>
     checkedItems.includes(cart.product_id)
     );
@@ -155,32 +156,32 @@ function Main() {
   };
 
   return (
-    <div className="Main">
+    <div className={styles["Main"]}>
       <Routes>
         {/* Home */}
         <Route
           path="/"
           element={
-            <Home calcProductPrice={calcProductPrice} addCart={addCart} />
-          }
-        />
+          <Home calcProductPrice={calcProductPrice} addCart={addCart} />} />
+
+        
 
         {/* Products */}
         <Route
           path="/products/*"
           element={
-            <Products
-              calcProductPrice={calcProductPrice}
-              addCart={addCart}
-              addOrder={addOrder}
-              nothing={nothing}
-              setNothing={setNothing}
-              setCartItems={setCartItems}
-              increQuantity={increQuantity}
-              decreQuantity={decreQuantity}
-            />
-          }
-        />
+          <Products
+            calcProductPrice={calcProductPrice}
+            addCart={addCart}
+            addOrder={addOrder}
+            nothing={nothing}
+            setNothing={setNothing}
+            setCartItems={setCartItems}
+            increQuantity={increQuantity}
+            decreQuantity={decreQuantity} />} />
+
+
+        
 
         {/* Policy */}
         <Route path="/policy/*" element={<Policy />} />
@@ -189,26 +190,26 @@ function Main() {
         <Route
           path="/user/*"
           element={
-            <User
-              cartItems={cartItems}
-              setCartItems={setCartItems}
-              nothing={nothing}
-              setNothing={setNothing}
-              addCart={addCart}
-              onDelete={deleteCart}
-              deleteOrder={deleteOrder}
-              increQuantity={increQuantity}
-              decreQuantity={decreQuantity}
-              checkedItems={checkedItems}
-              orderItems={orderItems}
-              allOrder={allOrder}
-              selectedOrder={selectedOrder}
-              allCheck={allCheck}
-              checkChange={checkChange}
-              calcProductPrice={calcProductPrice}
-            />
-          }
-        />
+          <User
+            cartItems={cartItems}
+            setCartItems={setCartItems}
+            nothing={nothing}
+            setNothing={setNothing}
+            addCart={addCart}
+            onDelete={deleteCart}
+            deleteOrder={deleteOrder}
+            increQuantity={increQuantity}
+            decreQuantity={decreQuantity}
+            checkedItems={checkedItems}
+            orderItems={orderItems}
+            allOrder={allOrder}
+            selectedOrder={selectedOrder}
+            allCheck={allCheck}
+            checkChange={checkChange}
+            calcProductPrice={calcProductPrice} />} />
+
+
+        
 
         {/* Community */}
         <Route path="/community/*" element={<Community />} />
@@ -219,8 +220,8 @@ function Main() {
         {/* Event */}
         <Route path="/event" element={<Event />} />
       </Routes>
-    </div>
-  );
+    </div>);
+
 }
 
 export default Main;

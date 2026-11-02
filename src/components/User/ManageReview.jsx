@@ -1,4 +1,5 @@
-import "./ManageBoard.css";
+import styles from "./ManageReview.module.css";
+import commonStyles from "./../../Common.module.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,31 +12,31 @@ function Pagination({ totalPages, currentPage, onPageChange }) {
       <a
         key={i}
         href="#"
-        className={i === currentPage ? "active" : ""}
-        onClick={() => onPageChange(i)}
-      >
+        className={i === currentPage ? styles["active"] : ""}
+        onClick={() => onPageChange(i)}>
+        
         {i}
       </a>
     );
   }
 
   return (
-    <div className="paginations">
+    <div className={styles["paginations"]}>
       <button
         onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
+        disabled={currentPage === 1}>
+        
         &laquo;
       </button>
       {pages}
       <button
         onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
+        disabled={currentPage === totalPages}>
+        
         &raquo;
       </button>
-    </div>
-  );
+    </div>);
+
 }
 
 const ManageReview = () => {
@@ -48,15 +49,15 @@ const ManageReview = () => {
 
   function reviewDelete(id) {
     let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/review/delete/" + id;
-    axios
-      .delete(url)
-      .then(() => {
-        alert("상품후기가 삭제 되었습니다.");
-        window.location.reload();
-      })
-      .catch(() => {
-        alert("상품후기 삭제에 실패했습니다.");
-      });
+    axios.
+    delete(url).
+    then(() => {
+      alert("상품후기가 삭제 되었습니다.");
+      window.location.reload();
+    }).
+    catch(() => {
+      alert("상품후기 삭제에 실패했습니다.");
+    });
   }
 
   useEffect(() => {
@@ -66,8 +67,8 @@ const ManageReview = () => {
           params: {
             searchPeriod,
             searchCriteria,
-            searchWord,
-          },
+            searchWord
+          }
         });
         setReview(response.data);
       } catch (error) {
@@ -84,11 +85,11 @@ const ManageReview = () => {
   };
 
   return (
-    <div className="Review">
-      <div className="cateTitle">
+    <div className={styles["Review"]}>
+      <div className={commonStyles["cateTitle"]}>
         <h1>상품후기</h1>
       </div>
-      <div className="communityList">
+      <div className={styles["communityList"]}>
         <div>
           <ul>
             <li>
@@ -101,7 +102,7 @@ const ManageReview = () => {
         </div>
       </div>
 
-      <div className="boards">
+      <div className={styles["boards"]}>
         <table>
           <colgroup>
             <col style={{ width: 100 }} />
@@ -122,21 +123,21 @@ const ManageReview = () => {
             <th>삭제</th>
           </tr>
 
-          {paginatedData().map((r) => (
-            <tr key={r.inquiry_id}>
+          {paginatedData().map((r) =>
+          <tr key={r.inquiry_id}>
               <td style={{ textAlign: "center" }}>
                 <Link to={`./${r.review_id}`}>{r.review_title}</Link>
               </td>
               <td>
                 <Link to={`/products/productdetail/${r.product_id}`}>
                   <img
-                    style={{ width: "180px", height: "150px" }}
-                    src={
-                      process.env.PUBLIC_URL +
-                      `/Images/products/${r.product_mainimagepath}`
-                    }
-                    alt={r.product_name}
-                  />
+                  style={{ width: "180px", height: "150px" }}
+                  src={
+                  process.env.PUBLIC_URL +
+                  `/Images/products/${r.product_mainimagepath}`}
+
+                  alt={r.product_name} />
+                
                 </Link>
               </td>
               <td>
@@ -147,36 +148,36 @@ const ManageReview = () => {
               <td>
                 <Link to={`/board/reviewUpdate/${r.review_id}`}>
                   <input
-                    type="button"
-                    id="updateButton"
-                    name="updateButton"
-                    value="수정"
-                  />
+                  type="button"
+                  id="updateButton"
+                  name="updateButton"
+                  value="수정" />
+                
                 </Link>
               </td>
               <td>
                 <input
-                  onClick={() => {
-                    reviewDelete(r.review_id);
-                  }}
-                  type="button"
-                  id="deleteButton"
-                  name="deleteButton"
-                  value="삭제"
-                />
+                onClick={() => {
+                  reviewDelete(r.review_id);
+                }}
+                type="button"
+                id="deleteButton"
+                name="deleteButton"
+                value="삭제" />
+              
               </td>
             </tr>
-          ))}
+          )}
         </table>
 
         <Pagination
           totalPages={Math.ceil(review.length / itemsPerPage)}
           currentPage={currentPage}
-          onPageChange={setCurrentPage}
-        />
+          onPageChange={setCurrentPage} />
+        
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default ManageReview;

@@ -1,3 +1,4 @@
+import styles from "./OrderList.module.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,31 +10,31 @@ function Pagination({ totalPages, currentPage, onPageChange }) {
       <a
         key={i}
         href="#"
-        className={i === currentPage ? "active" : ""}
-        onClick={() => onPageChange(i)}
-      >
+        className={i === currentPage ? styles["active"] : ""}
+        onClick={() => onPageChange(i)}>
+        
         {i}
       </a>
     );
   }
 
   return (
-    <div className="paginations">
+    <div className={styles["paginations"]}>
       <button
         onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
+        disabled={currentPage === 1}>
+        
         &laquo;
       </button>
       {pages}
       <button
         onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
+        disabled={currentPage === totalPages}>
+        
         &raquo;
       </button>
-    </div>
-  );
+    </div>);
+
 }
 
 function isWithin30Days(orderDate) {
@@ -57,57 +58,57 @@ function OrderList() {
   };
 
   useEffect(() => {
-    axios
-      .get("https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rscart/orderproductList")
-      .then((response) => {
-        setOrderLists(response.data);
-      })
-      .catch(() => {
-        alert("주문내역 조회에 실패했습니다.");
-      });
+    axios.
+    get("https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rscart/orderproductList").
+    then((response) => {
+      setOrderLists(response.data);
+    }).
+    catch(() => {
+      alert("주문내역 조회에 실패했습니다.");
+    });
   }, []);
 
   function deleteOrder(order_key) {
     let url = "https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rscart/deleteOrder/" + order_key;
 
-    axios
-      .delete(url)
-      .then(() => {
-        alert("주문이 취소되었습니다.");
-        window.location.reload();
-      })
-      .catch(() => {
-        alert("주문취소에 실패했습니다.");
-      });
+    axios.
+    delete(url).
+    then(() => {
+      alert("주문이 취소되었습니다.");
+      window.location.reload();
+    }).
+    catch(() => {
+      alert("주문취소에 실패했습니다.");
+    });
   }
 
   function reviewDetail(order_key, product_id) {
     let url = `https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/review/detail/${order_key}/${product_id}`;
 
-    axios
-      .get(url)
-      .then((response) => {
-        alert(response.data);
-        navigate("/community/review/" + response.data);
-      })
-      .catch(() => {
-        alert("리뷰 불러오기에 실패했습니다.");
-      });
+    axios.
+    get(url).
+    then((response) => {
+      alert(response.data);
+      navigate("/community/review/" + response.data);
+    }).
+    catch(() => {
+      alert("리뷰 불러오기에 실패했습니다.");
+    });
   }
 
   return (
-    <div className="OrderList">
-      <div className="orderListtitleArea">
+    <div className={styles["OrderList"]}>
+      <div className={styles["orderListtitleArea"]}>
         <h1>주문내역조회</h1>
-        <ul type="square" className="listTitle">
+        <ul type="square" className={styles["listTitle"]}>
           <li>
             <h3>주문 상품 정보</h3>
           </li>
         </ul>
       </div>
-      <div className="orderListArea">
+      <div className={styles["orderListArea"]}>
         <div>
-          <table className="orderListInfo">
+          <table className={styles["orderListInfo"]}>
             <colgroup>
               <col style={{ width: 140 }} />
               <col style={{ width: 160 }} />
@@ -134,127 +135,127 @@ function OrderList() {
               </tr>
             </thead>
             <tbody>
-              {paginatedData().map((item) => (
-                <tr>
+              {paginatedData().map((item) =>
+              <tr>
                   <td>
-                    <span className="orderDate">
-                      {new Date(item.order_date)
-                        .toLocaleDateString("ko-KR", {
-                          year: "2-digit",
-                          month: "2-digit",
-                          day: "2-digit",
-                        })
-                        .replace(/\./g, "")
-                        .replace(/\s/g, "")}
+                    <span className={styles["orderDate"]}>
+                      {new Date(item.order_date).
+                    toLocaleDateString("ko-KR", {
+                      year: "2-digit",
+                      month: "2-digit",
+                      day: "2-digit"
+                    }).
+                    replace(/\./g, "").
+                    replace(/\s/g, "")}
                     </span>
                     <br />
-                    <span className="orderNumber">({item.order_key})</span>
+                    <span className={styles["orderNumber"]}>({item.order_key})</span>
                   </td>
                   <td>
-                    <div className="orderListImage">
+                    <div className={styles["orderListImage"]}>
                       <Link to={`/products/productdetail/${item.product_id}`}>
                         <img
-                          src={
-                            process.env.PUBLIC_URL +
-                            `/Images/products/${item.product_mainimagepath}`
-                          }
-                          alt={item.product_mainimagepath}
-                        />
+                        src={
+                        process.env.PUBLIC_URL +
+                        `/Images/products/${item.product_mainimagepath}`}
+
+                        alt={item.product_mainimagepath} />
+                      
                       </Link>
                     </div>
                   </td>
                   <td>
-                    <span className="orderProduct">
+                    <span className={styles["orderProduct"]}>
                       <Link to={`/products/productdetail/${item.product_id}`}>
                         {item.product_name}
                       </Link>
                     </span>
                   </td>
                   <td>
-                    <span className="orderQuantity">{item.product_cnt}</span>
+                    <span className={styles["orderQuantity"]}>{item.product_cnt}</span>
                   </td>
                   <td>
-                    <span className="orderPrice">
+                    <span className={styles["orderPrice"]}>
                       {(
-                        item.product_kind_price * item.product_cnt
-                      ).toLocaleString()}
+                    item.product_kind_price * item.product_cnt).
+                    toLocaleString()}
                       원
                     </span>
                   </td>
                   <td>
-                    <span className="orderState">{item.delivery_status}</span>
+                    <span className={styles["orderState"]}>{item.delivery_status}</span>
                   </td>
                   <td>
-                    {item.delivery_status === "배송완료" ? (
-                      item.product_review === 0 ? (
-                        isWithin30Days(item.order_date) ? (
-                          <Link
-                            to={`/board/reviewWrite2/${item.product_id}/${item.order_key}`}
-                          >
+                    {item.delivery_status === "배송완료" ?
+                  item.product_review === 0 ?
+                  isWithin30Days(item.order_date) ?
+                  <Link
+                    to={`/board/reviewWrite2/${item.product_id}/${item.order_key}`}>
+                    
                             <input
-                              type="button"
-                              id="writeButton"
-                              value="후기쓰기"
-                            />
-                          </Link>
-                        ) : (
-                          <span>작성일 만료</span>
-                        )
-                      ) : (
-                        <input
-                          style={{ background: "blue" }}
-                          type="button"
-                          id="writeButton"
-                          value="작성완료"
-                            onClick={() => {
-                              reviewDetail(item.order_key, item.product_id);
-                            }}
-                        />
-                      )
-                    ) : (
-                      <input
-                        style={{ width: "80px", background: "red" }}
-                        type="button"
-                        id="writeButton"
-                        value="배송 후 가능"
-                      />
-                    )}
+                      type="button"
+                      id="writeButton"
+                      value="후기쓰기" />
+                    
+                          </Link> :
+
+                  <span>작성일 만료</span> :
+
+
+                  <input
+                    style={{ background: "blue" }}
+                    type="button"
+                    id="writeButton"
+                    value="작성완료"
+                    onClick={() => {
+                      reviewDetail(item.order_key, item.product_id);
+                    }} /> :
+
+
+
+                  <input
+                    style={{ width: "80px", background: "red" }}
+                    type="button"
+                    id="writeButton"
+                    value="배송 후 가능" />}
+
+                  
                   </td>
                   <td>
-                    {item.delivery_status === "배송완료" ? (
-                      <input
-                        type="button"
-                        id="nocancelButton"
-                        name="nocancelButton"
-                        value="주문취소불가"
-                        disabled
-                      />
-                    ) : (
-                      <input
-                        type="button"
-                        id="cancelButton"
-                        name="cancelButton"
-                        onClick={() => {
-                          deleteOrder(item.order_key);
-                        }}
-                        value="주문취소"
-                      />
-                    )}
+                    {item.delivery_status === "배송완료" ?
+                  <input
+                    type="button"
+                    id="nocancelButton"
+                    name="nocancelButton"
+                    value="주문취소불가"
+                    disabled /> :
+
+
+                  <input
+                    type="button"
+                    id="cancelButton"
+                    name="cancelButton"
+                    onClick={() => {
+                      deleteOrder(item.order_key);
+                    }}
+                    value="주문취소" />}
+
+                  
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
           {/* 페이지네이션 UI */}
           <Pagination
             totalPages={Math.ceil(orderLists.length / itemsPerPage)}
             currentPage={currentPage}
-            onPageChange={setCurrentPage}
-          />
+            onPageChange={setCurrentPage} />
+          
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 export default OrderList;

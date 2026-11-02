@@ -1,3 +1,4 @@
+import styles from "./Cart.module.css";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
@@ -9,14 +10,14 @@ function Cart({ cartItems, setCartItems, nothing, setNothing, onDelete, increQua
     const loggedInUser = sessionStorage.getItem("loggedInUser");
 
     if (loggedInUser) {
-      axios
-        .get("https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rscart/cartList")
-        .then((response) => {
-          setCartItems(response.data);
-        })
-        .catch((err) => {
-          alert("장바구니 불러오기 실패 => " + err.message);
-        });
+      axios.
+      get("https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rscart/cartList").
+      then((response) => {
+        setCartItems(response.data);
+      }).
+      catch((err) => {
+        alert("장바구니 불러오기 실패 => " + err.message);
+      });
     } else {
       alert("로그인 해주세요");
     }
@@ -33,8 +34,8 @@ function Cart({ cartItems, setCartItems, nothing, setNothing, onDelete, increQua
             selectedItem.product_price,
             selectedItem.promotion_discount
           ) *
-            selectedItem.product_cnt
-        );
+          selectedItem.product_cnt);
+
       }
       return total;
     }, 0);
@@ -42,15 +43,15 @@ function Cart({ cartItems, setCartItems, nothing, setNothing, onDelete, increQua
   };
 
   return (
-    <div className="Cart">
-      <div className="titleArea">
+    <div className={styles["Cart"]}>
+      <div className={styles["titleArea"]}>
         <ul type="square">
           <li>
             <h1>장바구니</h1>
           </li>
         </ul>
       </div>
-      <div className="cartProcess">
+      <div className={styles["cartProcess"]}>
         <ul>
           <li>장바구니</li>
           <li>주문서작성</li>
@@ -58,9 +59,9 @@ function Cart({ cartItems, setCartItems, nothing, setNothing, onDelete, increQua
           <li>주문완료</li>
         </ul>
       </div>
-      <div className="cartMain">
-        <div className="cartProduct">
-          <table className="cartInfo">
+      <div className={styles["cartMain"]}>
+        <div className={styles["cartProduct"]}>
+          <table className={styles["cartInfo"]}>
             <colgroup>
               <col style={{ width: 100 }} />
               <col style={{ width: 280 }} />
@@ -76,9 +77,9 @@ function Cart({ cartItems, setCartItems, nothing, setNothing, onDelete, increQua
                     type="checkbox"
                     onChange={(e) => allCheck(e.target.checked)}
                     checked={
-                      checkedItems.length === cartItems.length ? true : false
-                    }
-                  />
+                    checkedItems.length === cartItems.length ? true : false} />
+
+                  
                 </th>
                 <th scope="col">이미지</th>
                 <th scope="col">상품명</th>
@@ -97,22 +98,22 @@ function Cart({ cartItems, setCartItems, nothing, setNothing, onDelete, increQua
               checkedItems={checkedItems}
               increQuantity={increQuantity}
               decreQuantity={decreQuantity}
-              calcProductPrice={calcProductPrice}
-            />
+              calcProductPrice={calcProductPrice} />
+            
             <tfoot>
               <tr>
                 <th colSpan="7">
                   <span>상품구매금액 </span>
                   <strong>
-                    <span className="productPrice">
+                    <span className={styles["productPrice"]}>
                       {totalPrice().toLocaleString()}
                     </span>
                     원
                   </strong>
-                  <span className="deliveryPrice"> + 배송비 { totalPrice() >= 50000 ? "무료" : "3,000원"  } = </span>
+                  <span className={styles["deliveryPrice"]}> + 배송비 {totalPrice() >= 50000 ? "무료" : "3,000원"} = </span>
                   <span>합계 : </span>
                   <strong>
-                    <span className="cartPrice">
+                    <span className={styles["cartPrice"]}>
                       {totalPrice() >= 50000 ? totalPrice().toLocaleString() : (totalPrice() + 3000).toLocaleString()}
                     </span>
                     원
@@ -122,33 +123,33 @@ function Cart({ cartItems, setCartItems, nothing, setNothing, onDelete, increQua
             </tfoot>
           </table>
         </div>
-        <div className="cartOrder">
+        <div className={styles["cartOrder"]}>
           <Link to={`/user/order`}>
             <button
-              className="allOrder"
+              className={styles["allOrder"]}
               onClick={() => {
                 allOrder();
-              }}
-            >
+              }}>
+              
               전체상품주문
             </button>
           </Link>
             <button
-              className="selectOrder"
-              onClick={() => {
-                selectedOrder();
-              }}>
+            className={styles["selectOrder"]}
+            onClick={() => {
+              selectedOrder();
+            }}>
               선택상품주문
             </button>
           <Link to="/products/all/all">
-            <button className="returnShop">쇼핑계속하기</button>
+            <button className={styles["returnShop"]}>쇼핑계속하기</button>
           </Link>
         </div>
-        <div className="Guide">
+        <div className={styles["Guide"]}>
           <h3>이용안내</h3>
-          <div className="cartGuideInner">
+          <div className={styles["cartGuideInner"]}>
             <h4>장바구니 이용안내</h4>
-            <ol className="cartGuide">
+            <ol className={styles["cartGuide"]}>
               <li>
                 [쇼핑계속하기] 버튼을 누르시면 상품목록페이지로 이동하여 쇼핑을
                 계속 하실 수 있습니다.
@@ -159,7 +160,7 @@ function Cart({ cartItems, setCartItems, nothing, setNothing, onDelete, increQua
               </li>
             </ol>
             <h4>무이자할부 이용안내</h4>
-            <ol className="payGuide">
+            <ol className={styles["payGuide"]}>
               <li>
                 상품별 무이자할부 혜택을 받으시려면 무이자할부 상품만 선택하여
                 [주문하기] 버튼을 눌러 주문/결제 하시면 됩니다.
@@ -176,8 +177,8 @@ function Cart({ cartItems, setCartItems, nothing, setNothing, onDelete, increQua
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 export default Cart;

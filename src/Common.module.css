@@ -1,0 +1,8 @@
+.cateTitle { margin: 60px 0; text-align: center; }
+
+@media (max-width: 768px) {
+  .cateTitle {
+    margin: 32px 0 24px;
+    padding: 0 16px;
+  }
+}

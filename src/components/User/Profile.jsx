@@ -1,3 +1,4 @@
+import styles from "./Profile.module.css";
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -49,23 +50,23 @@ function Profile() {
   const veiwModal = (e) => {
     e.preventDefault();
     setShowModal(true);
-  }
+  };
 
 
   const onSubmitUpdate = (e) => {
     e.preventDefault();
     const setcurrentPassword = {
-      user_password: currentPassword,
-    }
-    axios
-      .post(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsuser/checkPassword/${userId}`, setcurrentPassword)
-      .then(() => {
-        setShowModal(false);
-        navigate("/user/Update");
-      })
-      .catch(() => {
-        alert("현재 비밀번호가 올바르지 않습니다.");
-      });
+      user_password: currentPassword
+    };
+    axios.
+    post(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsuser/checkPassword/${userId}`, setcurrentPassword).
+    then(() => {
+      setShowModal(false);
+      navigate("/user/Update");
+    }).
+    catch(() => {
+      alert("현재 비밀번호가 올바르지 않습니다.");
+    });
   };
 
   //회원탈퇴
@@ -73,52 +74,52 @@ function Profile() {
 
     const confirmDelete = window.confirm("정말 탈퇴하시겠습니까?");
     if (confirmDelete) {
-      axios.delete(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsuser/selfDelete/${user_id}`)
-        .then(() => {
-          alert("회원탈퇴가 완료되었습니다");
-          sessionStorage.removeItem("loggedInUser"); // 세션에서 사용자 정보 삭제
-          navigate("/"); // 홈 페이지로 이동
-        })
-        .catch(() => {
-          alert("회원탈퇴에 실패했습니다.");
-        });
+      axios.delete(`https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rsuser/selfDelete/${user_id}`).
+      then(() => {
+        alert("회원탈퇴가 완료되었습니다");
+        sessionStorage.removeItem("loggedInUser"); // 세션에서 사용자 정보 삭제
+        navigate("/"); // 홈 페이지로 이동
+      }).
+      catch(() => {
+        alert("회원탈퇴에 실패했습니다.");
+      });
     } else {
       alert("탈퇴 취소되었습니다");
     }
   };
 
   return (
-    <div className="Profile">
-      <div class="profile_form">
+    <div className={styles["Profile"]}>
+      <div className={styles["profile_form"]}>
         <h1>회원정보</h1>
         <form id="profileForm">
           <div>
-            <table class="profileTable">
+            <table className={styles["profileTable"]}>
               <tbody>
                 <tr>
                   <th>이름</th>
                   <td>
-                    <input class="profile" value={userName}></input>
+                    <input className={styles["profile"]} value={userName}></input>
                   </td>
                 </tr>
                 <tr>
                   <th>아이디</th>
                   <td>
-                    <input class="profile" value={userId}></input>
+                    <input className={styles["profile"]} value={userId}></input>
                   </td>
                 </tr>
 
                 <tr>
                   <th>이메일</th>
                   <td>
-                    <input class="profile" value={userEmail}></input>
+                    <input className={styles["profile"]} value={userEmail}></input>
                   </td>
                 </tr>
                 <tr>
                   <th>생년월일</th>
                   <td>
                     <div>
-                      <input class="profile" value={userBirthday}></input>
+                      <input className={styles["profile"]} value={userBirthday}></input>
                     </div>
                   </td>
                 </tr>
@@ -126,7 +127,7 @@ function Profile() {
                   <th>연락처</th>
                   <td>
                     <div>
-                      <input class="profile" value={userPhone}></input>
+                      <input className={styles["profile"]} value={userPhone}></input>
                     </div>
                   </td>
                 </tr>
@@ -134,7 +135,7 @@ function Profile() {
                   <th>우편번호</th>
                   <td>
                     <div>
-                      <input class="profile" value={Zipcode}></input>
+                      <input className={styles["profile"]} value={Zipcode}></input>
                     </div>
                   </td>
                 </tr>
@@ -142,7 +143,7 @@ function Profile() {
                   <th>주소</th>
                   <td>
                     <div>
-                      <input class="profile" value={Addr}></input>
+                      <input className={styles["profile"]} value={Addr}></input>
                     </div>
                   </td>
                 </tr>
@@ -150,7 +151,7 @@ function Profile() {
                   <th>상세주소</th>
                   <td>
                     <div>
-                      <input class="profile" value={AddrD}></input>
+                      <input className={styles["profile"]} value={AddrD}></input>
                     </div>
                   </td>
                 </tr>
@@ -158,36 +159,36 @@ function Profile() {
               </tbody>
             </table>
             {/* 모달 */}
-            {showModal && (
-              <div className="modal">
-                <div className="modal-content">
+            {showModal &&
+            <div className={styles["modal"]}>
+                <div className={styles["modal-content"]}>
                   <p>현재 비밀번호를 입력해 주세요</p>
                   <form>
-                    <span className="close" onClick={() => setShowModal(false)}>
+                    <span className={styles["close"]} onClick={() => setShowModal(false)}>
                       &times;
                     </span>
                     <input
-                      type="password"
-                      value={currentPassword}
-                      className="modalbox"
-                      onChange={(e) => setCurrentPassword(e.target.value)}
-                    />
-                    <button type="button" onClick={onSubmitUpdate} className="modalBtn">
+                    type="password"
+                    value={currentPassword}
+                    className={styles["modalbox"]}
+                    onChange={(e) => setCurrentPassword(e.target.value)} />
+                  
+                    <button type="button" onClick={onSubmitUpdate} className={styles["modalBtn"]}>
                       확인
                     </button>
                   </form>
                 </div>
-              </div>
-            )}
-            <button onClick={veiwModal} className="editBtn">
+              </div>}
+            
+            <button onClick={veiwModal} className={styles["editBtn"]}>
               수정하기
             </button>
-            <input onClick={() => ondelete(userId)} type="submit" class="deleteBtn" value="회원탈퇴" />
+            <input onClick={() => ondelete(userId)} type="submit" className={styles["deleteBtn"]} value="회원탈퇴" />
           </div>
         </form>
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 export default Profile;

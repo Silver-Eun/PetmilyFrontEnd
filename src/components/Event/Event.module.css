@@ -1,0 +1,32 @@
+.Event {
+  width: 100%;
+  max-width: 1120px;
+  margin: auto;
+}
+
+:global(#eventBox) {
+  width: min(1070px, 100%);
+  margin: auto;
+}
+
+:global(#eventTop) {
+  margin: 40px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+:global(#eventTop) span { font-weight: bold; }
+
+:global(#eventList) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .Event { padding: 0 12px; }
+  :global(#eventTop) { flex-wrap: wrap; margin: 24px 0; }
+  :global(#eventList) { justify-content: center; gap: 16px; }
+}

@@ -1,3 +1,4 @@
+import styles from "./Order.module.css";
 import React, { useState, useEffect } from "react";
 import OrderItem from "./OrderItem";
 import DaumPostcode from "react-daum-postcode";
@@ -8,9 +9,9 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
   const totalPrice = () => {
     return orderItems.reduce(
       (total, item) =>
-        total +
-        calcProductPrice(item.product_price, item.promotion_discount) *
-          item.product_cnt,
+      total +
+      calcProductPrice(item.product_price, item.promotion_discount) *
+      item.product_cnt,
       0
     );
   };
@@ -66,7 +67,7 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
       }
       if (data.buildingName !== "") {
         extraAddress +=
-          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+        extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
@@ -93,7 +94,7 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
     const OrderProductDTO = {
       user_id: loginUser.user_id,
       order_total_price:
-        totalPrice() >= 50000 ? totalPrice() : totalPrice() + 3000,
+      totalPrice() >= 50000 ? totalPrice() : totalPrice() + 3000,
       pay_method: payMethod,
       order_name: orderName,
       order_email: loginUser.user_email,
@@ -102,34 +103,34 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
       order_addr: orderAddr,
       order_addr_detail: orderAddrD,
       order_req: orderReq,
-      orderItems: JSON.stringify(orderItems),
+      orderItems: JSON.stringify(orderItems)
     };
 
-    axios
-      .post("https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rscart/order", OrderProductDTO)
-      .then(() => {
-        alert("주문완료이 완료되었습니다.");
-        navigate("/user/orderList");
-      })
-      .catch(() => {
-        alert("주문에 실패했습니다. 다시 시도해주세요.");
-      });
+    axios.
+    post("https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/rscart/order", OrderProductDTO).
+    then(() => {
+      alert("주문완료이 완료되었습니다.");
+      navigate("/user/orderList");
+    }).
+    catch(() => {
+      alert("주문에 실패했습니다. 다시 시도해주세요.");
+    });
   }
 
   return (
     <div>
-      <div className="Order">
-        <div className="orderTitleArea">
+      <div className={styles["Order"]}>
+        <div className={styles["orderTitleArea"]}>
           <h1>주문</h1>
-          <ul type="square" className="listTitle">
+          <ul type="square" className={styles["listTitle"]}>
             <li>
               <h3>주문상품</h3>
             </li>
           </ul>
         </div>
-        <div className="orderListArea">
+        <div className={styles["orderListArea"]}>
           <div>
-            <table className="orderCartInfo">
+            <table className={styles["orderCartInfo"]}>
               <colgroup>
                 <col style={{ width: 280 }} />
                 <col style={{ width: "auto" }} />
@@ -151,31 +152,31 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
               <OrderItem
                 orderItems={orderItems}
                 deleteOrder={deleteOrder}
-                calcProductPrice={calcProductPrice}
-              />
+                calcProductPrice={calcProductPrice} />
+              
               <tfoot>
                 <tr>
                   <th colSpan="7">
                     <span>상품구매금액 </span>
                     <strong>
-                      <span className="productPrice">
-                        {totalPrice()
-                          ? `${totalPrice().toLocaleString()}원`
-                          : "가격 정보 없음"}
+                      <span className={styles["productPrice"]}>
+                        {totalPrice() ?
+                        `${totalPrice().toLocaleString()}원` :
+                        "가격 정보 없음"}
                       </span>
                     </strong>
-                    <span className="deliveryPrice">
+                    <span className={styles["deliveryPrice"]}>
                       {" "}
-                      + 배송비 {totalPrice() >= 50000
-                        ? "무료"
-                        : "3,000원"} ={" "}
+                      + 배송비 {totalPrice() >= 50000 ?
+                      "무료" :
+                      "3,000원"} ={" "}
                     </span>
                     <span>합계 : </span>
                     <strong>
-                      <span className="cartPrice">
-                        {totalPrice() >= 50000
-                          ? `${totalPrice().toLocaleString()}원`
-                          : `${(totalPrice() + 3000).toLocaleString()}원`}
+                      <span className={styles["cartPrice"]}>
+                        {totalPrice() >= 50000 ?
+                        `${totalPrice().toLocaleString()}원` :
+                        `${(totalPrice() + 3000).toLocaleString()}원`}
                       </span>
                     </strong>
                   </th>
@@ -185,13 +186,13 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
           </div>
         </div>
         <form id="orderForm">
-          <div className="orderArea">
-            <ul type="square" className="listTitle">
+          <div className={styles["orderArea"]}>
+            <ul type="square" className={styles["listTitle"]}>
               <li>
                 <h3>주문 정보</h3>
               </li>
             </ul>
-            <div className="cartProcess2">
+            <div className={styles["cartProcess2"]}>
               <ul>
                 <li>장바구니</li>
                 <li>주문서작성</li>
@@ -199,13 +200,13 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                 <li>주문완료</li>
               </ul>
             </div>
-            <div className="orderInfo">
-              <table className="orderInfoTable">
+            <div className={styles["orderInfo"]}>
+              <table className={styles["orderInfoTable"]}>
                 <tbody>
                   <tr>
                     <th>
                       <label for="name">
-                        주문하시는 분<span className="thRed">*</span>
+                        주문하시는 분<span className={styles["thRed"]}>*</span>
                       </label>
                     </th>
                     <td>
@@ -214,14 +215,14 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                         id="name"
                         name="name"
                         value={loginUser.user_name}
-                        required
-                      />
+                        required />
+                      
                     </td>
                   </tr>
                   <tr>
                     <th>
                       <label for="secondPhoneNumber">
-                        휴대전화<span className="thRed">*</span>
+                        휴대전화<span className={styles["thRed"]}>*</span>
                       </label>
                     </th>
                     <td>
@@ -230,13 +231,13 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                         id="firstPhoneNumber"
                         name="firstPhoneNumber"
                         value={loginUser.user_phone}
-                        size="10"
-                      />
+                        size="10" />
+                      
                     </td>
                   </tr>
                   <tr>
                     <th>
-                      이메일<span className="thRed">*</span>
+                      이메일<span className={styles["thRed"]}>*</span>
                     </th>
                     <td>
                       <label>
@@ -245,10 +246,10 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                           name="email_id"
                           value={loginUser.user_email}
                           size="20"
-                          required
-                        />
+                          required />
+                        
                       </label>
-                      <ul className="emailAlert">
+                      <ul className={styles["emailAlert"]}>
                         <li>- 이메일을 통해 주문처리과정을 보내드립니다.</li>
                         <li>
                           - 이메일 주소란에는 반드시 수신가능한 이메일주소를
@@ -262,18 +263,18 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
             </div>
           </div>
 
-          <div className="deliveryArea">
-            <ul type="square" className="listTitle">
+          <div className={styles["deliveryArea"]}>
+            <ul type="square" className={styles["listTitle"]}>
               <li>
                 <h3>배송 정보</h3>
               </li>
             </ul>
-            <div className="deliveryInfo">
-              <table className="deliveryInfoTable">
+            <div className={styles["deliveryInfo"]}>
+              <table className={styles["deliveryInfoTable"]}>
                 <tbody>
                   <tr>
                     <th>
-                      배송지 선택<span className="thRed">*</span>
+                      배송지 선택<span className={styles["thRed"]}>*</span>
                     </th>
                     <td>
                       <label>
@@ -288,8 +289,8 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                             setOrderZipcode(loginUser.zipcode);
                             setOrderAddr(loginUser.addr);
                             setOrderAddrD(loginUser.addr_detail);
-                          }}
-                        />
+                          }} />
+                        
                         &nbsp;
                         <span>주문자 정보와 동일</span>
                       </label>
@@ -306,8 +307,8 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                             setOrderAddr("");
                             setOrderAddrD("");
                             setOrderReq(orderReq);
-                          }}
-                        />
+                          }} />
+                        
                         &nbsp;
                         <span>새로운 배송지</span>
                       </label>
@@ -316,7 +317,7 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                   <tr>
                     <th>
                       <label for="name">
-                        받으시는 분<span className="thRed">*</span>
+                        받으시는 분<span className={styles["thRed"]}>*</span>
                       </label>
                     </th>
                     <td>
@@ -327,13 +328,13 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                         size="5"
                         value={orderName}
                         onChange={(e) => setOrderName(e.target.value)}
-                        required
-                      />
+                        required />
+                      
                     </td>
                   </tr>
                   <tr>
                     <th>
-                      주소<span className="thRed">*</span>
+                      주소<span className={styles["thRed"]}>*</span>
                     </th>
                     <td>
                       <input
@@ -344,19 +345,19 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                         minlength="5"
                         maxlength="5"
                         value={orderZipcode}
-                        onChange={(e) => setOrderZipcode(e.target.value)}
-                      />
-                      <button className="postCodeFind" onClick={togglePost}>
+                        onChange={(e) => setOrderZipcode(e.target.value)} />
+                      
+                      <button className={styles["postCodeFind"]} onClick={togglePost}>
                         {isPostOpen ? "우편번호 닫기" : "우편번호 찾기"}
                       </button>
-                      {isPostOpen && (
-                        <div>
+                      {isPostOpen &&
+                      <div>
                           <DaumPostcode
-                            onComplete={handleComplete}
-                            autoClose={true}
-                          />
-                        </div>
-                      )}
+                          onComplete={handleComplete}
+                          autoClose={true} />
+                        
+                        </div>}
+                      
                     </td>
                     <td>
                       <input
@@ -366,8 +367,8 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                         size="50"
                         value={orderAddr}
                         onChange={(e) => setOrderAddr(e.target.value)}
-                        required
-                      />
+                        required />
+                      
                       기본주소
                     </td>
                     <td>
@@ -376,15 +377,15 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                         id="order_addr_detail"
                         name="order_addr_detail"
                         value={orderAddrD}
-                        onChange={(e) => setOrderAddrD(e.target.value)}
-                      />
+                        onChange={(e) => setOrderAddrD(e.target.value)} />
+                      
                       상세주소
                     </td>
                   </tr>
                   <tr>
                     <th>
                       <label for="secondPhoneNumber">
-                        휴대전화<span className="thRed">*</span>
+                        휴대전화<span className={styles["thRed"]}>*</span>
                       </label>
                     </th>
                     <td>
@@ -394,8 +395,8 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                         name="user_tel"
                         value={orderPhone}
                         onChange={(e) => setOrderPhone(e.target.value)}
-                        size="10"
-                      />
+                        size="10" />
+                      
                     </td>
                   </tr>
                   <tr>
@@ -408,8 +409,8 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                         name="order_req"
                         rows="3"
                         value={orderReq}
-                        onChange={(e) => setOrderReq(e.target.value)}
-                      ></textarea>
+                        onChange={(e) => setOrderReq(e.target.value)}>
+                      </textarea>
                     </td>
                   </tr>
                 </tbody>
@@ -417,14 +418,14 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
             </div>
           </div>
 
-          <div className="payInfoArea">
-            <ul type="square" className="listTitle">
+          <div className={styles["payInfoArea"]}>
+            <ul type="square" className={styles["listTitle"]}>
               <li>
                 <h3>결제 금액 / 방법</h3>
               </li>
             </ul>
             <div>
-              <table className="payTable">
+              <table className={styles["payTable"]}>
                 <thead>
                   <tr>
                     <th>총 결제예정 금액</th>
@@ -435,9 +436,9 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                   <tr>
                     <td>
                       <span>
-                        {totalPrice() >= 50000
-                          ? `${totalPrice().toLocaleString()}원`
-                          : `${(totalPrice() + 3000).toLocaleString()}원`}
+                        {totalPrice() >= 50000 ?
+                        `${totalPrice().toLocaleString()}원` :
+                        `${(totalPrice() + 3000).toLocaleString()}원`}
                       </span>
                     </td>
                     <td>
@@ -445,8 +446,8 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
                         id="pay_method"
                         name="pay_method"
                         value={payMethod}
-                        onChange={payMethodChange}
-                      >
+                        onChange={payMethodChange}>
+                        
                         <option value="카드">카드</option>
                         <option value="계좌이체">계좌이체</option>
                       </select>
@@ -458,12 +459,12 @@ export default function Order({ orderItems, deleteOrder, calcProductPrice }) {
           </div>
 
         </form>
-          <div className="payArea">
-              <button className="productPay" onClick={order}>
+          <div className={styles["payArea"]}>
+              <button className={styles["productPay"]} onClick={order}>
                 결제하기
               </button>
           </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }

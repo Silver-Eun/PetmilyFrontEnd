@@ -1,38 +1,40 @@
+import styles from "./FaqDetail.module.css";
+import commonStyles from "./../../Common.module.css";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link, useParams } from "react-router-dom";
 
 export default function DetailDetail() {
 
-    const { id } = useParams();
-    const [faq, setFaq] = useState({
-        faq_title: '',
-        faq_writer: '',
-        faq_regdate: '',
-        faq_count: '',
-        faq_content: ''
+  const { id } = useParams();
+  const [faq, setFaq] = useState({
+    faq_title: '',
+    faq_writer: '',
+    faq_regdate: '',
+    faq_count: '',
+    faq_content: ''
+  });
+
+  useEffect(() => {
+    axios.
+    get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/faqDetail/' + id).
+    then((response) => {
+      setFaq(response.data);
+    }).
+    catch(() => {
+      alert("선택한 데이터가 없습니다.");
     });
+  }, []);
 
-    useEffect(() => {
-        axios
-            .get('https://port-0-petmilyreal-1272llwrbm1kq.sel5.cloudtype.app/api/faqDetail/' + id)
-            .then((response) => {
-                setFaq(response.data);
-            })
-            .catch(() => {
-                alert("선택한 데이터가 없습니다.");
-            });
-    }, []);
+  const contents = faq.faq_content.split('\n').map((it) => <p>{it}</p>);
 
-    const contents = faq.faq_content.split('\n').map((it) => <p>{it}</p>);
-
-    return (
-        <div className="DetailDetail">
-            <div class="cateTitle">
+  return (
+    <div className={styles["DetailDetail"]}>
+            <div className={commonStyles["cateTitle"]}>
                 <h1>자주묻는질문</h1>
             </div>
 
-            <div class="boardPackage">
+            <div className={styles["boardPackage"]}>
                 <table>
                     <tr>
                         <th scope="row">제목</th>
@@ -49,7 +51,7 @@ export default function DetailDetail() {
                         <td><span>{faq.faq_count}</span></td>
                     </tr>
                     <tr>
-                        <td class="contents">
+                        <td className={styles["contents"]}>
                             {contents}
                         </td>
                     </tr>
@@ -58,6 +60,6 @@ export default function DetailDetail() {
                     <Link to="/community/Faq"><input type="button" value="목록" /></Link>
                 </div>
             </div>
-        </div>
-    )
+        </div>);
+
 }

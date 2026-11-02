@@ -1,0 +1,13 @@
+.Header,
+.Main,
+.Footer {
+    width: 100%;
+}
+
+.Main hr {
+    border: solid 1px rgb(25, 50, 100);
+}
+
+.Main {
+    min-height: calc(100vh - 350px);
+}

@@ -1,0 +1,268 @@
+.Cart * {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.Cart {
+  height: auto;
+}
+
+.titleArea {
+  width: 1120px;
+  margin: 60px auto;
+  text-align: center;
+}
+
+.cartProcess {
+  width: 1120px;
+  margin: auto;
+  text-align: center;
+}
+
+.cartProcess ul {
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 40px;
+  background-color: gray;
+}
+
+.cartProcess ul li {
+  display: inline-block;
+  width: 25%;
+  height: 40px;
+  vertical-align: middle;
+  color: white;
+}
+
+.cartProcess ul li:nth-child(1) {
+  background-color: rgb(16, 40, 102);
+}
+
+.cartMain {
+  height: auto;
+}
+
+.cartProduct {
+  width: 1120px;
+  margin: auto auto 10px auto;
+  height: auto;
+  text-align: center;
+}
+
+.cartProduct>p {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.cartInfo {
+  width: 100%;
+  border: 1px solid gray;
+  border-collapse: collapse;
+}
+
+.cartInfo tbody,
+.cartInfo tfoot {
+  border-top: 1px solid black;
+}
+
+.cartInfo tbody tr,
+.cartInfo tbody td {
+  height: 105px;
+}
+
+.cartInfo thead,
+.cartInfo tfoot {
+  height: 50px;
+}
+
+.cartInfo tr:not(:first-child) {
+  border-top: 1px solid black;
+}
+
+.cartOrder {
+  text-align: center;
+  line-height: 70px;
+}
+
+.allOrder,
+.selectOrder,
+.returnShop {
+  cursor: pointer;
+  display: inline-block;
+  border: 0;
+  text-decoration: none;
+  width: 150px;
+  line-height: 50px;
+  color: white;
+}
+
+.allOrder {
+  background-color: rgb(16, 40, 102);
+}
+
+.selectOrder,
+.returnShop {
+  background-color: gray;
+}
+
+.Cart .Guide {
+  width: 1120px;
+  margin: 10px auto 10px;
+  border: 1px solid;
+  font-size: 1em;
+}
+
+.Cart .Guide h3 {
+  background-color: rgba(128, 128, 128, 0.3);
+  padding: 1%;
+}
+
+.cartGuideInner {
+  padding: 0 9px 12px;
+}
+
+.cartGuideInner h4 {
+  margin-top: 10px;
+}
+
+.cartGuide,
+.payGuide {
+  list-style: none;
+}
+
+.cartProcess,
+.cartProcess2 {
+  width: 1120px;
+  margin: auto;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.cartProcess ul,
+.cartProcess2 ul {
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 40px;
+  background-color: gray;
+}
+
+.cartProcess ul li,
+.cartProcess2 ul li {
+  display: inline-block;
+  width: 25%;
+  height: 40px;
+  vertical-align: middle;
+  color: white;
+}
+
+.cartProcess ul li:nth-child(1),
+.cartProcess2 ul li:nth-child(2) {
+  background-color: rgb(16, 40, 102);
+}
+
+@media (max-width: 768px) {
+
+  .Guide,
+.titleArea,
+.cartProcess,
+.cartProduct,
+.Cart .Guide,
+.cartProcess2,
+.orderTitleArea,
+.orderCartInfo,
+:global(#orderForm),
+.orderListtitleArea,
+.mypageTitleArea,
+.myOrder,
+.shopMain,
+.profile_form,
+.login_,
+.find_ID,
+.find_PW,
+.Success {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .orderListInfo,
+.cartInfo,
+.orderCartInfo {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .Cart,
+.Order,
+.OrderList {
+    padding: 0 12px;
+  }
+
+  .titleArea,
+.orderTitleArea,
+.orderListtitleArea,
+.mypageTitleArea {
+    margin: 30px auto 18px;
+    padding: 0 4px;
+  }
+
+  .titleArea h1,
+.orderTitleArea h1,
+.orderListtitleArea h1,
+.mypageTitleArea h1 {
+    margin: 28px auto;
+  }
+
+  .cartProcess,
+.cartProcess2 {
+    overflow-x: auto;
+  }
+
+  .cartProcess ul,
+.cartProcess2 ul {
+    display: flex;
+    min-width: 520px;
+  }
+
+  .cartProcess ul li,
+.cartProcess2 ul li {
+    flex: 1;
+    width: auto;
+    font-size: 13px;
+  }
+
+  .cartOrder {
+    line-height: 1.5;
+    padding: 18px 0;
+  }
+
+  .allOrder,
+.selectOrder,
+.returnShop {
+    width: auto;
+    min-width: 108px;
+    line-height: 44px;
+    margin: 4px;
+    padding: 0 10px;
+  }
+
+  .Cart .Guide {
+    padding: 0 10px;
+  }
+
+  .Guide {
+    padding: 0 14px;
+  }
+}
+
+.productPrice {}
+
+.deliveryPrice {}
+
+.cartPrice {}

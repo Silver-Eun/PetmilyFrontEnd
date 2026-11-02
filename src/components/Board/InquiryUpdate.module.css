@@ -1,0 +1,88 @@
+.write {
+    width: 100%;
+    max-width: 1120px;
+    box-sizing: border-box;
+    padding: 0 15px;
+    margin: auto;
+}
+
+.write>div+div {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.selectStarRegist {
+    width: 100%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.selectStarRegist span {
+    font-size: 1.2em;
+    font-weight: bold;
+    align-self: center;
+}
+
+.selectStarRegist select {
+    width: 40%;
+    text-align: center;
+    justify-content: center;
+}
+
+.write div form {
+    display: flex;
+    flex-direction: column;
+}
+
+.write form input {
+    margin-bottom: 15px;
+    width: 50%;
+    height: 40px;
+}
+
+@media (max-width: 768px) {
+
+  .write {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .write > div + div {
+    width: 100%;
+  }
+
+  .selectStarRegist {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .selectStarRegist select {
+    width: 100%;
+  }
+
+  .selectStarRegist > input,
+.selectStarRegist > :global(#searchResult) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .selectStarRegist > :global(#searchResult) {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .selectStarRegist > :global(#searchResult) select {
+    width: 100% !important;
+    height: 44px;
+  }
+
+  .write form input,
+.write form textarea,
+.write form select {
+    width: 100%;
+  }
+}

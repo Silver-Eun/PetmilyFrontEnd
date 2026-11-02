@@ -1,0 +1,374 @@
+.Header,
+.Main,
+.Footer {
+    width: 100%;
+}
+
+.Header * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.Header {
+    background-color: white;
+    z-index: 10;
+    top: 0px;
+    position: sticky;
+}
+
+.headerTOP {
+    height: 50px;
+    margin: 0 30px;
+    align-items: center;
+    display: flex;
+}
+
+.headerTOP .topLogo {
+    margin-right: 30px;
+    text-align: center;
+}
+
+.headerTOP .topLogo span {
+    text-indent: -9999em;
+    display: inline-block;
+}
+
+.headerTOP .topLogo img {
+    width: 140px;
+    outline: none;
+}
+
+.headerTOP .searchBox {
+    width: 500px;
+}
+
+.headerTOP .searchBox fieldset {
+    height: 38px;
+    box-sizing: border-box;
+    border: 3px solid rgb(25, 50, 100);
+    border-radius: 15px;
+    display: flex;
+}
+
+.headerTOP .searchBox input {
+    font-size: initial;
+    border: none;
+    outline: none;
+    margin-left: 0.8em;
+    flex: 9;
+}
+
+.headerTOP .searchBox button {
+    border-radius: 15px;
+    background-color: white;
+    border: none;
+    flex: 1;
+    cursor: pointer;
+}
+
+.headerTOP .searchBox button img {
+    width: 25px;
+}
+
+.headerTOP .userMenu {
+    margin-left: auto;
+}
+
+.headerTOP .userMenu a {
+    color: rgb(25, 50, 100);
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.headerBottom a {
+    box-sizing: border-box;
+    color: aliceblue;
+    /* padding: 0 30px; */
+}
+
+.mainMenu {
+    /* margin-bottom: 20px; */
+    background-color: rgb(25, 50, 100);
+}
+
+.mainMenu::after {
+    content: "";
+    clear: left;
+    display: block;
+}
+
+.mainMenu>li {
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+
+    float: left;
+    position: relative;
+}
+
+.subMenu {
+    width: 100%;
+    left: 0;
+    background-color: rgb(25, 50, 100);
+
+    display: none;
+    position: absolute;
+    transition: all 0.15s ease-in;
+    /* opacity: 0; */
+    /* visibility: hidden; */
+}
+
+.subMenu>li {
+    font-size: .9em;
+    height: 40px;
+    line-height: 40px;
+}
+
+.mainMenu>li:nth-of-type(2) li:nth-of-type(2),
+.mainMenu>li:nth-of-type(2) li:nth-of-type(4) {
+    box-sizing: border-box;
+    border-bottom: solid 1px gray;
+}
+
+.mainMenu>li:hover .subMenu {
+    display: block;
+    /* opacity: 1; */
+    /* visibility: visible; */
+}
+
+.subMenu>li>a:hover {
+    text-decoration: underline;
+}
+
+.mainMenu>li:nth-of-type(1) {
+    /* position: absolute; */
+    width: 100px;
+}
+
+.sideMenu {
+    width: 700px;
+    height: calc(100%-100px);
+    left: -700px;
+    background-color: rgb(25, 50, 100);
+
+    padding-left: 100px;
+    z-index: 1;
+    transition: all 0.2s;
+    box-sizing: border-box;
+    position: fixed;
+    /* top: 0px; */
+}
+
+.sideMenu>li {
+    float: left;
+}
+
+.sideMenu>li>ul {
+    width: 150px;
+}
+
+.sideMenu>li>ul li {
+    font-size: 0.9em;
+    height: 40px;
+    line-height: 40px;
+}
+
+.sideMenu>li>ul li:hover {
+    color: aliceblue;
+    text-decoration: underline;
+}
+
+:global(#sideBtn):checked+label+.sideMenu {
+    left: 0;
+}
+
+/* The checkbox drives the menu, but the visible control is the three-line label. */
+:global(#sideBtn) {
+    display: none;
+}
+
+:global(#sideBtn) + label {
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    margin: calc(25px / 2) auto;
+    display: block;
+    position: relative;
+}
+
+:global(#sideBtn) + label > span {
+    width: 100%;
+    height: 5px;
+    background: aliceblue;
+    border-radius: 5px;
+    transition: all 200ms;
+    display: block;
+    position: absolute;
+}
+
+:global(#sideBtn) + label > span:nth-child(2) {
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+:global(#sideBtn) + label > span:nth-child(3) { bottom: 0; }
+
+:global(#sideBtn):checked + label > span:nth-child(1) {
+    top: 50%;
+    transform: translate(0, -50%) rotate(45deg);
+}
+
+:global(#sideBtn):checked + label > span:nth-child(2) { opacity: 0; }
+
+:global(#sideBtn):checked + label > span:nth-child(3) {
+    top: 50%;
+    transform: translate(0, -50%) rotate(-45deg);
+}
+
+:global(#sideBtn):checked + label + .sideMenu {
+    left: 0;
+}
+
+@media (max-width: 768px) {
+
+  .Header {
+    position: relative;
+  }
+
+  .headerTOP {
+    display: grid;
+    grid-template-columns: auto minmax(48px, 1fr) auto;
+    align-items: center;
+    margin: 0 10px;
+    padding: 8px 0;
+    gap: 6px;
+  }
+
+  .headerTOP .topLogo img {
+    width: clamp(76px, 24vw, 120px);
+  }
+
+  .headerTOP .topLogo {
+    margin-right: 0;
+  }
+
+  .headerTOP .userMenu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 2px;
+    min-width: max-content;
+    font-size: 12px;
+  }
+
+  .headerTOP .userMenu a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 0 5px;
+    white-space: nowrap;
+    line-height: 1.2;
+    background: transparent;
+  }
+
+  .headerTOP .searchBox {
+    width: auto;
+    min-width: 0;
+    order: 0;
+  }
+
+  .headerTOP .searchBox fieldset {
+    width: 100%;
+    height: 34px;
+    border-width: 2px;
+    border-radius: 10px;
+  }
+
+  .headerTOP .searchBox input {
+    min-width: 0;
+    width: 100%;
+    margin-left: 6px;
+    font-size: 12px;
+  }
+
+  .headerTOP .searchBox button img {
+    width: 20px;
+  }
+
+  .mainMenu {
+    display: grid;
+    grid-template-columns: 40px repeat(4, minmax(0, 1fr));
+    width: 100%;
+    overflow: visible;
+    justify-content: initial;
+  }
+
+  .mainMenu > li {
+    width: auto;
+    min-width: 0;
+    padding: 0 2px;
+    float: none;
+    font-size: clamp(9px, 2.7vw, 13px);
+    letter-spacing: -0.04em;
+    white-space: nowrap;
+  }
+
+  .mainMenu > li > a {
+    display: block;
+    overflow: hidden;
+    text-overflow: clip;
+  }
+
+  .mainMenu > li:nth-of-type(1) {
+    width: auto;
+    padding: 0;
+  }
+
+  .mainMenu > li:nth-of-type(1) > label {
+    width: 24px;
+  }
+
+  .sideMenu {
+    top: auto;
+    height: calc(100dvh - 110px);
+    padding: 16px;
+  }
+
+  .sideMenu > li {
+    display: block;
+    margin: 0 14px 18px 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .headerTOP .userMenu {
+    font-size: 12px;
+    gap: 0;
+  }
+
+  .headerTOP .userMenu a {
+    padding: 0 4px;
+    font-size: 11px;
+  }
+
+  .headerTOP .topLogo img {
+    width: clamp(70px, 22vw, 92px);
+  }
+
+  .mainMenu > li {
+    padding: 0 1px;
+  }
+
+  .mainMenu {
+    grid-template-columns: 36px repeat(4, minmax(0, 1fr));
+  }
+}
+
+.search_input {}
+
+.serach_submit {}
