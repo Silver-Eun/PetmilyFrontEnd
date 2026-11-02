@@ -425,3 +425,21 @@
 .active {}
 
 .searchWord {}
+
+@media (max-width: 768px) {
+  .boardList table tr > :nth-child(1) { width: 14%; }
+  .boardList table tr > :nth-child(2) { width: 14%; }
+  .boardList table tr > :nth-child(3) { width: 34%; }
+  .boardList table tr > :nth-child(4) { width: 16%; }
+  .boardList table tr > :nth-child(5) { width: 22%; }
+  .boardList table tr > :nth-child(3),
+  .boardList table tr > :nth-child(4),
+  .boardList table tr > :nth-child(5) {
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: keep-all;
+  }
+  .boardList table th,
+  .boardList table td { padding-right: 2px; padding-left: 2px; }
+  .boardList table tr > :nth-child(5) { font-size: 10px; }
+}

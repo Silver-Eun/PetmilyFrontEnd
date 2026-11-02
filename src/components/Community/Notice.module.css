@@ -400,3 +400,30 @@
 .active {}
 
 .searchWord {}
+
+.boardList table tr > td:first-child {
+  text-align: center;
+}
+
+.boardList table tr > :nth-child(2),
+.boardList table tr > :nth-child(3) {
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .boardList table tr > :nth-child(1) { width: 40%; }
+  .boardList table tr > :nth-child(2) { width: 26%; }
+  .boardList table tr > :nth-child(3) { width: 34%; }
+  .boardList table tr > :nth-child(2),
+  .boardList table tr > :nth-child(3) {
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: keep-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 2px;
+    padding-left: 2px;
+    font-size: 10px;
+  }
+  .boardList table tr > td:first-child { text-align: center; }
+}
